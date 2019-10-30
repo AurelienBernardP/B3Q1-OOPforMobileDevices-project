@@ -1,9 +1,12 @@
 import 'dart:core' as prefix0;
 
+import 'package:first/ItemList.dart';
 import 'package:flutter/material.dart';
 
 import 'AdTreesAppTopBar.dart';
 import 'TreeScreen.dart';
+import 'Planet.dart';
+import 'ItemList.dart';
 void main() => runApp(new TreeScreen());
 
 class AdTreesApp extends StatelessWidget {
@@ -22,6 +25,10 @@ class AdTreesApp extends StatelessWidget {
             leading: Icon(Icons.map),
             title: Text('Go to WorldMap!'),
             onTap: () {
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Planet()),
+            );
               prefix0.print("worldmap");
             },
           ),
@@ -36,6 +43,10 @@ class AdTreesApp extends StatelessWidget {
             leading: Icon(Icons.add_shopping_cart),
             title: Text('Go to shop!'),
             onTap: () {
+              Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ItemList()),
+            );
               prefix0.print("go to shop");
             },
           ),
