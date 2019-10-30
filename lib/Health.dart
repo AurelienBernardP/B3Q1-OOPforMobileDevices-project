@@ -27,8 +27,7 @@ class Health {
       //Size
       Size size = MediaQuery.of(context).size;
       double width = (size.width - 10)/2;
-      double heightBarDivider = 20;
-      double height = size.height/heightBarDivider;
+      double height = size.height/20;
 
       return Center(
         child: Container(
@@ -52,8 +51,7 @@ class Health {
       //Size
       Size size = MediaQuery.of(context).size;
       double width = (size.width - 10)/2;
-      double heightBarDivider = 20;
-      double height = size.height/heightBarDivider;
+      double height = size.height/20;
 
       return Center(
         child: Container(
