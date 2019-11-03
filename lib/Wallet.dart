@@ -10,12 +10,16 @@ import "dart:core";
 //Une seule fonction pour add & remove
 
 class Wallet {
-  int _amount;
+  int _amount ;
+  static final Wallet _singleton = Wallet._internal();
 
-  Wallet(){
-    this._amount = 0;
+  factory Wallet(){
+    return _singleton;
   }
 
+  Wallet._internal(){
+    _amount = 0;
+  }
    /* boolean (int coinsValue)
    * 
    * Indicates if the coins of the player has been succesfuly
@@ -34,7 +38,7 @@ class Wallet {
     return true;
   }
 
-    getCoins(){
+  int getCoins(){
       return this._amount;
    }
 
