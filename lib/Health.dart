@@ -66,12 +66,6 @@ class Health {
     }
 
 
-
-
-
-
-
-
   Row _hydratationHealth(double width, double height){
     Text text = Text(
                 "Hydratation",
