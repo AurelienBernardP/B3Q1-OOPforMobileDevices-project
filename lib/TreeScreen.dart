@@ -50,7 +50,7 @@ class __TreeScreenBodyState extends State<_TreeScreenBody> {
                     print("health bar");
                   },
                   child: Container(
-                    child: Text("health bar box"),
+                    child: treeInfo.getHealth().buildGeneralHealth(context),
                     decoration: BoxDecoration(color: Colors.amberAccent),
                   ),
                 ),
