@@ -60,4 +60,8 @@ class Wallet {
       else
          return false;
    }
+
+   void addCoins(int addedCoins){
+     _amount+= addedCoins;
+   }
 }
