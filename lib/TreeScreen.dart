@@ -3,26 +3,30 @@ import 'Health.dart';
 import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
+import 'ItemList.dart';
 
-class TreeScreen extends StatefulWidget {
+class TreeScreen extends StatelessWidget {
   @override
-  _TreeScreenState createState() => _TreeScreenState();
-}
 
-class _TreeScreenState extends State<TreeScreen> {
-  TreeBackEnd treeInfo = TreeBackEnd();
-  
-  @override
   Widget build(BuildContext context) {
     Widget screen = MaterialApp(
       title: "screen",
       theme: ThemeData.light(),
-      home: _buildScaffold(context),
+      home: _TreeScreenBody(),
     );
     return screen;
   }
+}
 
-  Widget _buildScaffold(BuildContext context) {
+class _TreeScreenBody extends StatefulWidget{
+  @override
+  __TreeScreenBodyState createState() => __TreeScreenBodyState();
+}
+
+class __TreeScreenBodyState extends State<_TreeScreenBody> {
+
+  TreeBackEnd treeInfo = TreeBackEnd();
+  Widget build(BuildContext context) {
     AppBar bar = AdTreesAppTopBar("tree name!", context).getBar();
     return Scaffold(
       appBar: bar,
@@ -83,7 +87,6 @@ class _TreeScreenState extends State<TreeScreen> {
                 child: Text("available coins : " + Wallet().getCoins().toString()),
                 decoration: BoxDecoration(color: Colors.amber),
               ),
-            
           ),
         ],
       ),
@@ -136,6 +139,10 @@ class _TreeScreenState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ItemList()),
+              );
                 print("store");
               },
               child: Container(
@@ -190,4 +197,5 @@ class TreeBackEnd{
   Health getHealth(){
     return treeHealth;
   }
+
 }
