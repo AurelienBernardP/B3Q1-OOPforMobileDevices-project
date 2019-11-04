@@ -1,7 +1,16 @@
+import 'Health.dart';
+
 import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
+import 'Wallet.dart';
 
-class TreeScreen extends StatelessWidget {
+class TreeScreen extends StatefulWidget {
+  @override
+  _TreeScreenState createState() => _TreeScreenState();
+}
+
+class _TreeScreenState extends State<TreeScreen> {
+  TreeBackEnd treeInfo = TreeBackEnd();
   
   @override
   Widget build(BuildContext context) {
@@ -37,7 +46,7 @@ class TreeScreen extends StatelessWidget {
                     print("health bar");
                   },
                   child: Container(
-                    child: Text("health bar section"),
+                    child: Text("health bar box"),
                     decoration: BoxDecoration(color: Colors.amberAccent),
                   ),
                 ),
@@ -58,7 +67,9 @@ class TreeScreen extends StatelessWidget {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                print("get money");
+                setState(() {
+                  Wallet().addCoins(5);
+                });
               },
               child: Container(
                 child: Icon(Icons.attach_money),
@@ -68,15 +79,11 @@ class TreeScreen extends StatelessWidget {
           ),
           Expanded(
             flex: 4,
-            child: GestureDetector(
-              onTap: () {
-                print("see money");
-              },
               child: Container(
-                child: Icon(Icons.attach_money),
+                child: Text("available coins : " + Wallet().getCoins().toString()),
                 decoration: BoxDecoration(color: Colors.amber),
               ),
-            ),
+            
           ),
         ],
       ),
@@ -92,11 +99,13 @@ class TreeScreen extends StatelessWidget {
           Expanded(
             flex: 4,
             child: GestureDetector(
-              onTap: () {
+              onTap: () { setState(() {
+                treeInfo.shake();
+              });
                 print("tree section");
               },
               child: Container(
-                child: Text("tree image"),
+                child: treeInfo.getImage(),
                 decoration: BoxDecoration(color: Colors.greenAccent),
               ),
             ),
@@ -150,5 +159,35 @@ class TreeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class TreeBackEnd{
+  Health treeHealth;
+  Widget image;
+  DateTime lastTimeShaken;
+
+  TreeBackEnd(){
+    treeHealth = Health();
+    image = Text("tree image");
+    lastTimeShaken = DateTime.now();
+    print(lastTimeShaken.toString());
+  }
+
+  void shake(){
+    print(DateTime.now().toString());
+    print(lastTimeShaken.add(Duration(minutes: 1)).toString());
+    if(DateTime.now().isAfter(lastTimeShaken.add(Duration(minutes: 1)))){
+      lastTimeShaken = DateTime.now();
+      Wallet().addCoins(7);
+    }
+  }
+
+  Widget getImage(){
+    return image;
+  }
+
+  Health getHealth(){
+    return treeHealth;
   }
 }
