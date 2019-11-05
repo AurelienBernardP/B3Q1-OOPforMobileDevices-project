@@ -3,21 +3,29 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/widgets.dart';
 
-class Characteristic {
+abstract class Characteristic {
   int _hydratation;
   String _soilQuality;
   String _vulnerability;
   int _sunExposure;
 
-  Characteristic (int hydra, String soil, String vul, int sun){
-    this._hydratation = hydra;
-    this._soilQuality = soil;
-    this._vulnerability = vul;
-    this._sunExposure = sun;
-
+  int getHydratation(){
+    return this._hydratation;
   }
 
-  Widget buildCharacteristic(BuildContext context){
+  String getSoilQuality(){
+    return this._soilQuality;
+  }
+
+  String getVulnerability(){
+    return this._vulnerability;
+  }
+
+  int getSunExposure(){
+    return this._sunExposure;
+  }
+
+    Widget buildCharacteristic(BuildContext context){
       //Size
       Size size = MediaQuery.of(context).size;
       double width = (size.width - 10)/2;
@@ -42,7 +50,7 @@ class Characteristic {
       );
   }
 
-
+  
   Row _hydratationDetails(double width, double height){
 
     Text name = Text(
@@ -166,24 +174,91 @@ class Characteristic {
   }
 
 
-  int getHydratation(){
-    return this._hydratation;
+}
+
+class Desert extends Characteristic{
+  static final Desert _singleton = Desert._internal();
+
+  factory Desert(){
+    return _singleton;
   }
 
-  String getSoilQuality(){
-    return this._soilQuality;
+  Desert._internal(){
+    this._hydratation = 15;
+    this._soilQuality = "Very low";
+    this._vulnerability = "Low";
+    this._sunExposure = 100;
   }
 
-  String getVulnerability(){
-    return this._vulnerability;
+
+
+}
+
+class Forest extends Characteristic{
+  static final Forest _singleton = Forest._internal();
+  
+    factory Forest(){
+      return _singleton;
+    }
+  
+    Forest._internal(){
+      this._hydratation = 80;
+      this._soilQuality = "High";
+      this._vulnerability = "Low";
+      this._sunExposure = 60;
+    }
+  
   }
 
-  int getSunExposure(){
-    return this._sunExposure;
+
+class Plains extends Characteristic{
+  static final Plains _singleton = Plains._internal();
+
+  factory Plains(){
+    return _singleton;
   }
 
-  Characteristic getInstance(){
-    return this;
+  Plains._internal(){
+    this._hydratation = 90;
+    this._soilQuality = "Normal";
+    this._vulnerability = "High";
+    this._sunExposure = 70;
   }
+
+
+
+}
+
+class Jungle extends Characteristic{
+  static final Jungle _singleton = Jungle._internal();
+
+  factory Jungle(){
+    return _singleton;
+  }
+
+  Jungle._internal(){
+    this._hydratation = 90;
+    this._soilQuality = "Very high";
+    this._vulnerability = "Normal";
+    this._sunExposure = 70;
+  }
+}
+
+
+class Savanna extends Characteristic{
+  static final Savanna _singleton = Savanna._internal();
+
+  factory Savanna(){
+    return _singleton;
+  }
+
+  Savanna._internal(){
+    this._hydratation = 30;
+    this._soilQuality = "Low";
+    this._vulnerability = "Normal";
+    this._sunExposure = 80;
+  }
+
+
 
 }

@@ -12,16 +12,16 @@ class Planet extends StatefulWidget{
 class _PlanetState extends State<Planet>{
 
   List<List<Zone>> gridState = [
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
-  [Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone(), Zone()],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
   ];
 
   int _unlockedZones = 0;
@@ -112,13 +112,13 @@ class _PlanetState extends State<Planet>{
       if(gridState[_tappedZoneX][_tappedZoneY].is_planted())
           return _buildTreeDescription();
       else{
-        return _buildZoneDescription();
+        return _buildZoneDescription(_tappedZoneX, _tappedZoneY);
       }
     }
     return Text("Tap on a grid to view more details!");
   }
 
-  Widget _buildZoneDescription(){
+  Widget _buildZoneDescription(int x, int y){
     return Column(
       children: <Widget>[ 
       Container(
@@ -130,7 +130,7 @@ class _PlanetState extends State<Planet>{
       ),
       child : _buildButton(),
       ),
-      Text('Zone description'),
+      gridState[x][y].buildZone(context),
       ]
       );
   }

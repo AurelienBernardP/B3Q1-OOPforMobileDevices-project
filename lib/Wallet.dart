@@ -20,6 +20,7 @@ class Wallet {
   Wallet._internal(){
     _amount = 0;
   }
+  
    /* boolean (int coinsValue)
    * 
    * Indicates if the coins of the player has been succesfuly

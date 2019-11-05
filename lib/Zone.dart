@@ -1,14 +1,16 @@
-
+import 'Characteristic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 class Zone{
 
-  //Characteristic type = null;
+  Characteristic type;
   int plantedTree = 0;
   bool locked = true;
 
-  //Zone(this.type);
+  Zone(Characteristic type){
+    this.type = type;
+  }
 
   bool is_locked(){
     return locked;
@@ -33,8 +35,12 @@ class Zone{
     plantedTree = null;
   }*/
 
-  /*Characteristic get_zone_type(){
+  Widget buildZone(BuildContext context){
+    return this.type.buildCharacteristic(context);
+  }
+
+  Characteristic get_zone_type(){
     return type;
-  }*/
+  }
   
 }

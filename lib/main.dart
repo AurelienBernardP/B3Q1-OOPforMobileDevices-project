@@ -7,7 +7,7 @@ import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
 
-void main() => runApp(new TreeScreen());
+void main() => runApp(new AdTreesApp());
 
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
