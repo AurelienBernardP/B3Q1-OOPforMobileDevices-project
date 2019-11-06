@@ -6,8 +6,8 @@ import 'Wallet.dart';
 import 'ItemList.dart';
 
 class TreeScreen extends StatelessWidget {
-  @override
 
+  @override
   Widget build(BuildContext context) {
     Widget screen = MaterialApp(
       title: "screen",
@@ -47,7 +47,11 @@ class __TreeScreenBodyState extends State<_TreeScreenBody> {
               child: Container(
                 child: GestureDetector(
                   onTap: () {
-                    print("health bar");
+                    Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => treeInfo.getHealth()),
+                );
+                    
                   },
                   child: Container(
                     child: treeInfo.getHealth().buildGeneralHealth(context),
@@ -197,5 +201,6 @@ class TreeBackEnd{
   Health getHealth(){
     return treeHealth;
   }
+
 
 }

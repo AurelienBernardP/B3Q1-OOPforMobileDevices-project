@@ -11,20 +11,6 @@ class Planet extends StatefulWidget{
 
 class _PlanetState extends State<Planet>{
 
-  List<List<Zone>> gridState = [
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  ];
-
-  int _unlockedZones = 0;
   int _tappedZoneX = -1;
   int _tappedZoneY = -1;
 
@@ -48,12 +34,18 @@ class _PlanetState extends State<Planet>{
 
   void _unlockZone(){
     setState(() {
-      gridState[_tappedZoneX][_tappedZoneY].unlock();
+      PlanetBackEnd.getInstance().unlockZone(_tappedZoneX, _tappedZoneY);
+    });
+  }
+
+  void _plant(){
+    setState(() {
+      PlanetBackEnd.getInstance().plant(_tappedZoneX, _tappedZoneY);
     });
   }
 
   Widget _buildGridItems(BuildContext context, int index) {
-    int gridStateLength = gridState.length;
+    int gridStateLength = PlanetBackEnd.getInstance().getGrid().length;
     int x, y = 0;
     x = (index / gridStateLength).floor();
     y = (index % gridStateLength);
@@ -75,13 +67,15 @@ class _PlanetState extends State<Planet>{
   }
 
   Widget _buildGridItem(int x, int y){
-    if(gridState[x][y].is_locked())
+    if(PlanetBackEnd.getInstance().getZone(x, y).is_locked())
       return Icon(Icons.lock_outline, size: 20.0);
+    if(PlanetBackEnd.getInstance().getZone(x, y).is_planted())
+      return Icon(Icons.local_florist, size: 20.0);
     return Text(' ');
   }
 
   Widget _buildGameBody() {
-    int gridStateLength = gridState.length;
+    int gridStateLength = PlanetBackEnd.getInstance().getGrid().length;
     return Column(
       children: <Widget>[
       AspectRatio(
@@ -109,7 +103,7 @@ class _PlanetState extends State<Planet>{
   //will be called on tap
   Widget _addDescription(){
     if(_tappedZoneX >= 0 && _tappedZoneY >= 0){
-      if(gridState[_tappedZoneX][_tappedZoneY].is_planted())
+      if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_planted())
           return _buildTreeDescription();
       else{
         return _buildZoneDescription(_tappedZoneX, _tappedZoneY);
@@ -120,23 +114,25 @@ class _PlanetState extends State<Planet>{
 
   Widget _buildZoneDescription(int x, int y){
     return Column(
+      
       children: <Widget>[ 
-      Container(
-      margin: const EdgeInsets.all(15.0),
-      height: 30.0,
-      width: 240.0,
-      decoration: BoxDecoration(
-        color: Colors.red,
-      ),
-      child : _buildButton(),
-      ),
-      gridState[x][y].buildZone(context),
+        Container(
+        margin: const EdgeInsets.all(15.0),
+        height: 30.0,
+        width: 240.0,
+        decoration: BoxDecoration(
+          color: Colors.red,
+        ),
+        child : _buildButton(),
+        ),
+        Container(child:
+        PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),)
       ]
       );
   }
 
   Widget _buildButton(){
-    if(gridState[_tappedZoneX][_tappedZoneY].is_locked())
+    if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_locked())
       //if(_unlockedZones < Wallet.available_coins())
         return FlatButton.icon(
           color: Colors.red,
@@ -149,7 +145,7 @@ class _PlanetState extends State<Planet>{
           color: Colors.red,
           label: Text('View zone details'), 
           icon: Icon(Icons.lock_open),
-          onPressed: () { print("pressed");
+          onPressed: () { _plant();
           },
         );
   }
@@ -168,7 +164,10 @@ class _PlanetState extends State<Planet>{
           color: Colors.red,
           label: Text('See tree?'), 
           icon: Icon(Icons.lock_open),
-          onPressed: () { print("pressed");
+          onPressed: () { Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTree()),
+                );
           },
         ),
       ),
@@ -177,4 +176,49 @@ class _PlanetState extends State<Planet>{
       );
   }
 
+}
+
+class PlanetBackEnd{  
+  static PlanetBackEnd _instance;
+  List<List<Zone>> gridState;
+  int _unlockedZones;
+
+  PlanetBackEnd._internal() {
+  gridState = [
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  ];
+
+  _unlockedZones = 0;
+  }
+  static PlanetBackEnd getInstance() {
+    if (_instance == null) {
+      _instance = PlanetBackEnd._internal();
+    }
+    return _instance;
+  }
+
+  List<List<Zone>> getGrid(){
+    return gridState;
+  }
+
+  Zone getZone(int x, int y){
+    return gridState[x][y];
+  }
+
+  void unlockZone(int x, int y){
+    gridState[x][y].unlock(); 
+  }
+
+  void plant(int x, int y){
+    gridState[x][y].plantTree();
+  }
 }

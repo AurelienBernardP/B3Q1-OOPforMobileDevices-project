@@ -31,22 +31,25 @@ abstract class Characteristic {
       double width = (size.width - 10)/2;
       double height = size.height/20;
 
-      return Center(
-        child: Container(
+      return Container(
           alignment: Alignment.center,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-                _hydratationDetails(width, height),
-                SizedBox(height: height/2,),
-                _soilQualityDetails(width, height),
-                SizedBox(height: height/2,),
-                _vulnerabilityDetails(width, height),
-                SizedBox(height: height/2,),
-                _sunExposureDetails(width, height),
-
+              Container(
+                child: _hydratationDetails(width, height),
+              ),
+              Container(
+                child : _soilQualityDetails(width, height),
+              ),
+              Container(
+            
+                child : _vulnerabilityDetails(width, height),
+              ),
+              Container(
+                child : _sunExposureDetails(width, height),
+              )
           ],),
-        )
       );
   }
 
@@ -75,9 +78,7 @@ abstract class Characteristic {
                       
     return Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Expanded(child : name),
-              Expanded(child : details),
+            children: <Widget>[name, details,
             ],);
   }
 
@@ -106,8 +107,8 @@ abstract class Characteristic {
     return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(child : name),
-              Expanded(child : details),
+              Flexible(child : name),
+              Flexible(child : details),
             ],);
   }
 
@@ -138,8 +139,8 @@ abstract class Characteristic {
     return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(child : name),
-              Expanded(child : details),
+              Flexible(child : name),
+              Flexible(child : details),
             ],);
   }
 
@@ -168,13 +169,29 @@ abstract class Characteristic {
     return Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(child : name),
-              Expanded(child : details),
+              Flexible(child : name),
+              Flexible(child : details),
             ],);
   }
-
-
 }
+
+
+class Cactus extends Characteristic{
+  static final Cactus _singleton = Cactus._internal();
+
+  factory Cactus(){
+    return _singleton;
+  }
+
+  Cactus._internal(){
+    this._hydratation = 15;
+    this._soilQuality = "Very low";
+    this._vulnerability = "Low";
+    this._sunExposure = 100;
+  }
+}
+
+
 
 class Desert extends Characteristic{
   static final Desert _singleton = Desert._internal();
@@ -189,9 +206,6 @@ class Desert extends Characteristic{
     this._vulnerability = "Low";
     this._sunExposure = 100;
   }
-
-
-
 }
 
 class Forest extends Characteristic{
@@ -262,3 +276,6 @@ class Savanna extends Characteristic{
 
 
 }
+
+
+

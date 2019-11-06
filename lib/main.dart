@@ -1,5 +1,4 @@
 import 'package:first/ItemList.dart';
-import 'package:first/TreeScreen.dart';
 import 'package:first/Wallet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -28,7 +27,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
           children: <Widget>[
             ListTile(
               leading: Icon(Icons.attach_money),
-              title: Text('Your money is ' + Wallet().getCoins().toString() + "coins"),
+              title: Text('Your money is ' + Wallet().getCoins().toString() + " coins"),
             ),
             ListTile(
               leading: Icon(Icons.monetization_on),
@@ -55,6 +54,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               leading: Icon(Icons.add_shopping_cart),
               title: Text('Go to shop!'),
               onTap: () {
+                ItemList.makeShop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemList()),
@@ -73,7 +73,11 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               leading: Icon(Icons.work),
               title: Text('Go to inventory!'),
               onTap: () {
-                print("inventory");
+                ItemList.makeInventory();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ItemList()),
+                );
               },
             ),
           ],

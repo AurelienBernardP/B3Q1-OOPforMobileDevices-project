@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Item.dart';
 
+bool _is_shop = true;
+
 class ItemList extends StatefulWidget{
+
+  static void makeShop(){
+    _is_shop = true;
+  }
+
+  static void makeInventory(){
+    _is_shop = false;
+  }
 
 @override
   _ItemListState createState() => _ItemListState();
@@ -16,16 +26,15 @@ class _ItemListState extends State<ItemList>{
     [PlantItem.getInstance(), PlantItem.getInstance(), PlantItem.getInstance(),], 
   ];
     
-    bool is_shop = true;
-    int _tappedItemX = -1;
-    int _tappedItemY = -1;
+  int _tappedItemX = -1;
+  int _tappedItemY = -1;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: "World map", home: Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Shop'),
+        title: makeTitle(),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -35,10 +44,29 @@ class _ItemListState extends State<ItemList>{
     ),
     );
   }
-    void _tapOnGrid(int x, int y){
+
+  Widget makeTitle(){
+    if(_is_shop)
+      return Text('Shop');
+    return Text('Inventory');
+  }
+
+  void _tapOnGrid(int x, int y){
     setState(() {
       _tappedItemX = x;
       _tappedItemY = y;
+    });
+  }
+
+  void _buy(){
+    setState(() {
+      gridState[_tappedItemX][_tappedItemY].buyItem();
+    });
+  }
+
+  void _use(){
+    setState(() {
+      gridState[_tappedItemX][_tappedItemY].sellItem();
     });
   }
 
@@ -88,7 +116,7 @@ class _ItemListState extends State<ItemList>{
   }
   
   Widget _buildDescription(int x, int y){
-    if(is_shop)
+    if(_is_shop)
      return Row( 
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -127,12 +155,33 @@ class _ItemListState extends State<ItemList>{
           ),
       ),
       _addDescription(),
+      _addButton(),
     ]
     );
   }
+
   Widget _addDescription(){
     if(_tappedItemX >= 0 && _tappedItemY >= 0)
       return Text(gridState[_tappedItemX][_tappedItemY].get_name());  
     return Text("Tap on a grid to view more details!");
+  }
+
+  Widget _addButton(){
+    if(_is_shop)
+    //if(_unlockedZones < Wallet.available_coins())
+      return FlatButton.icon(
+        color: Colors.red,
+        label: Text('Buy item'), 
+        icon: Icon(Icons.lock_open),
+        onPressed: () { _buy();
+        },
+      );
+    return FlatButton.icon(
+        color: Colors.red,
+        label: Text('Use item'), 
+        icon: Icon(Icons.lock_open),
+        onPressed: () { _use();
+        },
+      );
   }
 }

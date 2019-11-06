@@ -1,11 +1,12 @@
 import 'Characteristic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'TreeScreen.dart';
 
 class Zone{
 
   Characteristic type;
-  int plantedTree = 0;
+  TreeScreen plantedTree;
   bool locked = true;
 
   Zone(Characteristic type){
@@ -21,15 +22,15 @@ class Zone{
   }
 
   bool is_planted(){
-    if (plantedTree != 0)
+    if (plantedTree != null)
       return true;
     return false;
   }
 
-  /*void plant_tree(Tree tree){
-    if(!is_locked)
-      plantedTree = tree;
-  }*/
+  void plantTree(){
+    if(!locked)
+      plantedTree = TreeScreen();
+  }
 
   /*void remove_tree(){
     plantedTree = null;
@@ -39,6 +40,10 @@ class Zone{
     return this.type.buildCharacteristic(context);
   }
 
+  Widget getTree(){
+    return plantedTree;
+  }
+  
   Characteristic get_zone_type(){
     return type;
   }

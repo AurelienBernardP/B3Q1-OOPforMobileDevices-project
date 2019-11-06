@@ -1,19 +1,28 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
-
+import 'AdTreesAppTopBar.dart';
 import 'package:flutter/cupertino.dart';
-//import 'Characteristic.dart';
+import 'Characteristic.dart';
 
 
-class Health {
-  static final double _hydratationMax = 100;
-  static final double _nutritionMax = 100;
-  static final double _damageMax = 100;
+
+
+
+
+
+class Health extends StatelessWidget{
+  static double _hydratationMax = 100;
+  static double _nutritionMax = 100;
+  static double _damageMax = 100;
 
   int _hydratation;
   int _nutrition;
   int _damage;
-  //Characteristic characteristic;
+
+  @override
+  Widget build(BuildContext context){
+    return buildAllHealth(context);
+  }
 
   Health(){
     this._hydratation = 67;
@@ -22,29 +31,31 @@ class Health {
   }
 
 
-
+  //Can use MainAxisAlignment strecht pour étendre
   Widget buildAllHealth(BuildContext context){
       //Size
       Size size = MediaQuery.of(context).size;
       double width = (size.width - 10)/2;
       double height = size.height/20;
 
-      return Center(
-        child: Container(
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-                _hydratationHealth(width, height),
-                SizedBox(height: height/2,),
-                _nutritionHealth(width, height),
-                SizedBox(height: height/2,),
-                _damageHealth(width, height),
-                SizedBox(height: height/2,),
-                _overallHealth(width, height),
-          ],),
-        )
-      );
+      return 
+        Scaffold(
+          appBar: AdTreesAppTopBar("Health bar", context).getBar(),
+          body:
+            Center(
+            child: Container(
+              alignment: Alignment.center,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                    _hydratationHealth(width, height),
+                    _nutritionHealth(width, height),
+                    _damageHealth(width, height),
+                    _overallHealth(width, height),
+              ],),
+            )
+          ));
+
     }
 
   Widget buildGeneralHealth(BuildContext context){
@@ -57,9 +68,9 @@ class Health {
         child: Container(
           alignment: Alignment.center,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-                _overallHealth(width, height),
+                Container(child: _overallHealth(width, height)),
           ],),
         )
       );
@@ -101,7 +112,7 @@ class Health {
                       ))),]);
 
     return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Expanded(child : text),
               Expanded(child : health),
@@ -143,7 +154,7 @@ class Health {
                       ))),]);
 
     return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Expanded(child : text),
               Expanded(child : health),
@@ -192,7 +203,7 @@ class Health {
                       ))),]);
 
     return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Expanded(child : text),
               Expanded(child : health),
@@ -248,7 +259,7 @@ class Health {
                           ],);
                       
     return Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               Expanded(child : text),
               Expanded(child : health),
