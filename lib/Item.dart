@@ -68,19 +68,94 @@ class WaterItem extends Item {
   }*/
 }
 
-class PlantItem extends Item {
-  static PlantItem _instance;
+class PineTree extends Item {
+  static PineTree _instance;
 
-  PlantItem._internal() {
+  PineTree._internal() {
     _price = 10;
     _quantity = 0;
     _name = "Plant";
     _icon = "assets/images/plant.png";
   }
 
-  static PlantItem getInstance() {
+  static PineTree getInstance() {
     if (_instance == null) {
-      _instance = PlantItem._internal();
+      _instance = PineTree._internal();
+    }
+    return _instance;
+  }
+
+  /*void useItem(covariant Zone zone) {
+    if (_quantity > 0) {
+      //zone.plant_tree(new Tree(PlantItem));
+      _quantity -= 1;
+    }
+  }*/
+}
+
+class Cactus extends Item {
+  static Cactus _instance;
+
+  Cactus._internal() {
+    _price = 10;
+    _quantity = 0;
+    _name = "Plant";
+    _icon = "assets/images/plant.png";
+  }
+
+  static Cactus getInstance() {
+    if (_instance == null) {
+      _instance = Cactus._internal();
+    }
+    return _instance;
+  }
+
+  /*void useItem(covariant Zone zone) {
+    if (_quantity > 0) {
+      //zone.plant_tree(new Tree(PlantItem));
+      _quantity -= 1;
+    }
+  }*/
+}
+
+class ForestTree extends Item {
+  static ForestTree _instance;
+
+  ForestTree._internal() {
+    _price = 10;
+    _quantity = 0;
+    _name = "Plant";
+    _icon = "assets/images/plant.png";
+  }
+
+  static ForestTree getInstance() {
+    if (_instance == null) {
+      _instance = ForestTree._internal();
+    }
+    return _instance;
+  }
+
+  /*void useItem(covariant Zone zone) {
+    if (_quantity > 0) {
+      //zone.plant_tree(new Tree(PlantItem));
+      _quantity -= 1;
+    }
+  }*/
+}
+
+class MiniPlant extends Item {
+  static MiniPlant _instance;
+
+  MiniPlant._internal() {
+    _price = 10;
+    _quantity = 0;
+    _name = "Plant";
+    _icon = "assets/images/plant.png";
+  }
+
+  static MiniPlant getInstance() {
+    if (_instance == null) {
+      _instance = MiniPlant._internal();
     }
     return _instance;
   }

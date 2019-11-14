@@ -22,8 +22,8 @@ class _ItemListState extends State<ItemList>{
   
   var gridState = [
     [WaterItem.getInstance(), TrapItem.getInstance(), NurishementItem.getInstance(),], 
-    [PlantItem.getInstance(), PlantItem.getInstance(), PlantItem.getInstance(),], 
-    [PlantItem.getInstance(), PlantItem.getInstance(), PlantItem.getInstance(),], 
+    [Cactus.getInstance(), PineTree.getInstance(), ForestTree.getInstance(),], 
+    [MiniPlant.getInstance(), MiniPlant.getInstance(), MiniPlant.getInstance(),], 
   ];
     
   int _tappedItemX = -1;

@@ -98,7 +98,7 @@ class _PlanetState extends State<Planet>{
           ),
         ),
       ),
-      _addDescription(),
+      Expanded(child:_addDescription()),
     ]
     );
   }
@@ -136,21 +136,18 @@ class _PlanetState extends State<Planet>{
 
 
   Widget _buildZoneDescriptionLocked(int x, int y){
+    isLocked = true;
+    if(isLocked)
+      image = "";
+    else
     return
-        Stack(
-           fit: StackFit.expand,
-           alignment: Alignment.center,
-           children: <Widget>[
-            Container(
-              decoration: new BoxDecoration(
-                image: DecorationImage(
-                  image: new AssetImage(
-                      'assets/images/characteristic.png'),
-                  fit: BoxFit.fill,
-                ),
+        Container(
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/locked/forestLocked.png"), 
+                fit: BoxFit.cover,),
               ),
-            ),
-           Column(
+          child: Column(
              mainAxisAlignment: MainAxisAlignment.center,
              children: <Widget>[
                _buildButton(),
@@ -158,10 +155,8 @@ class _PlanetState extends State<Planet>{
                  child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
                )
              ],
-           )
-            
-          ],
-       );
+           ),
+        );
   }
 
 
