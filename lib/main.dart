@@ -6,7 +6,12 @@ import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
 
-void main() => runApp(new AdTreesApp());
+import 'package:admob_flutter/admob_flutter.dart';
+void main() { 
+    Admob.initialize('ca-app-pub-3940256099942544~3347511713');
+    runApp(new AdTreesApp());
+    
+}
 
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
