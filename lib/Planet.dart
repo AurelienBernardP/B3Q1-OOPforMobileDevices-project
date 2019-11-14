@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'Characteristics/AllCharacteristics.dart';
 import 'Zone.dart';
 import 'Characteristic.dart';
+
 
 class Planet extends StatefulWidget{
 
@@ -106,7 +108,7 @@ class _PlanetState extends State<Planet>{
       if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_planted())
           return _buildTreeDescription();
       else{
-        return _buildZoneDescription(_tappedZoneX, _tappedZoneY);
+        return _buildZoneDescriptionLocked(_tappedZoneX, _tappedZoneY);
       }
     }
     return Text("Tap on a grid to view more details!");
@@ -130,6 +132,38 @@ class _PlanetState extends State<Planet>{
       ]
       );
   }
+
+
+
+  Widget _buildZoneDescriptionLocked(int x, int y){
+    return
+        Stack(
+           fit: StackFit.expand,
+           alignment: Alignment.center,
+           children: <Widget>[
+            Container(
+              decoration: new BoxDecoration(
+                image: DecorationImage(
+                  image: new AssetImage(
+                      'assets/images/characteristic.png'),
+                  fit: BoxFit.fill,
+                ),
+              ),
+            ),
+           Column(
+             mainAxisAlignment: MainAxisAlignment.center,
+             children: <Widget>[
+               _buildButton(),
+               Container(
+                 child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+               )
+             ],
+           )
+            
+          ],
+       );
+  }
+
 
   Widget _buildButton(){
     if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_locked())
