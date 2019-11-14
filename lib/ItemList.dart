@@ -79,8 +79,15 @@ class _ItemListState extends State<ItemList>{
       onTap: () {
         _tapOnGrid(x, y);
         }, 
-      child: Card(
-        color: Colors.white,
+      /*child: Container(
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+            image: new AssetImage("assets/images/window.png"), 
+            fit: BoxFit.cover,),
+          ),
+        Card(
+        //color: Colors.white,
+        
         child: Padding(
           padding:
             EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0, top: 10.0),
@@ -94,12 +101,25 @@ class _ItemListState extends State<ItemList>{
                     _buildImage(x, y)
                   
                 ),
-                Padding(
+                /*Padding(
                   padding: EdgeInsets.all(10.0),
                   child: _buildDescription(x, y),
-                ),
+                ),*/
               ],
             ),
+          ),
+        ),
+      ),
+      ),*/
+            child: GridTile(
+        child: Container(
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+            image: new AssetImage("assets/images/window.png"), 
+            fit: BoxFit.cover,),
+          ),
+          child: Center(
+            child: _buildImage(x, y),
           ),
         ),
       ),
@@ -143,6 +163,12 @@ class _ItemListState extends State<ItemList>{
       children: <Widget>[
       AspectRatio(
         aspectRatio: 1.0,
+        child: Container(
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+            image: new AssetImage("assets/images/table.png"), 
+            fit: BoxFit.cover,),
+          ),
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -153,17 +179,42 @@ class _ItemListState extends State<ItemList>{
             itemBuilder: _buildCard,
             itemCount: gridStateLength * gridStateLength,
           ),
-      ),
-      _addDescription(),
-      _addButton(),
-    ]
+      ),),
+       _addDescription(),
+      //_addButton(),
+      ]
     );
   }
 
   Widget _addDescription(){
     if(_tappedItemX >= 0 && _tappedItemY >= 0)
-      return Text(gridState[_tappedItemX][_tappedItemY].get_name());  
+        return
+        Container(
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/table.png"), 
+                  fit: BoxFit.cover,),
+                ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _addTitle(),
+                _addButton(),
+              ],
+            ),
+          );
     return Text("Tap on a grid to view more details!");
+  }
+
+  Widget _addTitle(){
+    return Container(
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/title.png"), 
+                  fit: BoxFit.cover,),
+                ),
+            child: Text(gridState[_tappedItemX][_tappedItemY].get_name()),
+        );
   }
 
   Widget _addButton(){

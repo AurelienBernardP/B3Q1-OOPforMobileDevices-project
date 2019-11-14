@@ -75,7 +75,7 @@ class PineTree extends Item {
     _price = 10;
     _quantity = 0;
     _name = "Plant";
-    _icon = "assets/images/plant.png";
+    _icon = "assets/images/pinetree.png";
   }
 
   static PineTree getInstance() {
@@ -100,7 +100,7 @@ class Cactus extends Item {
     _price = 10;
     _quantity = 0;
     _name = "Plant";
-    _icon = "assets/images/plant.png";
+    _icon = "assets/images/cactus.png";
   }
 
   static Cactus getInstance() {
@@ -125,7 +125,7 @@ class ForestTree extends Item {
     _price = 10;
     _quantity = 0;
     _name = "Plant";
-    _icon = "assets/images/plant.png";
+    _icon = "assets/images/tree.png";
   }
 
   static ForestTree getInstance() {
@@ -150,7 +150,7 @@ class MiniPlant extends Item {
     _price = 10;
     _quantity = 0;
     _name = "Plant";
-    _icon = "assets/images/plant.png";
+    _icon = "assets/images/18.png";
   }
 
   static MiniPlant getInstance() {

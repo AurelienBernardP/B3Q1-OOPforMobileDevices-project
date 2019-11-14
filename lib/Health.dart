@@ -5,11 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'Characteristic.dart';
 
 
-
-
-
-
-
 class Health extends StatelessWidget{
   static double _hydratationMax = 100;
   static double _nutritionMax = 100;

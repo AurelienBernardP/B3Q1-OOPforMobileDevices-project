@@ -44,8 +44,8 @@ class Zone{
     return plantedTree;
   }
   
-  Characteristic get_zone_type(){
-    return type;
+  String get_zone_type(){
+    return this.type.getName();
   }
   
 }

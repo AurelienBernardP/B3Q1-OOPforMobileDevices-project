@@ -21,6 +21,7 @@ abstract class Characteristic{
     return this.vulnerability;
   }
 
+  String getName();
   int getSunExposure(){
     return this.sunExposure;
   }

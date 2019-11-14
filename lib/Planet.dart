@@ -114,95 +114,89 @@ class _PlanetState extends State<Planet>{
     return Text("Tap on a grid to view more details!");
   }
 
-  Widget _buildZoneDescription(int x, int y){
-    return Column(
-      
-      children: <Widget>[ 
-        Container(
-        margin: const EdgeInsets.all(15.0),
-        height: 30.0,
-        width: 240.0,
-        decoration: BoxDecoration(
-          color: Colors.red,
-        ),
-        child : _buildButton(),
-        ),
-        Container(child:
-        PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),)
-      ]
-      );
-  }
-
-
 
   Widget _buildZoneDescriptionLocked(int x, int y){
-    isLocked = true;
-    if(isLocked)
-      image = "";
-    else
-    return
+    if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_locked())
+      return
+          Container(
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/locked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).get_zone_type()+"Locked.png"), 
+                  fit: BoxFit.cover,),
+                ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Row( 
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FlatButton.icon(
+                      color: Colors.red,
+                      label: Text('Unlock for x'), 
+                      icon: Icon(Icons.lock_open),
+                      onPressed: () { _unlockZone();
+                      },
+                    ),
+                  ]
+                ),
+                Container(
+                  child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                )
+              ],
+            ),
+          );
+
+      else
+        return
         Container(
-          decoration: BoxDecoration(
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).get_zone_type()+"Unlocked.png"), 
+                  fit: BoxFit.cover,),
+                ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                FlatButton.icon(
+                  color: Colors.blue,
+                  label: Text(''), 
+                  icon: Icon(Icons.photo_album),
+                  onPressed: () { _plant();
+                  },
+                ),
+                Container(
+                  child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                )
+              ],
+            ),
+          );
+  }
+  Widget _buildTreeDescription(){
+    return 
+      Container(
+      decoration: BoxDecoration(
             image: new DecorationImage(
-              image: new AssetImage("assets/images/locked/forestLocked.png"), 
+              image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).get_zone_type()+"Unlocked.png"), 
                 fit: BoxFit.cover,),
               ),
-          child: Column(
-             mainAxisAlignment: MainAxisAlignment.center,
-             children: <Widget>[
-               _buildButton(),
-               Container(
-                 child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
-               )
-             ],
-           ),
-        );
-  }
-
-
-  Widget _buildButton(){
-    if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_locked())
-      //if(_unlockedZones < Wallet.available_coins())
-        return FlatButton.icon(
-          color: Colors.red,
-          label: Text('Unlock Zone?'), 
-          icon: Icon(Icons.lock_open),
-          onPressed: () { _unlockZone();
-          },
-        );
-    return FlatButton.icon(
-          color: Colors.red,
-          label: Text('View zone details'), 
-          icon: Icon(Icons.lock_open),
-          onPressed: () { _plant();
-          },
-        );
-  }
-
-  Widget _buildTreeDescription(){
-    return Column(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[ 
-      Container(
-      margin: const EdgeInsets.all(15.0),
-      height: 30.0,
-      width: 240.0,
-      decoration: BoxDecoration(
-        color: Colors.red,
-      ),
-      child : FlatButton.icon(
-          color: Colors.red,
+ FlatButton.icon(
+          color: Colors.green,
           label: Text('See tree?'), 
-          icon: Icon(Icons.lock_open),
+          icon: Icon(Icons.remove_red_eye),
           onPressed: () { Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTree()),
                 );
           },
         ),
-      ),
-      Text('Tree description'),
+      Container(
+                  child: PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).buildZone(context),
+                ),
       ]
-      );
+      ));
   }
 
 }

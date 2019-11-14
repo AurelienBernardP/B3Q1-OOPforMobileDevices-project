@@ -14,5 +14,9 @@ class Desert extends Characteristic{
     this.sunExposure = 2;
     this.display = CharacteristicDisplay(this);
   }
+  @override
+  String getName(){
+    return "Desert";
+  }
 }
 

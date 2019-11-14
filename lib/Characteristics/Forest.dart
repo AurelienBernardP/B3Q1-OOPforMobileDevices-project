@@ -15,6 +15,8 @@ class Forest extends Characteristic{
     this.display = CharacteristicDisplay(this);
   }
 
-
+  String getName(){
+    return "Forest";
+  }
 
 }
