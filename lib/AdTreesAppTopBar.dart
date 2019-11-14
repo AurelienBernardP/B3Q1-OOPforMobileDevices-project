@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-
+import 'package:admob_flutter/admob_flutter.dart';
+import 'dart:io';
+import 'dart:async';
 class AdTreesAppTopBar extends AppBar {
   final String text = "AdTrees";
   AppBar bar;
@@ -29,16 +31,38 @@ class AdTreesAppTopBar extends AppBar {
 class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("settings"),
-      ),
-      backgroundColor: Colors.green,
-      body: RaisedButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-        child: Text('Go back!'),
-      ),
-    );
+        appBar: AppBar(
+          title: Text("settings"),
+        ),
+        backgroundColor: Colors.green,
+        body: Container(
+          child: Container(
+            child: AdmobBanner(
+                adUnitId: 'ca-app-pub-2595919938993719/753788650',
+                adSize: AdmobBannerSize.LARGE_BANNER,
+                listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+                  switch (event) {
+                    case AdmobAdEvent.loaded:
+                      print('Admob banner loaded!');
+                      break;
+
+                    case AdmobAdEvent.opened:
+                      print('Admob banner opened!');
+                      break;
+
+                    case AdmobAdEvent.closed:
+                      print('Admob banner closed!');
+                      break;
+
+                    case AdmobAdEvent.failedToLoad:
+                      print(
+                          'Admob banner failed to load. Error code: ${args['errorCode']}');
+                      break;
+                    default:
+                      break;
+                  }
+                }),
+          ),
+        ));
   }
 }
