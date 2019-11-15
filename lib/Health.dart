@@ -6,23 +6,15 @@ import 'Characteristic.dart';
 
 
 class Health extends StatelessWidget{
-  static double _hydratationMax = 100;
-  static double _nutritionMax = 100;
-  static double _damageMax = 100;
+  HealthBackEnd _healthInfo;
 
-  int _hydratation;
-  int _nutrition;
-  int _damage;
+  Health(){
+    this._healthInfo = HealthBackEnd();
+  }
 
   @override
   Widget build(BuildContext context){
     return buildAllHealth(context);
-  }
-
-  Health(){
-    this._hydratation = 67;
-    this._nutrition = 98;
-    this._damage = 0;
   }
 
 
@@ -59,16 +51,14 @@ class Health extends StatelessWidget{
       double width = (size.width - 10)/2;
       double height = size.height/20;
 
-      return Center(
-        child: Container(
+      return Container(
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
                 Container(child: _overallHealth(width, height)),
           ],),
-        )
-      );
+        );
     }
 
 
@@ -93,11 +83,11 @@ class Health extends StatelessWidget{
                       Container(
                         color: Colors.blue,
                         height: height,
-                        width: (this._hydratation * width)/_hydratationMax,
+                        width: (this._healthInfo.hydratation * width)/this._healthInfo.hydratationMax,
                       ),
                       Center(
                         child: Text(
-                          ((this._hydratation*100)/_hydratationMax).toString()+"%",
+                          ((this._healthInfo.hydratation*100)/this._healthInfo.hydratationMax).toStringAsFixed(2)+"%",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -135,11 +125,11 @@ class Health extends StatelessWidget{
                       Container(
                         color: Colors.blue,
                         height: height,
-                        width: (this._nutrition * width)/_nutritionMax,
+                        width: (this._healthInfo.nutrition * width)/this._healthInfo.nutritionMax,
                       ),
                       Center(
                         child: Text(
-                          ((this._nutrition*100)/_nutritionMax).toString()+"%",
+                          ((this._healthInfo.nutrition*100)/this._healthInfo.nutritionMax).toStringAsFixed(2)+"%",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -157,12 +147,12 @@ class Health extends StatelessWidget{
   }
 
   Row _overallHealth(double width, double height){
-    double overall = this._hydratation * _nutritionMax * _damageMax;
-    overall += this._nutrition * _hydratationMax * _damageMax;
-    overall += this._damage * _nutritionMax * _hydratationMax;
+    double overall = this._healthInfo.hydratation * this._healthInfo.nutritionMax * this._healthInfo.damageMax;
+    overall += this._healthInfo.nutrition * this._healthInfo.hydratationMax * this._healthInfo.damageMax;
+    overall += this._healthInfo.damage * this._healthInfo.nutritionMax * this._healthInfo.hydratationMax;
 
     overall /= 3;
-    double overallMax = _nutritionMax * _hydratationMax * _damageMax;
+    double overallMax = this._healthInfo.nutritionMax * this._healthInfo.hydratationMax * this._healthInfo.damageMax;
 
     Text text = Text(
                 "Overall",
@@ -188,7 +178,7 @@ class Health extends StatelessWidget{
                       ),
                       Center(
                         child: Text(
-                          ((overall*100)/overallMax).toString()+"%",
+                          ((overall*100)/overallMax).toStringAsFixed(2)+"%",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -261,47 +251,62 @@ class Health extends StatelessWidget{
             ],);
   }
 
+}
+
+class HealthBackEnd {
+  double hydratationMax = 100;
+  double nutritionMax = 100;
+  double damageMax = 100;
+
+  int hydratation;
+  int nutrition;
+  int damage;
+
+  HealthBackEnd(){
+    this.hydratation = 67;
+    this.nutrition = 98;
+    this.damage = 1;
+  }
 
 
   bool hydrateTree(int nbDrop){
-    if (this._hydratation >= 100)
+    if (this.hydratation >= 100)
       return false;
     
-    this._hydratation  += nbDrop;
-    if(this._hydratation > 100)
-      this._hydratation = 100;
+    this.hydratation  += nbDrop;
+    if(this.hydratation > 100)
+      this.hydratation = 100;
     
     return true;
   }
 
   void dehydrateTree(int nbDrop){
-    if(this._hydratation <= 0)
+    if(this.hydratation <= 0)
       return;
     
-    this._hydratation  -= nbDrop;
-    if(this._hydratation < 0)
-      this._hydratation = 0;
+    this.hydratation  -= nbDrop;
+    if(this.hydratation < 0)
+      this.hydratation = 0;
   }
 
-
   bool nurishTree(int _nutrition){
-    if (this._nutrition >= 100)
+    if (this.nutrition >= 100)
       return false;
     
-    this._nutrition  += _nutrition;
-    if(this._nutrition > 100)
-      this._nutrition = 100;
+    this.nutrition  += _nutrition;
+    if(this.nutrition > 100)
+      this.nutrition = 100;
     
     return true;
   }
 
   void denurishTree(int _nutrition){
-    if(this._nutrition <= 0)
+    if(this.nutrition <= 0)
       return;
     
-    this._nutrition  -= _nutrition;
-    if(this._nutrition < 0)
-      this._nutrition = 0;
+    this.nutrition  -= _nutrition;
+    if(this.nutrition < 0)
+      this.nutrition = 0;
   }
 
 

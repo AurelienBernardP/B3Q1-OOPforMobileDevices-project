@@ -23,6 +23,11 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
     return Scaffold(
       appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
       body: Container(
+        decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/mainmenu.png"), 
+                  fit: BoxFit.cover,),
+                ),
         child: ListView(
           children: <Widget>[
             ListTile(
