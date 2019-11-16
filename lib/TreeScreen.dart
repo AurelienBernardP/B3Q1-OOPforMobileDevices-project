@@ -1,31 +1,31 @@
+import 'package:first/Item.dart';
+
 import 'Health.dart';
 
 import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
 import 'ItemList.dart';
+import 'Zone.dart';
 
-class TreeScreen extends StatelessWidget {
 
-  @override
-  Widget build(BuildContext context) {
-    Widget screen = MaterialApp(
-      title: "screen",
-      theme: ThemeData.light(),
-      home: _TreeScreenBody(),
-    );
-    return screen;
+
+class TreeScreen extends StatefulWidget{
+  TreeBackEnd treeInfo;
+
+  TreeScreen({Zone location, Item treeTypeString, String name} ){
+    treeInfo = TreeBackEnd();
   }
-}
-
-class _TreeScreenBody extends StatefulWidget{
   @override
-  __TreeScreenBodyState createState() => __TreeScreenBodyState();
+  TreeScreenBodyState createState() => TreeScreenBodyState(treeInfo);
 }
 
-class __TreeScreenBodyState extends State<_TreeScreenBody> {
+class TreeScreenBodyState extends State<TreeScreen> {
+  TreeBackEnd treeInfo;
 
-  TreeBackEnd treeInfo = TreeBackEnd();
+  TreeScreenBodyState(TreeBackEnd info){
+    treeInfo = info;
+  }
   Widget build(BuildContext context) {
     AppBar bar = AdTreesAppTopBar("tree name!", context).getBar();
     return Scaffold(
@@ -177,15 +177,28 @@ class __TreeScreenBodyState extends State<_TreeScreenBody> {
 class TreeBackEnd{
   Health treeHealth;
   Widget image;
+  Zone plantedZone;
   DateTime lastTimeShaken;
+  String name;
+  Item planetdTree;
 
-  TreeBackEnd(){
+
+  TreeBackEnd({Zone zone, Item tree,String name}){
+    image = Text("tree");
     treeHealth = Health();
-    image = Text("tree image");
     lastTimeShaken = DateTime.now();
-    print(lastTimeShaken.toString());
+    if(zone != null){
+      plantedZone = zone;
+    }
+    if(tree != null){
+      planetdTree = tree;
+    }
+    if(name != null){
+      this.name = name;
+    }
   }
 
+  
   void shake(){
     print(DateTime.now().toString());
     print(lastTimeShaken.add(Duration(minutes: 1)).toString());
