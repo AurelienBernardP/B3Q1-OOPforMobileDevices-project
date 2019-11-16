@@ -20,12 +20,12 @@ class AdTreesAppTopBar {
         );
       },
     );
-    Widget shopButton = IconButton(
-      icon: Icon(Icons.add_shopping_cart),
+    Widget inventoryButton = IconButton(
+      icon: Icon(Icons.work),
       onPressed: () {
         Route route = MaterialPageRoute(builder: (context) => ItemList());
         if(!route.isCurrent){
-        ItemList.makeShop();
+        ItemList.makeInventory();
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => ItemList()),
@@ -40,7 +40,7 @@ Widget backButton = IconButton(
       title: Text(text),
       backgroundColor: Colors.green,
       leading: Navigator.canPop(context) ? backButton : null,
-      actions: <Widget>[shopButton, inventoryButton, settingsButton],
+      actions: <Widget>[inventoryButton, settingsButton],
     );
     this.bar = bar;
   }
