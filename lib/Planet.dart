@@ -128,15 +128,24 @@ class _PlanetState extends State<Planet>{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                    FlatButton.icon(
-                      color: Colors.red,
-                      label: Text('Unlock for x'), 
-                      icon: Icon(Icons.lock_open),
-                      onPressed: () { _unlockZone();
-                      },
-                    ),
-               PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
-                
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      FlatButton(
+                        color: Colors.red,
+                        onPressed: () { _unlockZone();},
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Icon(Icons.photo_album),
+                            Text('Unlock for x'),
+                            Icon(Icons.strikethrough_s),
+                            ],
+                          ),
+                      ),
+                    ],
+                  ),
+                    PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
               ],
             ),
           );
@@ -152,18 +161,65 @@ class _PlanetState extends State<Planet>{
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
-                
-                FlatButton.icon(
-                  color: Colors.blue,
-                  label: Text(''), 
-                  icon: Icon(Icons.photo_album),
-                  onPressed: () { _plant();
-                  },
+                //faire container un à gauche et un à adroite
+                Container(
+                  alignment: Alignment.topLeft,
+                  child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                ),
+                Container(
+                  alignment: Alignment.topRight,
+                  child: Column(
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            FlatButton(
+                              color: Colors.blue,
+                              onPressed: () { _plant();},
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.photo_album),
+                                ],
+                              )
+                            ),
+                            FlatButton(
+                              color: Colors.blue,
+                              onPressed: () { _plant();},
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.photo_album),
+                                ],
+                              )
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: <Widget>[
+                            FlatButton(
+                              color: Colors.blue,
+                              onPressed: () { _plant();},
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.photo_album),
+                                ],
+                              )
+                            ),
+                            FlatButton(
+                              color: Colors.blue,
+                              onPressed: () { _plant();},
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(Icons.photo_album),
+                                ],
+                              )
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                 ),
               ],
-            ),
-          );
+              ),
+            );
   }
   Widget _buildTreeDescription(){
     return 

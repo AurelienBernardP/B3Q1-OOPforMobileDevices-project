@@ -19,7 +19,6 @@ class CharacteristicDisplay {
 
     return Container(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
              _soilQualityDetails(width, height),
             _vulnerabilityDetails(width, height),
