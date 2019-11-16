@@ -107,7 +107,7 @@ class Cactus extends Item {
     _price = 10;
     _quantity = 0;
     _description = "Rough on the outside but soft on the inside... don't you love me?";
-    _name = "Plant";
+    _name = "Cactus";
     _icon = "assets/images/cactus.png";
   }
 
@@ -133,7 +133,7 @@ class ForestTree extends Item {
     _price = 10;
     _quantity = 0;
     _description = "I might look normal spoiled but I'll give you all I have";
-    _name = "Plant";
+    _name = "Tree";
     _icon = "assets/images/tree.png";
   }
 
@@ -158,7 +158,7 @@ class MiniPlant extends Item {
   MiniPlant._internal() {
     _price = 10;
     _quantity = 0;
-    _name = "Plant";
+    _name = "Mini Plant";
     _description = "Don't you need some green on your way?";
     _icon = "assets/images/18.png";
   }
