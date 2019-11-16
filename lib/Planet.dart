@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Characteristics/AllCharacteristics.dart';
 import 'Zone.dart';
+import 'Item.dart';
 import 'Characteristic.dart';
 
 
@@ -40,9 +41,9 @@ class _PlanetState extends State<Planet>{
     });
   }
 
-  void _plant(){
+  void _plantTree(int x, int y){
     setState(() {
-      PlanetBackEnd.getInstance().plant(_tappedZoneX, _tappedZoneY);
+      PlanetBackEnd.getInstance().plant(_tappedZoneX, _tappedZoneY, x, y);
     });
   }
 
@@ -168,59 +169,63 @@ class _PlanetState extends State<Planet>{
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: //Text("tg"),
+                    _buildTreeGrid(),
                 ),
               ],
               ),
             );
   }
+
+  Widget _buildTreeGrid(){
+    int gridStateLength = PlanetBackEnd.getInstance().getTreeGrid().length;
+    double width = MediaQuery.of(context).size.width;
+    return Column(
+      children: <Widget>[
+      FittedBox(
+  fit: BoxFit.cover,
+  child: SizedBox(
+    width: width/3,
+        height: width/3,
+        child: Container(
+        child: GridView.builder(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: 1.0,
+              mainAxisSpacing: 4.0,
+              crossAxisSpacing: 4.0,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+    int gridStateLength = PlanetBackEnd.getInstance().getTreeGrid().length;
+    int x, y = 0;
+    x = (index / gridStateLength).floor();
+    y = (index % gridStateLength);
+    return GestureDetector(
+      onTap: (){
+        _plantTree(x, y);
+        }, 
+       child: _buildImage(x, y),
+    );
+  }
+            ,
+            itemCount: gridStateLength * gridStateLength,
+          ),
+        ),
+      ),
+      ),
+      ],
+    );
+  }
+
+  Widget _buildImage(int x, int y){
+    return Image.asset(
+                   PlanetBackEnd.getInstance().getTreeGrid()[x][y].get_icon(),
+                  //width: 10,
+                  //height: 10,
+                  fit: BoxFit.fill,
+                );
+  }
+  
   Widget _buildTreeDescription(){
     return 
       Container(
@@ -255,6 +260,7 @@ class _PlanetState extends State<Planet>{
 class PlanetBackEnd{  
   static PlanetBackEnd _instance;
   List<List<Zone>> gridState;
+  List<List<Item>> gridTree;
   int _unlockedZones;
 
   PlanetBackEnd._internal() {
@@ -270,7 +276,10 @@ class PlanetBackEnd{
   [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
   [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
   ];
-
+gridTree = [
+  [Cactus.getInstance(), PineTree.getInstance()], 
+  [ForestTree.getInstance(), MiniPlant.getInstance(),],
+  ];
   _unlockedZones = 0;
   }
   static PlanetBackEnd getInstance() {
@@ -284,6 +293,10 @@ class PlanetBackEnd{
     return gridState;
   }
 
+  List<List<Item>> getTreeGrid(){
+    return gridTree;
+  }
+
   Zone getZone(int x, int y){
     return gridState[x][y];
   }
@@ -292,7 +305,8 @@ class PlanetBackEnd{
     gridState[x][y].unlock(); 
   }
 
-  void plant(int x, int y){
-    gridState[x][y].viewTree();
+  void plant(int mapX, int mapY, int x, int y){
+    gridState[mapX][mapY].plantTree(gridTree[x][y]);
+    //viewTree();
   }
 }

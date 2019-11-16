@@ -106,7 +106,7 @@ class Cactus extends Item {
   Cactus._internal() {
     _price = 10;
     _quantity = 0;
-    _description = "Rough on the inside but soft on the inside... don't you love me?";
+    _description = "Rough on the outside but soft on the inside... don't you love me?";
     _name = "Plant";
     _icon = "assets/images/cactus.png";
   }
