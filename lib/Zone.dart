@@ -2,18 +2,20 @@ import 'Characteristic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'TreeScreen.dart';
+import 'Item.dart';
 
 class Zone{
 
   Characteristic type;
-  TreeScreen plantedTree;
+  TreeScreen plantedTreeScreen;
+  Item plantedTree;
   bool locked = true;
 
   Zone(Characteristic type){
     this.type = type;
   }
 
-  bool is_locked(){
+  bool isLocked(){
     return locked;
   }
 
@@ -21,30 +23,34 @@ class Zone{
     locked = false;
   }
 
-  bool is_planted(){
+  bool isPlanted(){
     if (plantedTree != null)
       return true;
     return false;
   }
 
-  void plantTree(){
+  void viewTree(){
     if(!locked)
-      plantedTree = TreeScreen();
+      plantedTreeScreen = TreeScreen();
   }
 
-  /*void remove_tree(){
+  void plantTree(Item tree){
+    plantedTree = tree;
+  }
+
+  void removeTree(){
     plantedTree = null;
-  }*/
+  }
 
   Widget buildZone(BuildContext context){
     return this.type.buildCharacteristic(context);
   }
 
-  Widget getTree(){
-    return plantedTree;
+  Widget getTreeScreen(){
+    return plantedTreeScreen;
   }
   
-  String get_zone_type(){
+  String getZoneType(){
     return this.type.getName();
   }
   
