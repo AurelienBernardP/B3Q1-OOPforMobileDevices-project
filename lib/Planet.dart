@@ -1,7 +1,7 @@
 import 'package:first/TreeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'Characteristics/AllCharacteristics.dart';
+import 'Characteristics/allCharacteristics.dart';
 import 'Zone.dart';
 import 'Wallet.dart';
 import 'Item.dart';

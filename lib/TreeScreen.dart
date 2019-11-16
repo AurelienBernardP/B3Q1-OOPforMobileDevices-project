@@ -8,13 +8,12 @@ import 'Wallet.dart';
 import 'ItemList.dart';
 import 'Zone.dart';
 
-
-
-class TreeScreen extends StatefulWidget{
+class TreeScreen extends StatefulWidget {
   TreeBackEnd treeInfo;
 
-  TreeScreen({Zone location, Item treeType, String name} ){
-    treeInfo = TreeBackEnd();
+  TreeScreen({Zone location, Item treeType, String name}) {
+    treeInfo = TreeBackEnd(
+        zone: location, tree: treeType, name: name != null ? name : null);
   }
   @override
   TreeScreenBodyState createState() => TreeScreenBodyState(treeInfo);
@@ -23,11 +22,11 @@ class TreeScreen extends StatefulWidget{
 class TreeScreenBodyState extends State<TreeScreen> {
   TreeBackEnd treeInfo;
 
-  TreeScreenBodyState(TreeBackEnd info){
+  TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
   Widget build(BuildContext context) {
-    AppBar bar = AdTreesAppTopBar("tree name!", context).getBar();
+    AppBar bar = AdTreesAppTopBar(treeInfo.name, context).getBar();
     return Scaffold(
       appBar: bar,
       body: Container(
@@ -44,6 +43,10 @@ class TreeScreenBodyState extends State<TreeScreen> {
             ),
             Expanded(
               flex: 1,
+              child: _buildActionButtons(),
+            ),
+            Expanded(
+              flex: 1,
               child: Container(
                 child: GestureDetector(
                   onTap: () {
@@ -52,7 +55,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                       builder: (context) => treeInfo.getHealth(),
                       barrierDismissible: false,
                     );
-                    
                   },
                   child: Container(
                     child: treeInfo.getHealth().buildGeneralHealth(context),
@@ -73,26 +75,18 @@ class TreeScreenBodyState extends State<TreeScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () {
-                setState(() {
-                  Wallet().addCoins(5);
-                });
-              },
-              child: Container(
-                child: Icon(Icons.attach_money),
-                decoration: BoxDecoration(color: Colors.amberAccent),
-              ),
-            ),
-          ),
-          Expanded(
             flex: 4,
-              child: Container(
-                child: Text("available coins : " + Wallet().getCoins().toString()),
-                decoration: BoxDecoration(color: Colors.amber),
+            child:  Container(decoration: BoxDecoration(color: Colors.amber),
+                child:Container(margin:new EdgeInsets.symmetric(horizontal: 50.0),
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                      child:Text(
+                        "You have " + Wallet().getCoins().toString() +" coins",
+                      ),
+                    ),
+                
               ),
-          ),
+          ),),
         ],
       ),
     );
@@ -103,13 +97,13 @@ class TreeScreenBodyState extends State<TreeScreen> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Expanded(flex: 1, child: _buildActionButtons()),
           Expanded(
-            flex: 4,
+            flex: 1,
             child: GestureDetector(
-              onTap: () { setState(() {
-                treeInfo.shake();
-              });
+              onTap: () {
+                setState(() {
+                  treeInfo.shake();
+                });
                 print("tree section");
               },
               child: Container(
@@ -125,29 +119,17 @@ class TreeScreenBodyState extends State<TreeScreen> {
 
   Widget _buildActionButtons() {
     return Container(
-      child: Column(
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                print("water plant");
-              },
-              child: Container(
-                child: Text("water"),
-                decoration: BoxDecoration(color: Colors.blue),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () {
                 Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ItemList()),
-              );
+                  context,
+                  MaterialPageRoute(builder: (context) => ItemList()),
+                );
                 print("store");
               },
               child: Container(
@@ -168,13 +150,43 @@ class TreeScreenBodyState extends State<TreeScreen> {
               ),
             ),
           ),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                print("water plant");
+              },
+              child: Container(
+                child: Text("water"),
+                decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage('assets/images/water.png'), 
+                  fit: BoxFit.fill,),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                setState(() {
+                  Wallet().addCoins(5);
+                });
+              },
+              child: Container(
+                child: Icon(Icons.attach_money),
+                decoration: BoxDecoration(color: Colors.amberAccent),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-class TreeBackEnd{
+class TreeBackEnd {
   Health treeHealth;
   Widget image;
   Zone plantedZone;
@@ -182,39 +194,41 @@ class TreeBackEnd{
   String name;
   Item planetdTree;
 
-
-  TreeBackEnd({Zone zone, Item tree,String name}){
-    image = Text("tree");
+  TreeBackEnd({Zone zone, Item tree, String name}) {
+    image = Container(decoration : BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage(tree.getIcon()), 
+                  fit: BoxFit.cover,),
+                ),);
     treeHealth = Health();
     lastTimeShaken = DateTime.now();
-    if(zone != null){
+    if (zone != null) {
       plantedZone = zone;
     }
-    if(tree != null){
+    if (tree != null) {
       planetdTree = tree;
     }
-    if(name != null){
+    if (name != null) {
       this.name = name;
+    } else {
+      this.name = "Grooot";
     }
   }
 
-  
-  void shake(){
+  void shake() {
     print(DateTime.now().toString());
     print(lastTimeShaken.add(Duration(minutes: 1)).toString());
-    if(DateTime.now().isAfter(lastTimeShaken.add(Duration(minutes: 1)))){
+    if (DateTime.now().isAfter(lastTimeShaken.add(Duration(minutes: 1)))) {
       lastTimeShaken = DateTime.now();
       Wallet().addCoins(7);
     }
   }
 
-  Widget getImage(){
+  Widget getImage() {
     return image;
   }
 
-  Health getHealth(){
+  Health getHealth() {
     return treeHealth;
   }
-
-
 }

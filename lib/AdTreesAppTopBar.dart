@@ -1,4 +1,4 @@
-import 'package:first/ItemList.dart';
+
 import 'package:flutter/material.dart';
 import 'Guide.dart';
 
@@ -19,19 +19,6 @@ class AdTreesAppTopBar {
       },
     );
 
-    Widget inventoryButton = IconButton(
-      icon: Icon(Icons.work),
-      onPressed: () {
-        Route route = MaterialPageRoute(builder: (context) => ItemList());
-        if(!route.isCurrent){
-        ItemList.makeInventory();
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => ItemList()),
-        );}
-      },
-    );
-
     Widget backButton = IconButton(
         icon: Icon(Icons.arrow_back),
         onPressed: () => Navigator.pop(context),
@@ -40,7 +27,7 @@ class AdTreesAppTopBar {
       title: Text(text),
       backgroundColor: Colors.green,
       leading: Navigator.canPop(context) ? backButton : null,
-      actions: <Widget>[inventoryButton, settingsButton],
+      actions: <Widget>[ settingsButton],
     );
     this.bar = bar;
   }
