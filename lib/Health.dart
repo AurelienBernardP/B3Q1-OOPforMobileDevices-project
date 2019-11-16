@@ -18,23 +18,30 @@ class Health extends StatelessWidget{
   }
 
 
-  bool hydrateTree(int nbDrop){
+  bool hydrateTree(double nbDrop){
     return this._healthInfo.hydrateTree(nbDrop);
   }
 
-  void dehydrateTree(int nbDrop){
+  void dehydrateTree(double nbDrop){
     this._healthInfo.dehydrateTree(nbDrop);
   }
 
-  bool nurishTree(int nutrition){
+  bool nurishTree(double nutrition){
     return this._healthInfo.nurishTree(nutrition);
   }
 
-  void denurishTree(int nutrition){
+  void denurishTree(double nutrition){
     this._healthInfo.denurishTree(nutrition);
   }
 
-  //Can use MainAxisAlignment strecht pour étendre
+  bool repairTree(double reparation){
+    return this._healthInfo.repairTree(reparation);
+  }
+
+  void damageTree(double damage){
+    this._healthInfo.damageTree(damage);
+  }
+
   Widget buildAllHealth(BuildContext context){
       //Size
       Size size = MediaQuery.of(context).size;
@@ -271,29 +278,29 @@ class HealthBackEnd {
   double nutritionMax = 1000;
   double damageMax = 100;
 
-  int hydratation;
-  int nutrition;
-  int damage;
+  double hydratation;
+  double nutrition;
+  double damage;
 
   HealthBackEnd(){
     this.hydratation = 100;
     this.nutrition = 1000;
-    this.damage = 100;
+    this.damage = 0;
   }
 
 
-  bool hydrateTree(int nbDrop){
-    if (this.hydratation >= 100)
+  bool hydrateTree(double nbDrop){
+    if (this.hydratation >= hydratationMax)
       return false;
     
     this.hydratation  += nbDrop;
-    if(this.hydratation > 100)
-      this.hydratation = 100;
+    if(this.hydratation > hydratationMax)
+      this.hydratation = hydratationMax;
     
     return true;
   }
 
-  void dehydrateTree(int nbDrop){
+  void dehydrateTree(double nbDrop){
     if(this.hydratation <= 0)
       return;
     
@@ -302,26 +309,45 @@ class HealthBackEnd {
       this.hydratation = 0;
   }
 
-  bool nurishTree(int _nutrition){
-    if (this.nutrition >= 100)
+  bool nurishTree(double nutrition){
+    if (this.nutrition >= nutritionMax)
       return false;
     
-    this.nutrition  += _nutrition;
-    if(this.nutrition > 100)
-      this.nutrition = 100;
+    this.nutrition  += nutrition;
+    if(this.nutrition > nutritionMax)
+      this.nutrition = nutritionMax;
     
     return true;
   }
 
-  void denurishTree(int _nutrition){
+  void denurishTree(double nutrition){
     if(this.nutrition <= 0)
       return;
     
-    this.nutrition  -= _nutrition;
+    this.nutrition  -= nutrition;
     if(this.nutrition < 0)
       this.nutrition = 0;
   }
 
+  void damageTree(double damage){
+      if (this.damage >= damageMax)
+        return;
+      
+      this.damage  += damage;
+      if(this.damage > damageMax)
+        this.damage = 100;
+    }
+
+  bool repairTree(double repair){
+      if (this.damage <= 0)
+        return false;
+      
+      this.damage  -= repair;
+      if(this.damage < 0)
+        this.damage = 0;
+      
+      return true;
+    }
 
 
 
