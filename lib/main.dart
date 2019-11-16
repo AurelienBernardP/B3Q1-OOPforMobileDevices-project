@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
+import 'Guide.dart';
 
 import 'package:admob_flutter/admob_flutter.dart';
 void main() { 
@@ -76,7 +77,10 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               leading: Icon(Icons.view_list),
               title: Text('go planted trees list'),
               onTap: () {
-                print("tree list");
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Guide()),
+                );
               },
             ),
             ListTile(
