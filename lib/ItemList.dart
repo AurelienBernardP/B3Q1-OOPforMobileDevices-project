@@ -120,8 +120,12 @@ class _ItemListState extends State<ItemList>{
             image: new AssetImage("assets/images/window.png"), 
             fit: BoxFit.fill,),
           ),
-          child: Center(
+          child: Container(
+            margin: new EdgeInsets.all(10.0),
+            child: Center(
+            
             child: _buildImage(x, y),
+          ),
           ),
         ),
       ),
@@ -131,8 +135,8 @@ class _ItemListState extends State<ItemList>{
   Widget _buildImage(int x, int y){
     return Image.asset(
                   gridState[x][y].get_icon(),
-                  width: 150,
-                  height: 150,
+                  //width: 150,
+                  //height: 150,
                   fit: BoxFit.fill,
                 );
   }
@@ -171,7 +175,7 @@ class _ItemListState extends State<ItemList>{
             image: new AssetImage("assets/images/table.png"), 
             fit: BoxFit.cover,),*/
           //),
-          color: Colors.white,
+          color: Colors.black,
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -194,6 +198,8 @@ class _ItemListState extends State<ItemList>{
     if(_tappedItemX >= 0 && _tappedItemY >= 0)
         return
         Container(
+          color: Colors.black,
+        child: Container(
             constraints: BoxConstraints.expand(), 
             decoration: BoxDecoration(
               image: new DecorationImage(
@@ -209,6 +215,7 @@ class _ItemListState extends State<ItemList>{
                 _addButton(),
               ],
             ),
+        ),
           );
     return Text("Tap on a grid to view more details!");
   }
