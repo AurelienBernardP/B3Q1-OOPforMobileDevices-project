@@ -30,11 +30,12 @@ int pageNumber = 0;
 
   _buildGuide(){
     double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return
       Container(
         color: Colors.black,
       child: Container(
-        width: MediaQuery.of(context).size.width,
+        width: width,
         height: height,
         
         decoration: BoxDecoration(
@@ -51,7 +52,9 @@ int pageNumber = 0;
                 _addTitle(),
                 //_addDetails(_tappedItemX, _tappedItemY),
                 //_addText(),
-                _addButton(),
+                Container(
+                  alignment: Alignment.bottomRight,
+                child: _addButton(height, width),)
               ],
             ),
       ),
@@ -70,30 +73,21 @@ int pageNumber = 0;
       );
   }
 
-  Widget _addButton(){
-      return Row(
-        children: <Widget>[ 
-          Container(
-        alignment: Alignment.bottomRight,
-        //width: 100,
-        //height: 100,
-        decoration: BoxDecoration(
-          image: new DecorationImage(
-            image: new AssetImage("assets/images/left.png"), 
-              //fit: BoxFit.cover,
-              fit: BoxFit.fill,
-          ),
-        ),
-        child: FlatButton.icon(
-        label: Text('Buy item'), 
-        icon: Icon(Icons.lock_open),
-        onPressed: () { _nextPage();
-        },
-        ),
-        ),
-        ],
-        
-      );
+  Widget _addButton(double height, double width){
+
+      return GestureDetector(
+              onTap: (){_nextPage();},
+              child:Container(
+                margin: new EdgeInsets.all(20.0),
+                width: height/10,
+                height: height/10,
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/left.png"), 
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),);
   }
 
   _getTitle(){
