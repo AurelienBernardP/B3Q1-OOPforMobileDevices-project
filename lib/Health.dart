@@ -31,7 +31,7 @@ class Health extends StatelessWidget{
   }
 
   void denurishTree(int nutrition){
-    this._healthInfo.denurishTree(nutrition)
+    this._healthInfo.denurishTree(nutrition);
   }
 
   //Can use MainAxisAlignment strecht pour étendre
