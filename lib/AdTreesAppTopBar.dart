@@ -38,7 +38,7 @@ class SettingsScreen extends StatelessWidget {
         body: Container(
           child: Container(
             child: AdmobBanner(
-                adUnitId: 'ca-app-pub-2595919938993719/753788650',
+                adUnitId: 'ca-app-pub-3940256099942544/6300978111',
                 adSize: AdmobBannerSize.LARGE_BANNER,
                 listener: (AdmobAdEvent event, Map<String, dynamic> args) {
                   switch (event) {
