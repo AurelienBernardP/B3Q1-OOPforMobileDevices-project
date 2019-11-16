@@ -118,6 +118,9 @@ class _PlanetState extends State<Planet>{
 
 
   Widget _buildZoneDescriptionNotPlanted(int x, int y){
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).isLocked())
       return
           Container(
@@ -126,10 +129,26 @@ class _PlanetState extends State<Planet>{
                 image: new AssetImage("assets/images/locked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getZoneType()+"Locked.png"), 
                   fit: BoxFit.cover,),
                 ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                  Row(
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    width: width/2.2,
+                    height: height/5,
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"), 
+                          fit: BoxFit.fill,),
+                        ),
+                    child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child:Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       FlatButton(
@@ -146,7 +165,8 @@ class _PlanetState extends State<Planet>{
                       ),
                     ],
                   ),
-                    PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                ),
+                
               ],
             ),
           );
@@ -160,18 +180,36 @@ class _PlanetState extends State<Planet>{
                   fit: BoxFit.cover,),
                 ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                //faire container un à gauche et un à adroite
                 Container(
-                  alignment: Alignment.topLeft,
-                  child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    width: width/2.2,
+                    height: height/5,
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"), 
+                          fit: BoxFit.fill,),
+                        ),
+                    child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                  ),
                 ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: //Text("tg"),
-                    _buildTreeGrid(),
-                ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text("Plant a tree:",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),),
+                      _buildTreeGrid(),
+                  ],),
+                  SizedBox(width:10)
+                  
               ],
               ),
             );
@@ -189,6 +227,7 @@ class _PlanetState extends State<Planet>{
         height: width/3,
         child: Container(
         child: GridView.builder(
+
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 1.0,
@@ -218,15 +257,23 @@ class _PlanetState extends State<Planet>{
   }
 
   Widget _buildImage(int x, int y){
-    return Image.asset(
+    return 
+    Container(
+    decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 2.0)
+          ),
+    child: Image.asset(
                    PlanetBackEnd.getInstance().getTreeGrid()[x][y].get_icon(),
                   //width: 10,
                   //height: 10,
                   fit: BoxFit.fill,
-                );
+                ));
   }
   
   Widget _buildTreeDescription(){
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return 
       Container(
       decoration: BoxDecoration(
@@ -234,10 +281,25 @@ class _PlanetState extends State<Planet>{
               image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getZoneType()+"Unlocked.png"), 
                 fit: BoxFit.cover,),
               ),
-      child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[ 
- FlatButton.icon(
+      child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    width: width/2.2,
+                    height: height/5,
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"), 
+                          fit: BoxFit.fill,),
+                        ),
+                    child: PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).buildZone(context),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(25),
+                  child: FlatButton.icon(
           color: Colors.green,
           label: Text('See tree?'), 
           icon: Icon(Icons.remove_red_eye),
@@ -247,9 +309,8 @@ class _PlanetState extends State<Planet>{
                 );
           },
         ),
-      Container(
-                  child: PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).buildZone(context),
-                ),
+                )
+ 
       ]
       )
       );
