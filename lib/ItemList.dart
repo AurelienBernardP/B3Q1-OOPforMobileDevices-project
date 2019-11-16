@@ -118,7 +118,7 @@ class _ItemListState extends State<ItemList>{
           decoration: BoxDecoration(
             image: new DecorationImage(
             image: new AssetImage("assets/images/window.png"), 
-            fit: BoxFit.cover,),
+            fit: BoxFit.fill,),
           ),
           child: Center(
             child: _buildImage(x, y),
@@ -133,7 +133,7 @@ class _ItemListState extends State<ItemList>{
                   gridState[x][y].get_icon(),
                   width: 150,
                   height: 150,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 );
   }
   
@@ -198,7 +198,7 @@ class _ItemListState extends State<ItemList>{
             decoration: BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage("assets/images/table.png"), 
-                  fit: BoxFit.cover,),
+                  fit: BoxFit.fill,),
                 ),
             child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
@@ -218,7 +218,7 @@ class _ItemListState extends State<ItemList>{
             decoration: BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage("assets/images/title.png"), 
-                  fit: BoxFit.cover,),
+                  fit: BoxFit.fill,),
                 ),
             child: Text(gridState[_tappedItemX][_tappedItemY].get_name(),
                       style: TextStyle(
