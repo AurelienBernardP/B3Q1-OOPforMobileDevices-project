@@ -13,7 +13,7 @@ import 'Zone.dart';
 class TreeScreen extends StatefulWidget{
   TreeBackEnd treeInfo;
 
-  TreeScreen({Zone location, Item treeTypeString, String name} ){
+  TreeScreen({Zone location, Item treeType, String name} ){
     treeInfo = TreeBackEnd();
   }
   @override
