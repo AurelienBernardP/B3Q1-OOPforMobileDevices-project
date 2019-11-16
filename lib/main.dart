@@ -17,7 +17,7 @@ void main() {
 
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
-    return MaterialApp(title: "AdTrees", home: TreeScreen());
+    return MaterialApp(title: "AdTrees", home: _AdTreesAppBody());
   }
 }
 
