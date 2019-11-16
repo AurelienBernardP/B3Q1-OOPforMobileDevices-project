@@ -13,8 +13,8 @@ import 'Zone.dart';
 class TreeScreen extends StatefulWidget{
   TreeBackEnd treeInfo;
 
-  TreeScreen({Zone location, Item treeTypeString, String name} ){
-    treeInfo = TreeBackEnd();
+  TreeScreen({Zone location, Item treeType, String name} ){
+    treeInfo = TreeBackEnd(zone: location, tree: treeType,name: name != null? name :null);
   }
   @override
   TreeScreenBodyState createState() => TreeScreenBodyState(treeInfo);
@@ -27,7 +27,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
     treeInfo = info;
   }
   Widget build(BuildContext context) {
-    AppBar bar = AdTreesAppTopBar("tree name!", context).getBar();
+    AppBar bar = AdTreesAppTopBar(treeInfo.name, context).getBar();
     return Scaffold(
       appBar: bar,
       body: Container(
@@ -51,7 +51,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                       context: context,
                       builder: (context) => treeInfo.getHealth(),
                       barrierDismissible: false,
-                    )
+                    );
                     
                   },
                   child: Container(
@@ -195,6 +195,8 @@ class TreeBackEnd{
     }
     if(name != null){
       this.name = name;
+    }else{
+      this.name = "Grooot";
     }
   }
 
