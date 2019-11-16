@@ -13,24 +13,24 @@ abstract class Item {
   void useItem(Object object);
 
 
-  String get_icon() {
+  String getIcon() {
     return _icon;
   }
 
-  String get_name() {
+  String getName() {
     return _name;
   }
 
-  String get_description() {
+  String getDescription() {
     return _description;
   }
 
-  String get_price() {
+  String getPrice() {
     return _price.toString();
   }
 
-  String get_quantity() {
-    return _quantity.toString();
+  int getQuantity() {
+    return _quantity;
   }
 
   void buyItem() {

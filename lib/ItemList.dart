@@ -134,7 +134,7 @@ class _ItemListState extends State<ItemList>{
 
   Widget _buildImage(int x, int y){
     return Image.asset(
-                  gridState[x][y].get_icon(),
+                  gridState[x][y].getIcon(),
                   //width: 150,
                   //height: 150,
                   fit: BoxFit.fill,
@@ -147,7 +147,7 @@ class _ItemListState extends State<ItemList>{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      "Price:" + gridState[x][y].get_price(),
+                      "Price:" + gridState[x][y].getPrice(),
                       maxLines: 1,
                       softWrap: true,
                       textAlign: TextAlign.center,
@@ -156,7 +156,7 @@ class _ItemListState extends State<ItemList>{
                   ]
                 );
     return Text(
-                      "Quantity:" +gridState[x][y].get_quantity(),
+                      "Quantity:" +gridState[x][y].getQuantity().toString(),
                       maxLines: 1,
                       softWrap: true,
                       textAlign: TextAlign.center,
@@ -227,7 +227,7 @@ class _ItemListState extends State<ItemList>{
                 image: new AssetImage("assets/images/title.png"), 
                   fit: BoxFit.fill,),
                 ),
-            child: Text(gridState[_tappedItemX][_tappedItemY].get_name(),
+            child: Text(gridState[_tappedItemX][_tappedItemY].getName(),
                       style: TextStyle(
                 fontSize: 40.0, 
               ),
@@ -236,7 +236,7 @@ class _ItemListState extends State<ItemList>{
   }
 
   Widget _addText(){
-    return  Text(gridState[_tappedItemX][_tappedItemY].get_description(),
+    return  Text(gridState[_tappedItemX][_tappedItemY].getDescription(),
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 24.0, 

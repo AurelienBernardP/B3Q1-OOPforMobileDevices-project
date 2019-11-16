@@ -1,9 +1,11 @@
 import 'package:first/TreeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'Characteristics/AllCharacteristics.dart';
+import 'Characteristics/allCharacteristics.dart';
 import 'Zone.dart';
+import 'Wallet.dart';
 import 'Item.dart';
+import 'ItemList.dart';
 import 'Characteristic.dart';
 
 
@@ -42,9 +44,181 @@ class _PlanetState extends State<Planet>{
     });
   }
 
-  void _plantTree(int x, int y){
+  void _createZonePopup(BuildContext conext){
+    if (Wallet().isSufficient(PlanetBackEnd.getInstance().getPrice()))
+      _unlockZonePopup(context);
+    else
+      _zonePricePopup(context);
+  }
+
+  void _unlockZonePopup(BuildContext context){
+    var alertDialog = AlertDialog(
+      title: Text("Unlock Zone?"),
+      content: Row( 
+                  children: <Widget>[
+                    Text(
+                      "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Unlock'),
+            onPressed: () {
+              _unlockZone();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+  void _zonePricePopup(BuildContext context){
+    var alertDialog = AlertDialog(
+      title: Text("Nid moneyz bitch"),
+      content: Row(
+                  children: <Widget>[
+                    Text(
+                      "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Ok im sorry'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+    void _createPlantPopup(BuildContext conext, Item tree){
+    if(tree.getQuantity() > 0)
+      _plantTreePopup(context, tree);
+    else
+      _shopPopup(context, tree);
+  }
+
+  void _plantTreePopup(BuildContext context, Item tree){
+    var alertDialog = AlertDialog(
+      title: Text("Plant a" + tree.getName() + "?"),
+      content: Text("Current quantity:" + tree.getQuantity().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Plant'),
+            onPressed: () {
+              _plantTree(tree);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+  void _shopPopup(BuildContext context, Item tree){
+    var alertDialog = AlertDialog(
+      title: Text("You've ran out of" + tree.getName()),
+      content: Row(
+                  children: <Widget>[
+                    Text(
+                      "Price:" + tree.getPrice(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Go to shop'),
+            onPressed: () {
+              ItemList.makeShop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ItemList()),
+                );
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+  void _plantTree(Item tree){
     setState(() {
-      PlanetBackEnd.getInstance().plant(_tappedZoneX, _tappedZoneY, x, y);
+      PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).plantTree(tree);
     });
   }
 
@@ -119,6 +293,9 @@ class _PlanetState extends State<Planet>{
 
 
   Widget _buildZoneDescriptionNotPlanted(int x, int y){
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).isLocked())
       return
           Container(
@@ -127,27 +304,46 @@ class _PlanetState extends State<Planet>{
                 image: new AssetImage("assets/images/locked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getZoneType()+"Locked.png"), 
                   fit: BoxFit.cover,),
                 ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                  Row(
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    width: width/2.2,
+                    height: height/5,
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"), 
+                          fit: BoxFit.fill,),
+                        ),
+                    child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child:Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       FlatButton(
                         color: Colors.red,
-                        onPressed: () { _unlockZone();},
+                        onPressed: () {
+                          _createZonePopup(context);
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(Icons.photo_album),
-                            Text('Unlock for x'),
+                            Text('Unlock'),
                             Icon(Icons.strikethrough_s),
                             ],
                           ),
                       ),
                     ],
                   ),
-                    PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                ),
+                
               ],
             ),
           );
@@ -161,18 +357,36 @@ class _PlanetState extends State<Planet>{
                   fit: BoxFit.cover,),
                 ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                //faire container un à gauche et un à adroite
                 Container(
-                  alignment: Alignment.topLeft,
-                  child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    width: width/2.2,
+                    height: height/5,
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"), 
+                          fit: BoxFit.fill,),
+                        ),
+                    child: PlanetBackEnd.getInstance().getZone(x, y).buildZone(context),
+                  ),
                 ),
-                Container(
-                  alignment: Alignment.topRight,
-                  child: //Text("tg"),
-                    _buildTreeGrid(),
-                ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text("Plant a tree:",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.black,
+                        ),),
+                      _buildTreeGrid(),
+                  ],),
+                  SizedBox(width:10)
+                  
               ],
               ),
             );
@@ -190,6 +404,7 @@ class _PlanetState extends State<Planet>{
         height: width/3,
         child: Container(
         child: GridView.builder(
+
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
               childAspectRatio: 1.0,
@@ -203,7 +418,8 @@ class _PlanetState extends State<Planet>{
     y = (index % gridStateLength);
     return GestureDetector(
       onTap: (){
-        _plantTree(x, y);
+        _createPlantPopup(context, PlanetBackEnd.getInstance().getTreeGrid()[x][y]);
+        //_plantTree(x, y);
         }, 
        child: _buildImage(x, y),
     );
@@ -219,15 +435,23 @@ class _PlanetState extends State<Planet>{
   }
 
   Widget _buildImage(int x, int y){
-    return Image.asset(
-                   PlanetBackEnd.getInstance().getTreeGrid()[x][y].get_icon(),
+    return 
+    Container(
+    decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 2.0)
+          ),
+    child: Image.asset(
+                   PlanetBackEnd.getInstance().getTreeGrid()[x][y].getIcon(),
                   //width: 10,
                   //height: 10,
                   fit: BoxFit.fill,
-                );
+                ));
   }
   
   Widget _buildTreeDescription(){
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
+
     return 
       Container(
       decoration: BoxDecoration(
@@ -235,10 +459,25 @@ class _PlanetState extends State<Planet>{
               image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getZoneType()+"Unlocked.png"), 
                 fit: BoxFit.cover,),
               ),
-      child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[ 
- FlatButton.icon(
+      child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    width: width/2.2,
+                    height: height/5,
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"), 
+                          fit: BoxFit.fill,),
+                        ),
+                    child: PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).buildZone(context),
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(25),
+                  child: FlatButton.icon(
           color: Colors.green,
           label: Text('See tree?'), 
           icon: Icon(Icons.remove_red_eye),
@@ -248,9 +487,8 @@ class _PlanetState extends State<Planet>{
                 );
           },
         ),
-      Container(
-                  child: PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).buildZone(context),
-                ),
+                )
+ 
       ]
       )
       );
@@ -262,7 +500,7 @@ class PlanetBackEnd{
   static PlanetBackEnd _instance;
   List<List<Zone>> gridState;
   List<List<Item>> gridTree;
-  int _unlockedZones;
+  int _zonePrice;
 
   PlanetBackEnd._internal() {
   gridState = [
@@ -281,13 +519,17 @@ gridTree = [
   [Cactus.getInstance(), PineTree.getInstance()], 
   [ForestTree.getInstance(), MiniPlant.getInstance(),],
   ];
-  _unlockedZones = 0;
+  _zonePrice = 1;
   }
   static PlanetBackEnd getInstance() {
     if (_instance == null) {
       _instance = PlanetBackEnd._internal();
     }
     return _instance;
+  }
+
+  int getPrice(){
+    return _zonePrice;
   }
 
   List<List<Zone>> getGrid(){
@@ -303,6 +545,7 @@ gridTree = [
   }
 
   void unlockZone(int x, int y){
+    _zonePrice *= 2;
     gridState[x][y].unlock(); 
   }
 
