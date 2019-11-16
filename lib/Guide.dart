@@ -71,7 +71,9 @@ int pageNumber = 0;
   }
 
   Widget _addButton(){
-      return Container(
+      return Row(
+        children: <Widget>[ 
+          Container(
         alignment: Alignment.bottomRight,
         //width: 100,
         //height: 100,
@@ -88,6 +90,9 @@ int pageNumber = 0;
         onPressed: () { _nextPage();
         },
         ),
+        ),
+        ],
+        
       );
   }
 
