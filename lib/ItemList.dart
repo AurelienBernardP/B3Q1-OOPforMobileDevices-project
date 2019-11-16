@@ -21,7 +21,7 @@ class ItemList extends StatefulWidget{
 class _ItemListState extends State<ItemList>{
   
   var gridState = [
-    [WaterItem.getInstance(), TrapItem.getInstance(), NurishementItem.getInstance(),], 
+    [WaterItem.getInstance(), RepairItem.getInstance(), NurishementItem.getInstance(),], 
     [Cactus.getInstance(), PineTree.getInstance(), ForestTree.getInstance(),], 
     [MiniPlant.getInstance(), MiniPlant.getInstance(), MiniPlant.getInstance(),], 
   ];
@@ -36,11 +36,13 @@ class _ItemListState extends State<ItemList>{
         centerTitle: true,
         title: makeTitle(),
       ),
-      body: Column(
+      body: /*Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
-        children: <Widget>[_displayItems(),]),
+        children: <Widget>[*/
+          _displayItems(),
+          //]),
     ),
     );
   }
@@ -135,13 +137,13 @@ class _ItemListState extends State<ItemList>{
                 );
   }
   
-  Widget _buildDescription(int x, int y){
+  Widget _addDetails(int x, int y){
     if(_is_shop)
      return Row( 
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      gridState[x][y].get_price(),
+                      "Price:" + gridState[x][y].get_price(),
                       maxLines: 1,
                       softWrap: true,
                       textAlign: TextAlign.center,
@@ -150,7 +152,7 @@ class _ItemListState extends State<ItemList>{
                   ]
                 );
     return Text(
-                      gridState[x][y].get_quantity(),
+                      "Quantity:" +gridState[x][y].get_quantity(),
                       maxLines: 1,
                       softWrap: true,
                       textAlign: TextAlign.center,
@@ -164,11 +166,12 @@ class _ItemListState extends State<ItemList>{
       AspectRatio(
         aspectRatio: 1.0,
         child: Container(
-          decoration: BoxDecoration(
-            image: new DecorationImage(
+          //decoration: BoxDecoration(
+            /*image: new DecorationImage(
             image: new AssetImage("assets/images/table.png"), 
-            fit: BoxFit.cover,),
-          ),
+            fit: BoxFit.cover,),*/
+          //),
+          color: Colors.white,
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
@@ -179,8 +182,9 @@ class _ItemListState extends State<ItemList>{
             itemBuilder: _buildCard,
             itemCount: gridStateLength * gridStateLength,
           ),
-      ),),
-       _addDescription(),
+        ),
+      ),
+      Expanded(child: _addDescription()),
       //_addButton(),
       ]
     );
@@ -190,15 +194,18 @@ class _ItemListState extends State<ItemList>{
     if(_tappedItemX >= 0 && _tappedItemY >= 0)
         return
         Container(
+            constraints: BoxConstraints.expand(), 
             decoration: BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage("assets/images/table.png"), 
                   fit: BoxFit.cover,),
                 ),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 _addTitle(),
+                _addDetails(_tappedItemX, _tappedItemY),
+                _addText(),
                 _addButton(),
               ],
             ),
@@ -213,26 +220,46 @@ class _ItemListState extends State<ItemList>{
                 image: new AssetImage("assets/images/title.png"), 
                   fit: BoxFit.cover,),
                 ),
-            child: Text(gridState[_tappedItemX][_tappedItemY].get_name()),
+            child: Text(gridState[_tappedItemX][_tappedItemY].get_name(),
+                      style: TextStyle(
+                fontSize: 40.0, 
+              ),
+            ),
         );
   }
+
+  Widget _addText(){
+    return  Text(gridState[_tappedItemX][_tappedItemY].get_description(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 24.0, 
+              ),
+        );
+  }
+
 
   Widget _addButton(){
     if(_is_shop)
     //if(_unlockedZones < Wallet.available_coins())
-      return FlatButton.icon(
-        color: Colors.red,
+      return Container( 
+        alignment: Alignment.bottomRight,
+        child: FlatButton.icon(
+        //color: Colors.red,
         label: Text('Buy item'), 
         icon: Icon(Icons.lock_open),
         onPressed: () { _buy();
         },
+        ),
       );
-    return FlatButton.icon(
-        color: Colors.red,
+    return Container( 
+        alignment: Alignment.bottomRight,
+        child: FlatButton.icon(
+        //color: Colors.red,R
         label: Text('Use item'), 
         icon: Icon(Icons.lock_open),
         onPressed: () { _use();
         },
+        ),
       );
   }
 }
