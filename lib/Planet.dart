@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Characteristics/AllCharacteristics.dart';
 import 'Zone.dart';
+import 'Wallet.dart';
 import 'Item.dart';
+import 'ItemList.dart';
 import 'Characteristic.dart';
 
 
@@ -42,9 +44,181 @@ class _PlanetState extends State<Planet>{
     });
   }
 
-  void _plantTree(int x, int y){
+  void _createZonePopup(BuildContext conext){
+    if (Wallet().isSufficient(PlanetBackEnd.getInstance().getPrice()))
+      _unlockZonePopup(context);
+    else
+      _zonePricePopup(context);
+  }
+
+  void _unlockZonePopup(BuildContext context){
+    var alertDialog = AlertDialog(
+      title: Text("Unlock Zone?"),
+      content: Row( 
+                  children: <Widget>[
+                    Text(
+                      "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Unlock'),
+            onPressed: () {
+              _unlockZone();
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+  void _zonePricePopup(BuildContext context){
+    var alertDialog = AlertDialog(
+      title: Text("Nid moneyz bitch"),
+      content: Row(
+                  children: <Widget>[
+                    Text(
+                      "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Ok im sorry'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+    void _createPlantPopup(BuildContext conext, Item tree){
+    if(tree.getQuantity() > 0)
+      _plantTreePopup(context, tree);
+    else
+      _shopPopup(context, tree);
+  }
+
+  void _plantTreePopup(BuildContext context, Item tree){
+    var alertDialog = AlertDialog(
+      title: Text("Plant a" + tree.getName() + "?"),
+      content: Text("Current quantity:" + tree.getQuantity().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Plant'),
+            onPressed: () {
+              _plantTree(tree);
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+  void _shopPopup(BuildContext context, Item tree){
+    var alertDialog = AlertDialog(
+      title: Text("You've ran out of" + tree.getName()),
+      content: Row(
+                  children: <Widget>[
+                    Text(
+                      "Price:" + tree.getPrice(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Cancel'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('Go to shop'),
+            onPressed: () {
+              ItemList.makeShop();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ItemList()),
+                );
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+  void _plantTree(Item tree){
     setState(() {
-      PlanetBackEnd.getInstance().plant(_tappedZoneX, _tappedZoneY, x, y);
+      PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).plantTree(tree);
     });
   }
 
@@ -135,12 +309,14 @@ class _PlanetState extends State<Planet>{
                     children: <Widget>[
                       FlatButton(
                         color: Colors.red,
-                        onPressed: () { _unlockZone();},
+                        onPressed: () {
+                          _createZonePopup(context);
+                        },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Icon(Icons.photo_album),
-                            Text('Unlock for x'),
+                            Text('Unlock'),
                             Icon(Icons.strikethrough_s),
                             ],
                           ),
@@ -203,7 +379,8 @@ class _PlanetState extends State<Planet>{
     y = (index % gridStateLength);
     return GestureDetector(
       onTap: (){
-        _plantTree(x, y);
+        _createPlantPopup(context, PlanetBackEnd.getInstance().getTreeGrid()[x][y]);
+        //_plantTree(x, y);
         }, 
        child: _buildImage(x, y),
     );
@@ -220,7 +397,7 @@ class _PlanetState extends State<Planet>{
 
   Widget _buildImage(int x, int y){
     return Image.asset(
-                   PlanetBackEnd.getInstance().getTreeGrid()[x][y].get_icon(),
+                   PlanetBackEnd.getInstance().getTreeGrid()[x][y].getIcon(),
                   //width: 10,
                   //height: 10,
                   fit: BoxFit.fill,
@@ -262,7 +439,7 @@ class PlanetBackEnd{
   static PlanetBackEnd _instance;
   List<List<Zone>> gridState;
   List<List<Item>> gridTree;
-  int _unlockedZones;
+  int _zonePrice;
 
   PlanetBackEnd._internal() {
   gridState = [
@@ -281,13 +458,17 @@ gridTree = [
   [Cactus.getInstance(), PineTree.getInstance()], 
   [ForestTree.getInstance(), MiniPlant.getInstance(),],
   ];
-  _unlockedZones = 0;
+  _zonePrice = 1;
   }
   static PlanetBackEnd getInstance() {
     if (_instance == null) {
       _instance = PlanetBackEnd._internal();
     }
     return _instance;
+  }
+
+  int getPrice(){
+    return _zonePrice;
   }
 
   List<List<Zone>> getGrid(){
@@ -303,6 +484,7 @@ gridTree = [
   }
 
   void unlockZone(int x, int y){
+    _zonePrice *= 2;
     gridState[x][y].unlock(); 
   }
 
