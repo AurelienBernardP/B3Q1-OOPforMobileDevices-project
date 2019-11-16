@@ -69,9 +69,9 @@ class _PlanetState extends State<Planet>{
   }
 
   Widget _buildGridItem(int x, int y){
-    if(PlanetBackEnd.getInstance().getZone(x, y).is_locked())
+    if(PlanetBackEnd.getInstance().getZone(x, y).isLocked())
       return Icon(Icons.lock_outline, size: 20.0);
-    if(PlanetBackEnd.getInstance().getZone(x, y).is_planted())
+    if(PlanetBackEnd.getInstance().getZone(x, y).isPlanted())
       return Icon(Icons.local_florist, size: 20.0);
     return Text(' ');
   }
@@ -106,7 +106,7 @@ class _PlanetState extends State<Planet>{
 
   Widget _addDescription(){
     if(_tappedZoneX >= 0 && _tappedZoneY >= 0){
-      if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_planted())
+      if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).isPlanted())
           return _buildTreeDescription();
       else{
         return _buildZoneDescriptionNotPlanted(_tappedZoneX, _tappedZoneY);
@@ -117,12 +117,12 @@ class _PlanetState extends State<Planet>{
 
 
   Widget _buildZoneDescriptionNotPlanted(int x, int y){
-    if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).is_locked())
+    if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).isLocked())
       return
           Container(
             decoration: BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("assets/images/locked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).get_zone_type()+"Locked.png"), 
+                image: new AssetImage("assets/images/locked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getZoneType()+"Locked.png"), 
                   fit: BoxFit.cover,),
                 ),
             child: Column(
@@ -146,7 +146,7 @@ class _PlanetState extends State<Planet>{
         Container(
             decoration: BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).get_zone_type()+"Unlocked.png"), 
+                image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getZoneType()+"Unlocked.png"), 
                   fit: BoxFit.cover,),
                 ),
             child: Row(
@@ -170,7 +170,7 @@ class _PlanetState extends State<Planet>{
       Container(
       decoration: BoxDecoration(
             image: new DecorationImage(
-              image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).get_zone_type()+"Unlocked.png"), 
+              image: new AssetImage("assets/images/unlocked/"+PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getZoneType()+"Unlocked.png"), 
                 fit: BoxFit.cover,),
               ),
       child: Column(
@@ -182,7 +182,7 @@ class _PlanetState extends State<Planet>{
           icon: Icon(Icons.remove_red_eye),
           onPressed: () { Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTree()),
+                  MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTreeScreen()),
                 );
           },
         ),
@@ -190,7 +190,8 @@ class _PlanetState extends State<Planet>{
                   child: PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).buildZone(context),
                 ),
       ]
-      ));
+      )
+      );
   }
 
 }
@@ -202,7 +203,7 @@ class PlanetBackEnd{
 
   PlanetBackEnd._internal() {
   gridState = [
-  [Zone(Snowy()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
   [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
   [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
   [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
@@ -236,6 +237,6 @@ class PlanetBackEnd{
   }
 
   void plant(int x, int y){
-    gridState[x][y].plantTree();
+    gridState[x][y].viewTree();
   }
 }

@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
 import 'Zone.dart';
-
+import 'Health.dart';
 
 abstract class Item {
   int _price;
   int _quantity;
+  String _description;
   String _name;
   String _icon;
 
-  //void useItem(Object object);
+  void useItem(Object object);
 
 
   String get_icon() {
@@ -18,6 +19,10 @@ abstract class Item {
 
   String get_name() {
     return _name;
+  }
+
+  String get_description() {
+    return _description;
   }
 
   String get_price() {
@@ -49,6 +54,7 @@ class WaterItem extends Item {
   WaterItem._internal() {
     _price = 5;
     _quantity = 0;
+    _description = "You can't possibly expect your plants to live without water...";
     _name = "Water";
     _icon = "assets/images/water.png";
   }
@@ -60,12 +66,12 @@ class WaterItem extends Item {
     return _instance;
   }
 
-  /*void useItem(Tree tree) {
+  void useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      //tree.hydrate();
+      healthbar.hydrateTree(1);
       _quantity -= 1;
     }
-  }*/
+  }
 }
 
 class PineTree extends Item {
@@ -74,7 +80,8 @@ class PineTree extends Item {
   PineTree._internal() {
     _price = 10;
     _quantity = 0;
-    _name = "Plant";
+    _description = "Between every Pine tree there is a door leading to a new way of life.";
+    _name = "Pine tree";
     _icon = "assets/images/pinetree.png";
   }
 
@@ -85,12 +92,12 @@ class PineTree extends Item {
     return _instance;
   }
 
-  /*void useItem(covariant Zone zone) {
+  void useItem(covariant Zone zone){
     if (_quantity > 0) {
-      //zone.plant_tree(new Tree(PlantItem));
+      zone.plantTree(_instance);
       _quantity -= 1;
     }
-  }*/
+  }
 }
 
 class Cactus extends Item {
@@ -99,6 +106,7 @@ class Cactus extends Item {
   Cactus._internal() {
     _price = 10;
     _quantity = 0;
+    _description = "Rough on the inside but soft on the inside... don't you love me?";
     _name = "Plant";
     _icon = "assets/images/cactus.png";
   }
@@ -110,12 +118,12 @@ class Cactus extends Item {
     return _instance;
   }
 
-  /*void useItem(covariant Zone zone) {
+  void useItem(covariant Zone zone) {
     if (_quantity > 0) {
-      //zone.plant_tree(new Tree(PlantItem));
+      zone.plantTree(_instance);
       _quantity -= 1;
     }
-  }*/
+  }
 }
 
 class ForestTree extends Item {
@@ -124,6 +132,7 @@ class ForestTree extends Item {
   ForestTree._internal() {
     _price = 10;
     _quantity = 0;
+    _description = "I might look normal spoiled but I'll give you all I have";
     _name = "Plant";
     _icon = "assets/images/tree.png";
   }
@@ -135,12 +144,12 @@ class ForestTree extends Item {
     return _instance;
   }
 
-  /*void useItem(covariant Zone zone) {
+  void useItem(covariant Zone zone) {
     if (_quantity > 0) {
-      //zone.plant_tree(new Tree(PlantItem));
+      zone.plantTree(_instance);
       _quantity -= 1;
     }
-  }*/
+  }
 }
 
 class MiniPlant extends Item {
@@ -150,6 +159,7 @@ class MiniPlant extends Item {
     _price = 10;
     _quantity = 0;
     _name = "Plant";
+    _description = "Don't you need some green on your way?";
     _icon = "assets/images/18.png";
   }
 
@@ -160,12 +170,12 @@ class MiniPlant extends Item {
     return _instance;
   }
 
-  /*void useItem(covariant Zone zone) {
+  void useItem(covariant Zone zone) {
     if (_quantity > 0) {
-      //zone.plant_tree(new Tree(PlantItem));
+      zone.plantTree(_instance);
       _quantity -= 1;
     }
-  }*/
+  }
 }
 
 class NurishementItem extends Item {
@@ -174,6 +184,7 @@ class NurishementItem extends Item {
   NurishementItem._internal() {
     _price = 15;
     _quantity = 0;
+    _description = "Don't let my appearence fool you... I can make all the tables turn.";
     _name = "Nurishement";
     _icon = "assets/images/food.png";
   }
@@ -185,35 +196,36 @@ class NurishementItem extends Item {
     return _instance;
   }
 
-  /*void useItem(Tree tree) {
+  void useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      //tree.nurish();
+      healthbar.nurishTree(1);
       _quantity -= 1;
     }
-  }*/
+  }
 }
 
-class TrapItem extends Item {
-  static TrapItem _instance;
+class RepairItem extends Item {
+  static RepairItem _instance;
 
-  TrapItem._internal() {
+  RepairItem._internal() {
     _price = 35;
     _quantity = 0;
+    _description = "I won't bite you I promise!";
     _name = "Trap";
     _icon = "assets/images/trap.png";
   }
 
-  static TrapItem getInstance() {
+  static RepairItem getInstance() {
     if (_instance == null) {
-      _instance = TrapItem._internal();
+      _instance = RepairItem._internal();
     }
     return _instance;
   }
 
-  /*void useItem(Tree tree) {
+  void useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      //tree.trap();
+      //healthbar.repairTree(1);
       _quantity -= 1;
     }
-  }*/
+  }
 }
