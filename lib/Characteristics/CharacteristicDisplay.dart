@@ -17,13 +17,23 @@ class CharacteristicDisplay {
     double width = (size.width - 10)/2;
     double height = size.height/20;
 
-    return Container(
-        child: Column(
+    return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Text(
+                "Characteristics:",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.yellow,
+                ),),
+            SizedBox(height:10),
              _soilQualityDetails(width, height),
             _vulnerabilityDetails(width, height),
             _sunExposureDetails(width, height),
-        ],),
+        ],
     );
 }
 
