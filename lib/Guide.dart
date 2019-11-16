@@ -41,7 +41,6 @@ int pageNumber = 0;
         decoration: BoxDecoration(
           image: new DecorationImage(
             image: new AssetImage("assets/images/table.png"), 
-              //fit: BoxFit.cover,
               fit: BoxFit.fill,
           ),
         ),
@@ -51,7 +50,7 @@ int pageNumber = 0;
                 //SizedBox(height: height/20),
                 _addTitle(),
                 //_addDetails(_tappedItemX, _tappedItemY),
-                //_addText(),
+                _addText(),
                 Container(
                   alignment: Alignment.bottomRight,
                 child: _addButton(height, width),)
@@ -73,8 +72,30 @@ int pageNumber = 0;
       );
   }
 
-  Widget _addButton(double height, double width){
+  _addText(){
+    return Container(
+        margin: new EdgeInsets.all(20.0),
+        child: Text(_getText(),
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20.0, 
+              ),
+        ),
+      );
+  }
 
+  _getText(){
+    switch (pageNumber){
+      case 0:
+        return "The world map is divided into zones. A zone has different characteristics depending on its type. \n There are five types of zones: desert, forest, snowy mountains, path, river. \n Zones can be locked or unlocked. Unlocked zones can be planted by using a tree.";
+      case 1:
+        return "Some description for tree screen";
+      case 2:
+        return "moneyyyyyyyyyyyy";
+    }
+  }
+
+  Widget _addButton(double height, double width){
       return GestureDetector(
               onTap: (){_nextPage();},
               child:Container(
