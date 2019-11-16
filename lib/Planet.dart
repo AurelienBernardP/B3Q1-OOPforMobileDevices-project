@@ -168,59 +168,50 @@ class _PlanetState extends State<Planet>{
                 ),
                 Container(
                   alignment: Alignment.topRight,
-                  child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                            FlatButton(
-                              color: Colors.blue,
-                              onPressed: () { _plant();},
-                              child: Row(
-                                children: <Widget>[
-                                  Icon(Icons.photo_album),
-                                ],
-                              )
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                  child: 
+                    _buildGridCharacteristics(context),
                 ),
               ],
               ),
             );
   }
+
+
+
+
+  Widget _buildGridCharacteristics(BuildContext context) {
+    int gridStateLength = gridState.length;
+    int x, y = 0;
+    x = (index / gridStateLength).floor();
+    y = (index % gridStateLength);
+    return GestureDetector(
+      onTap: () {
+        _tapOnGrid(x, y);
+        }, 
+            child: GridTile(
+        child: Container(
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+            image: new AssetImage("assets/images/window.png"), 
+            fit: BoxFit.cover,),
+          ),
+          child: Center(
+            child: _buildImage(x, y),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildImage(int x, int y){
+    return Image.asset(
+                  gridState[x][y].get_icon(),
+                  width: 150,
+                  height: 150,
+                  fit: BoxFit.cover,
+                );
+  }
+  
   Widget _buildTreeDescription(){
     return 
       Container(
