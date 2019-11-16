@@ -47,10 +47,11 @@ class __TreeScreenBodyState extends State<_TreeScreenBody> {
               child: Container(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => treeInfo.getHealth()),
-                );
+                    showDialog(
+                      context: context,
+                      builder: (context) => treeInfo.getHealth(),
+                      barrierDismissible: false,
+                    )
                     
                   },
                   child: Container(

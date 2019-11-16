@@ -41,23 +41,28 @@ class Health extends StatelessWidget{
       double width = (size.width - 10)/2;
       double height = size.height/20;
 
-      return 
-        Scaffold(
-          appBar: AdTreesAppTopBar("Health bar", context).getBar(),
-          body:
-            Center(
+      return AlertDialog(
+        title: Text("Health bars"),
+        content: Center(
             child: Container(
-              alignment: Alignment.center,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                     _hydratationHealth(width, height),
+                    SizedBox(height: height,),
                     _nutritionHealth(width, height),
+                    SizedBox(height: height,),
                     _damageHealth(width, height),
-                    _overallHealth(width, height),
               ],),
             )
-          ));
+          ),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(25),
+      ),
+      );
+
+            ;
 
     }
 
@@ -212,9 +217,6 @@ class Health extends StatelessWidget{
   }
 
   Row _damageHealth(double width, double height){
-
-    double iconSize = 24.0;
-
     Text text = Text(
                 "Damage",
                 textAlign: TextAlign.center,
@@ -222,43 +224,32 @@ class Health extends StatelessWidget{
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.red,
+                  color: Colors.orange,
                 ),);
 
     Stack health = Stack(
                     children: <Widget>[
                       Container(
-                        color: Colors.black,
+                        color: Colors.red,
                         height: height,
                         width: width
                       ),
                       Container(
-                        alignment: Alignment.center,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: <Widget>[
-                            Icon(
-                              Icons.build,
-                              color: Colors.green,
-                              size: iconSize,
-                            ),
-                            Icon(
-                              Icons.bug_report,
-                              color: Colors.red,
-                              size: iconSize,
-                            ),
-                            Icon(
-                              Icons.device_hub,
-                              color: Colors.green,
-                              size: iconSize,
-                            ),
-                            Icon(
-                              Icons.flash_on,
-                              color: Colors.green,
-                              size: iconSize,
-                            ),],),),
-                          ],);
-                      
+                        color: Colors.blue,
+                        height: height,
+                        width: (this._healthInfo.damage * width)/this._healthInfo.damageMax,
+                      ),
+                      Center(
+                        child: Text(
+                          ((this._healthInfo.damage*100)/this._healthInfo.damageMax).toStringAsFixed(2)+"%",
+                          textAlign: TextAlign.center,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
+                            color: Colors.black,
+                      ))),]);
+
     return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -271,7 +262,7 @@ class Health extends StatelessWidget{
 
 class HealthBackEnd {
   double hydratationMax = 100;
-  double nutritionMax = 100;
+  double nutritionMax = 1000;
   double damageMax = 100;
 
   int hydratation;
@@ -279,9 +270,9 @@ class HealthBackEnd {
   int damage;
 
   HealthBackEnd(){
-    this.hydratation = 67;
-    this.nutrition = 98;
-    this.damage = 1;
+    this.hydratation = 100;
+    this.nutrition = 1000;
+    this.damage = 100;
   }
 
 

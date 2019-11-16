@@ -1,4 +1,5 @@
 import 'package:first/ItemList.dart';
+import 'package:first/TreeScreen.dart';
 import 'package:first/Wallet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -16,7 +17,7 @@ void main() {
 
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
-    return MaterialApp(title: "AdTrees", home: _AdTreesAppBody());
+    return MaterialApp(title: "AdTrees", home: TreeScreen());
   }
 }
 
