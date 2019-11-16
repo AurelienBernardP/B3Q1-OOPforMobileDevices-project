@@ -1,14 +1,17 @@
+import 'package:first/ItemList.dart';
 import 'package:flutter/material.dart';
 import 'package:admob_flutter/admob_flutter.dart';
-import 'dart:io';
-import 'dart:async';
-class AdTreesAppTopBar extends AppBar {
+
+class AdTreesAppTopBar {
   final String text = "AdTrees";
   AppBar bar;
 
-  AdTreesAppTopBar(String text, BuildContext context) {
+  AdTreesAppTopBar(
+    String text,
+    BuildContext context,
+  ) {
     this.text.replaceAll('AdTrees', text);
-    Widget button = IconButton(
+    Widget settingsButton = IconButton(
       icon: Icon(Icons.settings),
       onPressed: () {
         Navigator.push(
@@ -17,11 +20,27 @@ class AdTreesAppTopBar extends AppBar {
         );
       },
     );
-
-    AppBar bar = new AppBar(
+    Widget shopButton = IconButton(
+      icon: Icon(Icons.add_shopping_cart),
+      onPressed: () {
+        Route route = MaterialPageRoute(builder: (context) => ItemList());
+        if(!route.isCurrent){
+        ItemList.makeShop();
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => ItemList()),
+        );}
+      },
+    );
+Widget backButton = IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () => Navigator.pop(context),
+      ),
+      bar = new AppBar(
       title: Text(text),
       backgroundColor: Colors.green,
-      actions: <Widget>[button],
+      leading: Navigator.canPop(context) ? backButton : null,
+      actions: <Widget>[shopButton, inventoryButton, settingsButton],
     );
     this.bar = bar;
   }
