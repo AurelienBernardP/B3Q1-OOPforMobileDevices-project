@@ -136,16 +136,22 @@ class _PlanetState extends State<Planet>{
   }
 
   void _plantTreePopup(BuildContext context, Item tree){
+    String treeName;
     var alertDialog = AlertDialog(
-      title: Text("Plant a" + tree.getName() + "?"),
-      content: Text("Current quantity:" + tree.getQuantity().toString(),
-                      maxLines: 1,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25.0, 
-                      ),
-                    ),
+      title: Text("Pick a cute name for your " + tree.getName()),
+      content: new Row(
+          children: <Widget>[
+            new Expanded(
+                child: new TextField(
+              autofocus: true,
+              decoration: new InputDecoration(
+                  labelText: 'Tree name', hintText: 'eg. Groot'),
+              onChanged: (value) {
+                treeName = value;
+              },
+            ))
+          ],
+        ),
       actions: <Widget>[
           FlatButton(
             child: Text('Cancel'),
@@ -156,7 +162,7 @@ class _PlanetState extends State<Planet>{
           FlatButton(
             child: Text('Plant'),
             onPressed: () {
-              _plantTree(tree);
+              _plantTree(tree, treeName);
               Navigator.of(context).pop();
             },
           ),
@@ -216,9 +222,9 @@ class _PlanetState extends State<Planet>{
     );
   }
 
-  void _plantTree(Item tree){
+  void _plantTree(Item tree, String name){
     setState(() {
-      PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).plantTree(tree);
+      PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).plantTree(tree, name: name);
     });
   }
 
@@ -419,7 +425,6 @@ class _PlanetState extends State<Planet>{
     return GestureDetector(
       onTap: (){
         _createPlantPopup(context, PlanetBackEnd.getInstance().getTreeGrid()[x][y]);
-        //_plantTree(x, y);
         }, 
        child: _buildImage(x, y),
     );

@@ -34,9 +34,9 @@ class Zone{
       plantedTreeScreen = TreeScreen();
   }
 
-  void plantTree(Item tree){
+  void plantTree(Item tree, {String name}){
     plantedTree = tree;
-    plantedTreeScreen = TreeScreen(location:this, treeType:tree);
+    plantedTreeScreen = TreeScreen(location:this, treeType:tree, name: name);
   }
 
   void removeTree(){
