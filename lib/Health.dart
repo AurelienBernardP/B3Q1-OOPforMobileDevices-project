@@ -18,6 +18,22 @@ class Health extends StatelessWidget{
   }
 
 
+  bool hydrateTree(int nbDrop){
+    return this._healthInfo.hydrateTree(nbDrop);
+  }
+
+  void dehydrateTree(int nbDrop){
+    this._healthInfo.dehydrateTree(nbDrop);
+  }
+
+  bool nurishTree(int nutrition){
+    return this._healthInfo.nurishTree(nutrition);
+  }
+
+  void denurishTree(int nutrition){
+    this._healthInfo.denurishTree(nutrition)
+  }
+
   //Can use MainAxisAlignment strecht pour étendre
   Widget buildAllHealth(BuildContext context){
       //Size
