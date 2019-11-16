@@ -287,6 +287,8 @@ class _PlanetState extends State<Planet>{
 
 
   Widget _addDescription(){
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     if(_tappedZoneX >= 0 && _tappedZoneY >= 0){
       if(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).isPlanted())
           return _buildTreeDescription();
@@ -294,7 +296,42 @@ class _PlanetState extends State<Planet>{
         return _buildZoneDescriptionNotPlanted(_tappedZoneX, _tappedZoneY);
       }
     }
-    return Text("Tap on a grid to view more details!");
+    return Container(
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/mainmenu.png"), 
+                  fit: BoxFit.cover,),
+                ),
+            child: 
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(20),
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: width/2.2,
+                    height: height/5,
+                    decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"), 
+                          fit: BoxFit.fill,),
+                        ),
+                    child:
+                    Text(
+                "Select a tree \nfor more \ninfo!",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.yellow,
+                ),),
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 
 

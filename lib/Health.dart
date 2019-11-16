@@ -274,7 +274,7 @@ class Health extends StatelessWidget{
 }
 
 class HealthBackEnd {
-  double hydratationMax = 100;
+  double hydratationMax = 10;
   double nutritionMax = 1000;
   double damageMax = 100;
 
@@ -283,7 +283,7 @@ class HealthBackEnd {
   double damage;
 
   HealthBackEnd(){
-    this.hydratation = 100;
+    this.hydratation = 10;
     this.nutrition = 1000;
     this.damage = 0;
   }
