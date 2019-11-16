@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'Guide.dart';
-
+import 'Wallet.dart';
 class AdTreesAppTopBar {
   final String text = "AdTrees";
   AppBar bar;
@@ -24,7 +24,7 @@ class AdTreesAppTopBar {
         onPressed: () => Navigator.pop(context),
       ),
       bar = new AppBar(
-      title: Text(text),
+      title: Center(child: Text(text +" | You have "+ Wallet().getCoins().toString() + "C")),
       backgroundColor: Colors.green,
       leading: Navigator.canPop(context) ? backButton : null,
       actions: <Widget>[ settingsButton],

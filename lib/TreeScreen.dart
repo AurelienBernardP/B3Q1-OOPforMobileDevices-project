@@ -33,20 +33,17 @@ class TreeScreenBodyState extends State<TreeScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+
             Expanded(
-              flex: 1,
-              child: _buildCoinSection(),
-            ),
-            Expanded(
-              flex: 7,
+              flex: 18,
               child: _buildMiddleSection(),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: _buildActionButtons(),
             ),
             Expanded(
-              flex: 1,
+              flex: 2,
               child: Container(
                 child: GestureDetector(
                   onTap: () {
@@ -65,29 +62,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildCoinSection() {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Expanded(
-            flex: 4,
-            child:  Container(decoration: BoxDecoration(color: Colors.amber),
-                child:Container(margin:new EdgeInsets.symmetric(horizontal: 50.0),
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                      child:Text(
-                        "You have " + Wallet().getCoins().toString() +" coins",
-                      ),
-                    ),
-                
-              ),
-          ),),
-        ],
       ),
     );
   }
