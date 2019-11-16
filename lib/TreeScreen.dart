@@ -198,7 +198,7 @@ class TreeBackEnd {
     image = Container(decoration : BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(tree.getIcon()), 
-                  fit: BoxFit.fill,),
+                  fit: BoxFit.cover,),
                 ),);
     treeHealth = Health();
     lastTimeShaken = DateTime.now();
