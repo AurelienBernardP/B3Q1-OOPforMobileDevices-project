@@ -38,23 +38,29 @@ class Health extends StatelessWidget{
   Widget buildAllHealth(BuildContext context){
       //Size
       Size size = MediaQuery.of(context).size;
-      double width = (size.width - 10)/2;
-      double height = size.height/20;
+      double widthBox = (size.width - 10)/2;
+      double heightBox = size.height/20;
 
       return AlertDialog(
-        title: Text("Health bars"),
-        content: Center(
-            child: Container(
+        title: Text(
+                "Health Bars",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.black,
+                ),),
+        content: Container(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                    _hydratationHealth(width, height),
-                    SizedBox(height: height,),
-                    _nutritionHealth(width, height),
-                    SizedBox(height: height,),
-                    _damageHealth(width, height),
+                    _hydratationHealth(widthBox, heightBox),
+                    SizedBox(height: heightBox,),
+                    _nutritionHealth(widthBox, heightBox),
+                    SizedBox(height: heightBox,),
+                    _damageHealth(widthBox, heightBox),
               ],),
-            )
           ),
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(
@@ -224,7 +230,7 @@ class Health extends StatelessWidget{
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20,
-                  color: Colors.orange,
+                  color: Colors.red,
                 ),);
 
     Stack health = Stack(
