@@ -6,16 +6,16 @@ class AdTreesAppTopBar {
   final String text = "AdTrees";
   AppBar bar;
 
-  AdTreesAppTopBar(String text,BuildContext context) {
+  AdTreesAppTopBar(String text,BuildContext context, {bool isGuide}) {
     this.text.replaceAll('AdTrees', text);
 
     Widget settingsButton = IconButton(
       icon: Icon(Icons.settings),
-      onPressed: () {
+      onPressed: () { if(isGuide == null){
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => Guide()),
-        );
+        );}
       },
     );
 
@@ -24,7 +24,7 @@ class AdTreesAppTopBar {
         onPressed: () => Navigator.pop(context),
       ),
       bar = new AppBar(
-      title: Center(child: Text(text +" | You have "+ Wallet().getCoins().toString() + "C")),
+      title: Center(child:Row(children: <Widget>[Text(text +" | You have "+ Wallet().getCoins().toString()),Icon(Icons.strikethrough_s),],) ),
       backgroundColor: Colors.green,
       leading: Navigator.canPop(context) ? backButton : null,
       actions: <Widget>[ settingsButton],
