@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
+import 'PollutedZones.dart';
 import 'Guide.dart';
 
 import 'package:admob_flutter/admob_flutter.dart';
@@ -80,7 +81,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Guide()),
+                  MaterialPageRoute(builder: (context) => PollutedZones()),
                 );
               },
             ),
