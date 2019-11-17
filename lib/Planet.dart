@@ -395,7 +395,6 @@ class _PlanetState extends State<Planet>{
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.photo_album),
                             Text('Unlock for '+  PlanetBackEnd.getInstance().getPrice().toString()+ " "),
                             Icon(Icons.strikethrough_s),
                             ],

@@ -59,6 +59,7 @@ int pageNumber = 0;
                 ),
                 Expanded(
                   child: Container(
+                    margin: EdgeInsets.only(bottom: height/80, right: width/100),
                   alignment: Alignment.bottomRight,
                 child: _addButton(height, width),),
                 flex: 2,
@@ -70,33 +71,72 @@ int pageNumber = 0;
   }
 
   _addTitle(){
+    double height = MediaQuery.of(context).size.height;
+
     return Container(
-        margin: new EdgeInsets.all(25.0),
-        child: Text(_getTitle(),
-                style: TextStyle(
-                  color: Colors.yellow,
-                  fontSize: 40.0, 
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/title.png"), 
+                  fit: BoxFit.fill,),
+                ),
+            margin: EdgeInsets.all(height/25),
+            child: Container(
+              margin: EdgeInsets.all(5),
+              child: Text(_getTitle(),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                fontSize: height/22, 
               ),
-        ),
-      );
+            ),
+            )
+            
+        );
   }
 
   _addText(){
     return Container(
         margin: new EdgeInsets.all(20.0),
-        child: Text(_getText(),
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 20.0, 
-              ),
-        ),
+        child: _getText()
       );
   }
 
+  Text formatText(String text){
+    double height = MediaQuery.of(context).size.height;
+
+    return Text(text,
+                style: TextStyle(
+                  color: Colors.grey[100],
+                  fontSize: height/35, 
+              ));
+  }
+
   _getText(){
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     switch (pageNumber){
       case 0:
-        return "The world map is divided into zones. A zone has different characteristics depending on its type. \n There are five types of zones: desert, forest, snowy mountains, path, river. \n Zones can be locked or unlocked. Unlocked zones can be planted by using a tree.";
+        return 
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                formatText("The world map is divided \ninto zones. A zone has\ndifferent characteristics\ndepending on its type.\n"),
+                Container(
+                  width: width/3,
+                  height: height/7,
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/treemap.jpeg"), 
+                      fit: BoxFit.fill,),
+                    ),),
+            ],),
+        ],);
+        
+      //   "A zone has different characteristics depending on its type. \n"+
+      //   " There are five types of zones: desert, forest, snowy mountains, path, river. \n"+
+      //  "  Zones can be locked or unlocked. Unlocked zones can be planted by using a tree.";
       case 1:
         return "Some description for tree screen";
       case 2:

@@ -1,4 +1,5 @@
 import 'package:first/Item.dart';
+import 'package:first/TreeList.dart';
 
 import 'Health.dart';
 
@@ -6,9 +7,8 @@ import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
 import 'ItemList.dart';
-import 'Timer.dart';
 import 'Zone.dart';
-
+import 'dart:async';
 class TreeScreen extends StatefulWidget {
   TreeBackEnd treeInfo;
 
@@ -22,10 +22,26 @@ class TreeScreen extends StatefulWidget {
 
 class TreeScreenBodyState extends State<TreeScreen> {
   TreeBackEnd treeInfo;
-
+  Timer _everySecond;
   TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // sets first value
+
+    // defines a timer 
+    _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
+      print("pased");
+      setState(() {
+        
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     AppBar bar = AdTreesAppTopBar(treeInfo.name, context).getBar();
     return Stack(
@@ -63,7 +79,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   showDialog(
                     context: context,
                     builder: (context) => treeInfo.getHealth(),
-                    barrierDismissible: false,
+                    barrierDismissible: true,
                   );
                 },
                 child: Container(
@@ -200,14 +216,16 @@ class TreeBackEnd {
       this.name = "Grooot";
     }
 
-    TimersForTrees().addTreeToTimer(this);
+    TreeList().addTreeToList(this);
 
   }
+  int getMilisecondsLeft(){
+    return lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;
 
+  }
   void shake() {
-    print(DateTime.now().toString());
-    print(lastTimeShaken.add(Duration(minutes: 1)).toString());
-    if (DateTime.now().isAfter(lastTimeShaken.add(Duration(minutes: 1)))) {
+    print(getMilisecondsLeft());
+    if (getMilisecondsLeft() < 0) {
       lastTimeShaken = DateTime.now();
       Wallet().addCoins(7);
     }
@@ -220,7 +238,7 @@ class TreeBackEnd {
   Health getHealth() {
     return treeHealth;
   }
-
+  String getName() => name;
   BoxDecoration getBackground() {
     return BoxDecoration(
       image: new DecorationImage(

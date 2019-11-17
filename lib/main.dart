@@ -1,4 +1,5 @@
 import 'package:first/ItemList.dart';
+import 'package:first/TreeList.dart';
 import 'package:first/TreeScreen.dart';
 import 'package:first/Wallet.dart';
 import 'dart:async';
@@ -9,8 +10,7 @@ import 'Planet.dart';
 import 'ItemList.dart';
 import 'PollutedZones.dart';
 import 'Timer.dart';
-import 'Guide.dart';
-
+import 'TreeList.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 void main() { 
 
@@ -56,10 +56,6 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 ),
         child: ListView(
           children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.attach_money),
-              title: Text('Your money is ' + Wallet().getCoins().toString() + " coins"),
-            ),
             ListTile(
               leading: Icon(Icons.monetization_on),
               title: Text('Get free coins'),
@@ -111,6 +107,16 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemList()),
+                );
+              },
+            ),
+                        ListTile(
+              leading: Icon(Icons.view_list),
+              title: Text('tree list'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TreeListScreen()),
                 );
               },
             ),
