@@ -13,8 +13,8 @@ int pageNumber = 0;
 
   @override
   Widget build(BuildContext context){
-    return MaterialApp(title: "Guide", home: Scaffold(
-
+    return MaterialApp(title: "Guide", 
+    home: Scaffold(
       appBar: AdTreesAppTopBar('How to play', context,isGuide:true).getBar(),
       body: _buildGuide(),
     ),

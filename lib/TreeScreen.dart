@@ -233,7 +233,7 @@ class TreeBackEnd {
       decoration: BoxDecoration(
         image: new DecorationImage(
           image: new AssetImage(tree.getIcon()),
-          fit: BoxFit.contain,
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -255,12 +255,13 @@ class TreeBackEnd {
 
   }
   int getMilisecondsLeft(){
-    return lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;
+    int time = lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;
+    return time <= 0 ? 0: time;
 
   }
   void shake() {
     print(getMilisecondsLeft());
-    if (getMilisecondsLeft() < 0) {
+    if (getMilisecondsLeft() <= 0) {
       lastTimeShaken = DateTime.now();
       Wallet().addCoins(7);
     }

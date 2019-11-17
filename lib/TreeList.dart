@@ -4,19 +4,78 @@ import 'package:flutter/material.dart';
 import 'TreeScreen.dart';
 import 'Planet.dart';
 
-class TreeListScreen extends StatelessWidget {
+class TreeListScreen extends StatefulWidget {
   @override
+  _TreeListScreenState createState() => _TreeListScreenState();
+}
+
+class _TreeListScreenState extends State<TreeListScreen> {
+  @override
+  int _sort = 0;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdTreesAppTopBar("Tree list", context).getBar(),
       body: Column(
         children: [
           Container(
-            child: Text("sort by"),
+            height: 50,
+            child: Row(children: [
+              Text("sort by"),
+              new Radio(
+                  value: 0,
+                  groupValue: _sort,
+                  onChanged: (value) {
+                    print("0");
+                    _sort = value;
+                    setState(() {
+                      TreeList().sortByTimer();
+                    });
+                  }),
+              new Text(
+                'Timer',
+                style: new TextStyle(fontSize: 16.0),
+              ),
+              new Radio(
+                value: 1,
+                groupValue: _sort,
+                onChanged: (value) {
+                  print("1");
+                  _sort = value;
+                  setState(() {
+                    TreeList().sortByTimer();
+                  });
+                },
+              ),
+              new Text(
+                'Overall Health',
+                style: new TextStyle(
+                  fontSize: 16.0,
+                ),
+              ),
+              new Radio(
+                value: 2,
+                groupValue: _sort,
+                onChanged: (value) {
+                  print("0");
+                  _sort = value;
+                  setState(() {
+                    TreeList().sortByTimer();
+                  });
+                },
+              ),
+              new Text(
+                'Dehidration',
+                style: new TextStyle(fontSize: 16.0),
+              ),
+            ]),
           ),
           TreeList().getNbTrees() == 0
               ? Container(
-                  child: Text("not trees!"),
+                  alignment: Alignment.center,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text("not trees!"),
+                  ),
                 )
               : Flexible(
                   child: ListView.builder(
@@ -35,17 +94,25 @@ class TreeListScreen extends StatelessWidget {
                               ),
                               Expanded(
                                 flex: 4,
-                                child: Text(
-                                    TreeList().getTreeList()[index].getName()),
+                                child: FittedBox(
+                                  fit: BoxFit.fitHeight,
+                                  child: Text(TreeList()
+                                      .getTreeList()[index]
+                                      .getName()),
+                                ),
                               ),
                               Expanded(
-                                  flex: 1,
+                                flex: 1,
+                                child: FittedBox(
+                                  fit: BoxFit.fitHeight,
                                   child: Text((TreeList()
                                                   .getTreeList()[index]
                                                   .getMilisecondsLeft() /
                                               1000)
                                           .toString() +
-                                      "secs")),
+                                      "secs"),
+                                ),
+                              ),
                             ],
                           ),
                         );
