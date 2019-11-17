@@ -70,15 +70,57 @@ class _ItemListState extends State<ItemList>{
 
   void _buy(){
     setState(() {
-      gridState[_tappedItemX][_tappedItemY].buyItem();
+      if(gridState[_tappedItemX][_tappedItemY].buyItem())
+        return;
+      else
+        _cannotUsePopup(context, "You're out of money! Keep calm and don't cry");
     });
   }
 
   void _use(){
     setState(() {
-      gridState[_tappedItemX][_tappedItemY].sellItem();
+      if(gridState[_tappedItemX][_tappedItemY].removeItem())
+        return;
+      else
+        _cannotUsePopup(context, "You're out of " + gridState[_tappedItemX][_tappedItemY].getName() + "!");
     });
   }
+
+void _cannotUsePopup(BuildContext context, String text){
+    var alertDialog = AlertDialog(
+      title: Text(text),
+      /*content: Row(
+                  children: <Widget>[
+                    Text(
+                      "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),*/
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Ok im sorry'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
 
   Widget _buildCard(BuildContext context, int index) {
     int gridStateLength = gridState.length;

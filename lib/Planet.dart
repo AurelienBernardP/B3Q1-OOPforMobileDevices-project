@@ -193,7 +193,7 @@ class _PlanetState extends State<Planet>{
 
   void _shopPopup(BuildContext context, Item tree){
     var alertDialog = AlertDialog(
-      title: Text("You've ran out of" + tree.getName()),
+      title: Text("You've ran out of " + tree.getName()),
       content: Row(
                   children: <Widget>[
                     Text(

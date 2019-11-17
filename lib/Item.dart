@@ -33,18 +33,22 @@ abstract class Item {
     return _quantity;
   }
 
-  void buyItem() {
+  bool buyItem() {
     if (Wallet().isSufficient(_price)) {
       _quantity += 1;
       Wallet().retrieveCoins(_price);
+      return true;
     }
+    return false;
   }
 
-  void sellItem() {
+  bool removeItem(){
     if (_quantity > 0) {
       _quantity -= 1;
-      Wallet().addCoins(_price);
+      //Wallet().addCoins(_price);
+      return true;
     }
+    return false;
   }
 }
 
