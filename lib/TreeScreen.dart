@@ -28,7 +28,20 @@ class TreeScreenBodyState extends State<TreeScreen> {
   }
   Widget build(BuildContext context) {
     AppBar bar = AdTreesAppTopBar(treeInfo.name, context).getBar();
-    return Scaffold(
+    return Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
       appBar: bar,
       body: Container(
         decoration: treeInfo.getBackground(),
@@ -61,6 +74,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
           ],
         ),
       ),
+        ),
+      ],
     );
   }
 

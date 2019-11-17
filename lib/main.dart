@@ -33,7 +33,20 @@ class _AdTreesAppBody extends StatefulWidget {
 class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
   
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
       appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
       body: Container(
         decoration: BoxDecoration(
@@ -104,6 +117,8 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
           ],
         ),
       ),
+        ),
+      ],
     );
   }
 }

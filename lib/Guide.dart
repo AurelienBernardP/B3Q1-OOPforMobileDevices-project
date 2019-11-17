@@ -113,7 +113,7 @@ int pageNumber = 0;
                 height: height/10,
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/left.png"), 
+                    image: new AssetImage("assets/images/right.png"), 
                     fit: BoxFit.fill,
                   ),
                 ),

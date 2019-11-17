@@ -32,17 +32,27 @@ class _ItemListState extends State<ItemList>{
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "World map", home: Scaffold(
-      appBar: AdTreesAppTopBar(makeTitle(), context).getBar(),
-      body: /*Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[*/
-          _displayItems(),
-          //]),
+    return MaterialApp(title: "World map", 
+    home: Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar:  AdTreesAppTopBar(makeTitle(), context).getBar(),
+          body: _displayItems(), 
+        ),
+      ],
     ),
-    );
+    ) ;
   }
 
   String makeTitle(){
