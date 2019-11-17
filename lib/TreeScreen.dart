@@ -1,4 +1,5 @@
 import 'package:first/Item.dart';
+import 'package:first/TreeList.dart';
 
 import 'Health.dart';
 
@@ -185,14 +186,16 @@ class TreeBackEnd {
       this.name = "Grooot";
     }
 
-    TimersForTrees().addTreeToTimer(this);
+    TreeList().addTreeToList(this);
 
   }
+  int getMilisecondsLeft(){
+    return lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;
 
+  }
   void shake() {
-    print(DateTime.now().toString());
-    print(lastTimeShaken.add(Duration(minutes: 1)).toString());
-    if (DateTime.now().isAfter(lastTimeShaken.add(Duration(minutes: 1)))) {
+    print(getMilisecondsLeft());
+    if (getMilisecondsLeft() < 0) {
       lastTimeShaken = DateTime.now();
       Wallet().addCoins(7);
     }
@@ -205,7 +208,7 @@ class TreeBackEnd {
   Health getHealth() {
     return treeHealth;
   }
-
+  String getName() => name;
   BoxDecoration getBackground() {
     return BoxDecoration(
       image: new DecorationImage(
