@@ -78,7 +78,7 @@ class PineTree extends Item {
   static PineTree _instance;
 
   PineTree._internal() {
-    _price = 10;
+    _price = 50;
     _quantity = 0;
     _description = "Between every Pine tree there is a door leading to a new way of life.";
     _name = "Pine tree";
@@ -104,7 +104,7 @@ class Cactus extends Item {
   static Cactus _instance;
 
   Cactus._internal() {
-    _price = 10;
+    _price = 20;
     _quantity = 0;
     _description = "Rough on the outside but soft on the inside... don't you love me?";
     _name = "Cactus";
@@ -130,7 +130,7 @@ class ForestTree extends Item {
   static ForestTree _instance;
 
   ForestTree._internal() {
-    _price = 10;
+    _price = 40;
     _quantity = 0;
     _description = "I might look normal spoiled but I'll give you all I have";
     _name = "Tree";
@@ -182,7 +182,7 @@ class NurishementItem extends Item {
   static NurishementItem _instance;
 
   NurishementItem._internal() {
-    _price = 15;
+    _price = 10;
     _quantity = 0;
     _description = "Don't let my appearence fool you... I can make all the tables turn.";
     _name = "Nurishement";

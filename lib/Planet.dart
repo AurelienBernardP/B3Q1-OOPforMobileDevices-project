@@ -489,8 +489,6 @@ class _PlanetState extends State<Planet>{
         children: <Widget>[
           Image.asset(
                    PlanetBackEnd.getInstance().getTreeGrid()[x][y].getIcon(),
-                  //width: 10,
-                  //height: 10,
                   fit: BoxFit.fill,
                 ),
 
