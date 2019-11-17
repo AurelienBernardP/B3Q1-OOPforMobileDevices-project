@@ -14,27 +14,43 @@ class TreeListScreen extends StatelessWidget {
           Container(
             child: Text("sort by"),
           ),
-          ListView.builder(
-              itemCount: TreeList().getNbTrees(),
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  height: 50,
-                  child: Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: Container(
-                            child: TreeList().getTreeList()[index].getImage()),
-                        flex: 1,
-                      ),
-                      Expanded(
-                        flex: 3,
-                        child: Text(TreeList().getTreeList()[index].getName()),
-                      ),
-                      Expanded(flex: 1,child:Text((TreeList().getTreeList()[index].getMilisecondsLeft()/1000).toString()+"secs")),
-                    ],
-                  ),
-                );
-              }),
+          TreeList().getNbTrees() == 0
+              ? Container(
+                  child: Text("not trees!"),
+                )
+              : Flexible(
+                  child: ListView.builder(
+                      itemCount: TreeList().getNbTrees(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          height: 50,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                    child: TreeList()
+                                        .getTreeList()[index]
+                                        .getImage()),
+                                flex: 1,
+                              ),
+                              Expanded(
+                                flex: 4,
+                                child: Text(
+                                    TreeList().getTreeList()[index].getName()),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Text((TreeList()
+                                                  .getTreeList()[index]
+                                                  .getMilisecondsLeft() /
+                                              1000)
+                                          .toString() +
+                                      "secs")),
+                            ],
+                          ),
+                        );
+                      }),
+                ),
         ],
       ),
     );
@@ -52,18 +68,18 @@ class TreeList {
   }
 
   TreeList._internal() {
-    plantedTrees = new List(length * length);
+    plantedTrees = new List();
     nbPlantedTrees = 0;
   }
 
-  List<TreeBackEnd> getTreeList() => plantedTrees;
+  List<TreeBackEnd> getTreeList() => nbPlantedTrees != 0 ? plantedTrees : null;
 
   int getNbTrees() => nbPlantedTrees;
 
   void addTreeToList(TreeBackEnd tree) {
     if (nbPlantedTrees > (length * length)) return;
 
-    plantedTrees[nbPlantedTrees] = tree;
+    plantedTrees.add(tree);
     nbPlantedTrees++;
   }
 
