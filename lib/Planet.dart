@@ -202,6 +202,7 @@ class _PlanetState extends State<Planet>{
           FlatButton(
             child: Text('Go to shop'),
             onPressed: () {
+              Navigator.of(context).pop();
               ItemList.makeShop();
                 Navigator.push(
                   context,
@@ -480,12 +481,28 @@ class _PlanetState extends State<Planet>{
     decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 2.0)
           ),
-    child: Image.asset(
+    child: Stack(
+        alignment: Alignment.center,
+        children: <Widget>[
+          Image.asset(
                    PlanetBackEnd.getInstance().getTreeGrid()[x][y].getIcon(),
                   //width: 10,
                   //height: 10,
                   fit: BoxFit.fill,
-                ));
+                ),
+
+                Text(
+                PlanetBackEnd.getInstance().getTreeGrid()[x][y].getQuantity().toString(),
+                textAlign: TextAlign.right,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 13,
+                  color: Colors.yellow,
+                ),),   
+    ],),
+    
+    );
   }
   
   Widget _buildTreeDescription(){

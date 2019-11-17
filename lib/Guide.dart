@@ -9,7 +9,6 @@ class Guide extends StatefulWidget{
 }
 
 class _GuideState extends State<Guide>{
-GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
 int pageNumber = 0;
 
   @override
@@ -47,17 +46,23 @@ int pageNumber = 0;
         child: Column(
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                Expanded(
+                child: _addTitle(),
+                flex: 2,
+              ),
                 //SizedBox(height: height/20),
-                _addTitle(),
+                
                 //_addDetails(_tappedItemX, _tappedItemY),
-                _addText(),
-                 
-                Container(
-                  alignment: Alignment.bottomRight,
-                child: _addButton(height, width),
+                Expanded(
+                  child: _addText(),
+                  flex: 8,
                 ),
-                
-                
+                Expanded(
+                  child: Container(
+                  alignment: Alignment.bottomRight,
+                child: _addButton(height, width),),
+                flex: 2,
+                ),
               ],
             ),
       ),
