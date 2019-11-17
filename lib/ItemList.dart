@@ -349,7 +349,7 @@ Container(
             width: 100,
                 height: 40,
       child: GestureDetector(
-              onTap: (){_buy();},
+              onTap: (){_use();},
               child:
             Text(
           'Use',
