@@ -102,9 +102,6 @@ class _ItemListState extends State<ItemList>{
     if(_is_shop)
 return 
 Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2.0)
-        ),
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
@@ -139,10 +136,7 @@ Container(
     else 
     return 
     Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 2.0)
-        ),
-        child: Stack(
+      child: Stack(
           alignment: Alignment.center,
           children: <Widget>[
             Image.asset(
