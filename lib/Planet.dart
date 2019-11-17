@@ -298,10 +298,12 @@ class _PlanetState extends State<Planet>{
       }
     }
     return Container(
+          color: Colors.black,
+        child: Container(
             decoration: BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("assets/images/mainmenu.png"), 
-                  fit: BoxFit.cover,),
+                image: new AssetImage("assets/images/table.png"), 
+                  fit: BoxFit.fill,),
                 ),
             child: 
             Row(
@@ -332,7 +334,8 @@ class _PlanetState extends State<Planet>{
                 ),
               ],
             ),
-          );
+          ),
+        );
   }
 
 
@@ -493,7 +496,9 @@ class _PlanetState extends State<Planet>{
                   fit: BoxFit.fill,
                 ),
 
-                Text(
+                Container(
+                  alignment: Alignment.bottomRight,
+                child:Text(
                 PlanetBackEnd.getInstance().getTreeGrid()[x][y].getQuantity().toString(),
                 textAlign: TextAlign.right,
                 overflow: TextOverflow.ellipsis,
@@ -501,7 +506,7 @@ class _PlanetState extends State<Planet>{
                   fontWeight: FontWeight.bold,
                   fontSize: 13,
                   color: Colors.yellow,
-                ),),   
+                ),),),  
     ],),
     
     );
