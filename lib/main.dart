@@ -95,16 +95,6 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 );
               },
             ),
-            ListTile(
-              leading: Icon(Icons.work),
-              title: Text('how to play!'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Guide()),
-                );
-              },
-            ),
           ],
         ),
       ),
