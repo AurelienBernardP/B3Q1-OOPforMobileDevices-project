@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/widgets.dart';
 
@@ -19,7 +20,7 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      appBar: AppBar(),
+      appBar: AdTreesAppTopBar("Clean It Up!", context).getBar(),
       body: _buildBody(),
     );
   }

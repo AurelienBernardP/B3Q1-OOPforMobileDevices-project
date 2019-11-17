@@ -1,3 +1,4 @@
+import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -13,10 +14,8 @@ int pageNumber = 0;
   @override
   Widget build(BuildContext context){
     return MaterialApp(title: "Guide", home: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('How to play'),
-      ),
+
+      appBar: AdTreesAppTopBar('How to play', context,isGuide:true).getBar(),
       body: _buildGuide(),
     ),
     );
