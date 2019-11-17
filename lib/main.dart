@@ -33,7 +33,20 @@ class _AdTreesAppBody extends StatefulWidget {
 class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
   
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
       appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
       body: Container(
         decoration: BoxDecoration(
@@ -41,11 +54,18 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 image: new AssetImage("assets/images/mainmenu.png"), 
                   fit: BoxFit.cover,),
                 ),
-        child: ListView(
+        child: Container( 
+          margin: new EdgeInsets.only(top: 160.0, left: 30.0),
+          child: ListView(
           children: <Widget>[
             ListTile(
-              leading: Icon(Icons.monetization_on),
-              title: Text('Get free coins'),
+              //leading: Icon(Icons.monetization_on),
+              title: Text('Get free coins', overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        color: Colors.blueGrey[100],
+      ),),
               onTap: () {
                 setState(() {
                   Wallet().addCoins(5);
@@ -54,8 +74,13 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.map),
-              title: Text('Go to WorldMap!'),
+              //leading: Icon(Icons.map),
+              title: Text('Go to WorldMap!', overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        color: Colors.blueGrey[100],
+      ),),
               onTap: () {
                 Navigator.push(
                   context,
@@ -65,8 +90,13 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.add_shopping_cart),
-              title: Text('Go to shop!'),
+              //leading: Icon(Icons.add_shopping_cart),
+              title: Text('Go to shop!', overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        color: Colors.blueGrey[100],
+      ),),
               onTap: () {
                 ItemList.makeShop();
                 Navigator.push(
@@ -77,8 +107,13 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.view_list),
-              title: Text('polluted zone'),
+              //leading: Icon(Icons.view_list),
+              title: Text('polluted zone', overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        color: Colors.blueGrey[100],
+      ),),
               onTap: () {
                 Navigator.push(
                   context,
@@ -87,8 +122,13 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               },
             ),
             ListTile(
-              leading: Icon(Icons.work),
-              title: Text('Go to inventory!'),
+              //leading: Icon(Icons.work),
+              title: Text('Go to inventory!', overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        color: Colors.blueGrey[100],
+      ),),
               onTap: () {
                 ItemList.makeInventory();
                 Navigator.push(
@@ -98,8 +138,13 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               },
             ),
                         ListTile(
-              leading: Icon(Icons.view_list),
-              title: Text('tree list'),
+              //leading: Icon(Icons.view_list),
+              title: Text('tree list', overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 20,
+        color: Colors.blueGrey[100],
+      ),),
               onTap: () {
                 Navigator.push(
                   context,
@@ -109,7 +154,10 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
           ],
         ),
+        ),
       ),
+        ),
+      ],
     );
   }
 }

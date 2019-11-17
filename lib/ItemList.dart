@@ -32,17 +32,27 @@ class _ItemListState extends State<ItemList>{
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "World map", home: Scaffold(
-      appBar: AdTreesAppTopBar(makeTitle(), context).getBar(),
-      body: /*Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[*/
-          _displayItems(),
-          //]),
+    return MaterialApp(title: "World map", 
+    home: Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar:  AdTreesAppTopBar(makeTitle(), context).getBar(),
+          body: _displayItems(), 
+        ),
+      ],
     ),
-    );
+    ) ;
   }
 
   String makeTitle(){
@@ -60,15 +70,57 @@ class _ItemListState extends State<ItemList>{
 
   void _buy(){
     setState(() {
-      gridState[_tappedItemX][_tappedItemY].buyItem();
+      if(gridState[_tappedItemX][_tappedItemY].buyItem())
+        return;
+      else
+        _cannotUsePopup(context, "You're out of money! Keep calm and don't cry");
     });
   }
 
   void _use(){
     setState(() {
-      gridState[_tappedItemX][_tappedItemY].sellItem();
+      if(gridState[_tappedItemX][_tappedItemY].removeItem())
+        return;
+      else
+        _cannotUsePopup(context, "You're out of " + gridState[_tappedItemX][_tappedItemY].getName() + "!");
     });
   }
+
+void _cannotUsePopup(BuildContext context, String text){
+    var alertDialog = AlertDialog(
+      title: Text(text),
+      /*content: Row(
+                  children: <Widget>[
+                    Text(
+                      "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
+                      maxLines: 1,
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 25.0, 
+                      ),
+                    ),
+                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                  ]
+                ),*/
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Ok im sorry'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
 
   Widget _buildCard(BuildContext context, int index) {
     int gridStateLength = gridState.length;
@@ -296,43 +348,62 @@ Container(
   Widget _addButton(){
     if(_is_shop)
     //if(_unlockedZones < Wallet.available_coins())
-      return Container( 
+      return Container(
         alignment: Alignment.bottomRight,
-        child: FlatButton.icon(
-        //color: Colors.red,
-        label: Text(
-          'Buy item',
+        margin: EdgeInsets.only(top: 15.0, right: 20.0),
+      child: Container(
+        alignment: Alignment.center,
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/title.png"), 
+                  fit: BoxFit.fill,),
+                ),
+            
+            width: 100,
+                height: 40,
+      child: GestureDetector(
+              onTap: (){_buy();},
+              child:
+            Text(
+          'Buy',
+          textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.yellow,
-
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
           )
         ), 
-        icon: Icon(
-          Icons.lock_open,
-          color: Colors.yellow,
         ),
-        onPressed: () { _buy();
-        },
-        ),
-      );
+      ),  
+        );
 
-    return Container( 
+    return Container(
         alignment: Alignment.bottomRight,
-        child: FlatButton.icon(
-        //color: Colors.red,R
-        label: Text(
-          'Use item',
+        margin: EdgeInsets.only(top: 15.0, right: 20.0),
+      child: Container(
+        alignment: Alignment.center,
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/title.png"), 
+                  fit: BoxFit.fill,),
+                ),
+            
+            width: 100,
+                height: 40,
+      child: GestureDetector(
+              onTap: (){_use();},
+              child:
+            Text(
+          'Use',
+          textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.yellow,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
           )
         ), 
-        icon: Icon(
-          Icons.lock_open,
-          color: Colors.yellow,
         ),
-        onPressed: () { _use();
-        },
-        ),
-      );
+      ),  
+        );
   }
 }
