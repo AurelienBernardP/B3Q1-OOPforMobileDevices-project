@@ -1,3 +1,4 @@
+import 'package:first/AdTreesAppTopBar.dart';
 import 'package:first/TreeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,10 +24,7 @@ class _PlanetState extends State<Planet>{
   @override
   Widget build(BuildContext context){
     return MaterialApp(title: "World map", home: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('World map'),
-      ),
+      appBar: AdTreesAppTopBar('World map', context).getBar(),
       body: _buildGameBody(),
     ),
     );
