@@ -535,7 +535,7 @@ class _PlanetState extends State<Planet>{
                 fit: BoxFit.cover,),
               ),
       child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.all(20),
@@ -551,22 +551,66 @@ class _PlanetState extends State<Planet>{
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(25),
-                  child: FlatButton.icon(
+                  margin: EdgeInsets.only(top: 25, left: 15, right: 15),
+                  child: Column(
+                    children: <Widget>[
+                    /*FlatButton.icon(
           color: Colors.green,
-          label: Text('See tree?'), 
+          label: Text('See tree'), 
           icon: Icon(Icons.remove_red_eye),
           onPressed: () { Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTreeScreen()),
+                  MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTreeScreenWidget()),
                 );
           },
-        ),
+        ),*/
+        GestureDetector(
+              onTap: (){Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTreeScreenWidget()),
+                );
+              },
+              child:Container(height: height/6,
+          width: width/3,
+          decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getPlantedTree().getIcon()), 
+                          fit: BoxFit.fill,),
+                        ),
+            //alignment: Alignment.bottomRight,
+            //child: Icon(Icons.remove_red_eye, color: Colors.black, size: 30.0),
+        ),),
+        _createTreeHealth(height, width),
+                  
+                  ],) 
                 )
  
       ]
       )
       );
+  }
+
+  Widget _createTreeHealth(double height, double width){
+    double treeHealth = PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTreeScreen().getHealth().getOverall();
+    String image;
+    if(treeHealth<20.0)
+      image = "low.png";
+    else if(treeHealth>80.0)
+      image = "high.png";
+    else
+      image= "medium.png";
+    return Container(
+          height: height/28,
+          width: width/3,
+          decoration: BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/"+image), 
+                          fit: BoxFit.fill,),
+                        ),
+          child: Text(treeHealth.toStringAsPrecision(3)+"%", 
+          textAlign: TextAlign.center,),
+
+        );
   }
 
 }

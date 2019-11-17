@@ -19,6 +19,10 @@ class Zone{
     return locked;
   }
 
+  Item getPlantedTree(){
+    return plantedTree;
+  }
+
   void unlock(){
     locked = false;
   }
@@ -48,8 +52,12 @@ class Zone{
     return this.type.buildCharacteristic(context);
   }
 
-  Widget getTreeScreen(){
+  Widget getTreeScreenWidget(){
     return plantedTreeScreen;
+  }
+
+  TreeBackEnd getTreeScreen(){
+    return plantedTreeScreen.getTreeInfo();
   }
   
   String getZoneType(){
