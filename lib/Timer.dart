@@ -22,11 +22,9 @@ class TimersForTrees {
 
   
   void timers(){
-      const fiveSec = const Duration(seconds:5);
-      const tenSec = const Duration(seconds:10);
+      const oneMin = const Duration(minutes:1);
 
-      new Timer.periodic(fiveSec, (Timer t) => dehydrateTrees(t));
-      new Timer.periodic(tenSec, (Timer t) => denurishTrees(t));
+      new Timer.periodic(oneMin, (Timer t) => updateStateTrees(t));
 
   }
 
@@ -47,15 +45,74 @@ class TimersForTrees {
   //   }
   // }
 
-  void dehydrateTrees(Timer t){
-    for (int i = 0; i < TreeList().getNbTrees(); i++) {
-      TreeList().getTreeList()[i].getHealth().dehydrateTree(1);
+// Nurishement: 
+// C: -1% par h
+// P: -5% par h
+// T: -2% par h
+// Damage:
+// C: (0,5)
+// T: (0, 10)
+// P: (0, 20)
+
+  double scaleDown(double percentageInOneHour, double max){
+    return ((percentageInOneHour/100)* max / 60);
+  }
+
+  double dehydratationRatio(String typeTree){
+    double hydratationMax = 10;
+    switch (typeTree) {
+      case "Cactus":
+        //100 in 12h
+        //8.33% in 1h
+        return scaleDown(8.33,hydratationMax);
+        break;
+      case "Pine Tree":
+        //100 in 30h
+        //3.33% in 1h
+        return scaleDown(3.34,hydratationMax);
+        break;
+      case "Tree":
+        //100% in 24h
+        //4.167% in 1h
+        return scaleDown(4.167,hydratationMax);
+      case "Mini Plant":
+        //100% in 5 h
+        //20% in 1h
+        return scaleDown(100,hydratationMax);
+      default:
+        return 0.0;
     }
   }
 
-  void denurishTrees(Timer t){
+  double denurishRatio(String typeTree){
+    double nutritionMax = 1000;
+    switch (typeTree) {
+      case "Cactus":
+        return scaleDown(1,nutritionMax);
+        break;
+      case "Pine Tree":
+        return scaleDown(5,nutritionMax);
+        break;
+      case "Tree":
+        return scaleDown(2,nutritionMax);
+      case "Mini Plant":
+        return scaleDown(10,nutritionMax);
+      default:
+        return 0.0;
+    }
+  }
+
+  void updateStateTrees(Timer t){
+    TreeBackEnd currentTree;
+    String currentTreeName;
     for (int i = 0; i < TreeList().getNbTrees(); i++) {
-      TreeList().getTreeList()[i].getHealth().denurishTree(40);
+      currentTree = TreeList().getTreeList()[i];
+      currentTreeName = currentTree.plantedTree.getName();
+      double nbDrop = dehydratationRatio(currentTreeName);
+      double nutrition = denurishRatio(currentTreeName);
+
+      currentTree.getHealth().dehydrateTree(nbDrop);
+      currentTree.getHealth().denurishTree(nutrition);
     }
   }
 }
