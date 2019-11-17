@@ -9,7 +9,6 @@ import 'Planet.dart';
 import 'ItemList.dart';
 import 'PollutedZones.dart';
 import 'Timer.dart';
-import 'Guide.dart';
 
 import 'package:admob_flutter/admob_flutter.dart';
 void main() { 
@@ -43,10 +42,6 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 ),
         child: ListView(
           children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.attach_money),
-              title: Text('Your money is ' + Wallet().getCoins().toString() + " coins"),
-            ),
             ListTile(
               leading: Icon(Icons.monetization_on),
               title: Text('Get free coins'),
