@@ -42,10 +42,11 @@ class TreeScreenBodyState extends State<TreeScreen> {
     // sets first value
 
     // defines a timer 
-    _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
-      print("pased");
-      this.onValueChanged();
-    });
+  
+    // _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
+    //   print("pased");
+    //   this.onValueChanged();
+    // });
     // if(TimersForTrees().timerTreeScreen == null){
     //   TimersForTrees().setTimerForTreeScreen(this);
 
@@ -168,22 +169,35 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                if(!treeInfo.getHealth().hydrateTree(1)){
-                  print("MAX");
-                }
+                WaterItem.getInstance().useItem(treeInfo.getHealth());
+                // if(!treeInfo.getHealth().){
+                //   print("MAX");
+                // }
                 setState(() {
                   
                 });
                 print("water plant");
               },
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage('assets/images/water.png'),
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
+              child: 
+              Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      WaterItem.getInstance().getIcon(),
+                      fit: BoxFit.fill,
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      child:Text(
+                        WaterItem.getInstance().getQuantity().toString(),
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.yellow,
+                      ),),),  
+            ],),
             ),
           ),
           Expanded(
@@ -212,7 +226,7 @@ class TreeBackEnd {
   Zone plantedZone;
   DateTime lastTimeShaken;
   String name;
-  Item planetdTree;
+  Item plantedTree;
 
   TreeBackEnd({Zone zone, Item tree, String name}) {
     image = Container(
@@ -229,7 +243,7 @@ class TreeBackEnd {
       plantedZone = zone;
     }
     if (tree != null) {
-      planetdTree = tree;
+      plantedTree = tree;
     }
     if (name != null) {
       this.name = name;
