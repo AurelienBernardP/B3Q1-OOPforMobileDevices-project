@@ -60,7 +60,7 @@ class WaterItem extends Item {
     _quantity = 0;
     _description = "You can't possibly expect your plants to live without water...";
     _name = "Water";
-    _icon = "assets/images/water.png";
+    _icon = "assets/images/watericon.png";
   }
 
   static WaterItem getInstance() {
@@ -182,20 +182,46 @@ class MiniPlant extends Item {
   }
 }
 
-class NurishementItem extends Item {
-  static NurishementItem _instance;
+class NurishementItem1 extends Item {
+  static NurishementItem1 _instance;
 
-  NurishementItem._internal() {
+  NurishementItem1._internal() {
     _price = 10;
     _quantity = 0;
     _description = "Don't let my appearence fool you... I can make all the tables turn.";
     _name = "Nurishement";
-    _icon = "assets/images/food.png";
+    _icon = "assets/images/food1icon.png";
   }
 
-  static NurishementItem getInstance() {
+  static NurishementItem1 getInstance() {
     if (_instance == null) {
-      _instance = NurishementItem._internal();
+      _instance = NurishementItem1._internal();
+    }
+    return _instance;
+  }
+
+  void useItem(covariant Health healthbar){
+    if (_quantity > 0) {
+      healthbar.nurishTree(1);
+      _quantity -= 1;
+    }
+  }
+}
+
+class NurishementItem2 extends Item {
+  static NurishementItem2 _instance;
+
+  NurishementItem2._internal() {
+    _price = 10;
+    _quantity = 0;
+    _description = "Don't let my appearence fool you... I can make all the tables turn.";
+    _name = "Nurishement";
+    _icon = "assets/images/food2icon.png";
+  }
+
+  static NurishementItem2 getInstance() {
+    if (_instance == null) {
+      _instance = NurishementItem2._internal();
     }
     return _instance;
   }
