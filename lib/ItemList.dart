@@ -306,43 +306,62 @@ Container(
   Widget _addButton(){
     if(_is_shop)
     //if(_unlockedZones < Wallet.available_coins())
-      return Container( 
+      return Container(
         alignment: Alignment.bottomRight,
-        child: FlatButton.icon(
-        //color: Colors.red,
-        label: Text(
-          'Buy item',
+        margin: EdgeInsets.only(top: 15.0, right: 20.0),
+      child: Container(
+        alignment: Alignment.center,
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/title.png"), 
+                  fit: BoxFit.fill,),
+                ),
+            
+            width: 100,
+                height: 40,
+      child: GestureDetector(
+              onTap: (){_buy();},
+              child:
+            Text(
+          'Buy',
+          textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.yellow,
-
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
           )
         ), 
-        icon: Icon(
-          Icons.lock_open,
-          color: Colors.yellow,
         ),
-        onPressed: () { _buy();
-        },
-        ),
-      );
+      ),  
+        );
 
-    return Container( 
+    return Container(
         alignment: Alignment.bottomRight,
-        child: FlatButton.icon(
-        //color: Colors.red,R
-        label: Text(
-          'Use item',
+        margin: EdgeInsets.only(top: 15.0, right: 20.0),
+      child: Container(
+        alignment: Alignment.center,
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/title.png"), 
+                  fit: BoxFit.fill,),
+                ),
+            
+            width: 100,
+                height: 40,
+      child: GestureDetector(
+              onTap: (){_buy();},
+              child:
+            Text(
+          'Use',
+          textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colors.yellow,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 25,
           )
         ), 
-        icon: Icon(
-          Icons.lock_open,
-          color: Colors.yellow,
         ),
-        onPressed: () { _use();
-        },
-        ),
-      );
+      ),  
+        );
   }
 }
