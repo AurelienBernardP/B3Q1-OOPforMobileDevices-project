@@ -1,3 +1,4 @@
+import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Item.dart';
@@ -32,10 +33,7 @@ class _ItemListState extends State<ItemList>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: "World map", home: Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: makeTitle(),
-      ),
+      appBar: AdTreesAppTopBar(makeTitle(), context).getBar(),
       body: /*Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,10 +45,10 @@ class _ItemListState extends State<ItemList>{
     );
   }
 
-  Widget makeTitle(){
+  String makeTitle(){
     if(_is_shop)
-      return Text('Shop');
-    return Text('Inventory');
+      return 'Shop';
+    return 'Inventory';
   }
 
   void _tapOnGrid(int x, int y){

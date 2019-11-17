@@ -1,23 +1,27 @@
 import 'package:first/ItemList.dart';
 import 'package:first/TreeScreen.dart';
 import 'package:first/Wallet.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
 import 'PollutedZones.dart';
+import 'Timer.dart';
 import 'Guide.dart';
 
 import 'package:admob_flutter/admob_flutter.dart';
 void main() { 
-    Admob.initialize('ca-app-pub-3940256099942544~3347511713');
+
+    //Admob.initialize('ca-app-pub-3940256099942544~3347511713');
     runApp(new AdTreesApp());
     
 }
 
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
+    TimersForTrees().timers();
     return MaterialApp(title: "AdTrees", home: _AdTreesAppBody());
   }
 }
@@ -27,6 +31,7 @@ class _AdTreesAppBody extends StatefulWidget {
 }
 
 class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
@@ -93,16 +98,6 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemList()),
-                );
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.work),
-              title: Text('how to play!'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Guide()),
                 );
               },
             ),

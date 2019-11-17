@@ -6,6 +6,7 @@ import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
 import 'ItemList.dart';
+import 'Timer.dart';
 import 'Zone.dart';
 
 class TreeScreen extends StatefulWidget {
@@ -187,6 +188,9 @@ class TreeBackEnd {
     } else {
       this.name = "Grooot";
     }
+
+    TimersForTrees().addTreeToTimer(this);
+
   }
 
   void shake() {
