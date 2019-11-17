@@ -10,7 +10,7 @@ class AdTreesAppTopBar {
     this.text.replaceAll('AdTrees', text);
 
     Widget settingsButton = IconButton(
-      icon: Icon(Icons.settings),
+      icon: Icon(Icons.help_outline),
       onPressed: () { if(isGuide == null){
         Navigator.push(
           context,

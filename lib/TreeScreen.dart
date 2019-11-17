@@ -31,10 +31,10 @@ class TreeScreenBodyState extends State<TreeScreen> {
     return Scaffold(
       appBar: bar,
       body: Container(
+        decoration: treeInfo.getBackground(),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-
             Expanded(
               flex: 18,
               child: _buildMiddleSection(),
@@ -45,19 +45,16 @@ class TreeScreenBodyState extends State<TreeScreen> {
             ),
             Expanded(
               flex: 2,
-              child: Container(
-                child: GestureDetector(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => treeInfo.getHealth(),
-                      barrierDismissible: false,
-                    );
-                  },
-                  child: Container(
-                    child: treeInfo.getHealth().buildGeneralHealth(context),
-                    decoration: BoxDecoration(color: Colors.amberAccent),
-                  ),
+              child: GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) => treeInfo.getHealth(),
+                    barrierDismissible: false,
+                  );
+                },
+                child: Container(
+                  child: treeInfo.getHealth().buildGeneralHealth(context),
                 ),
               ),
             ),
@@ -79,11 +76,9 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 setState(() {
                   treeInfo.shake();
                 });
-                print("tree section");
               },
               child: Container(
                 child: treeInfo.getImage(),
-                decoration: BoxDecoration(color: Colors.greenAccent),
               ),
             ),
           ),
@@ -108,8 +103,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 print("store");
               },
               child: Container(
-                child: Text("store"),
-                decoration: BoxDecoration(color: Colors.blueAccent),
+                child: Icon(Icons.add_shopping_cart),
               ),
             ),
           ),
@@ -120,8 +114,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 print("inventory");
               },
               child: Container(
-                child: Text("inventory"),
-                decoration: BoxDecoration(color: Colors.blueGrey),
+                child: Icon(Icons.work),
               ),
             ),
           ),
@@ -132,11 +125,11 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 print("water plant");
               },
               child: Container(
-                child: Text("water"),
                 decoration: BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage('assets/images/water.png'), 
-                  fit: BoxFit.fill,),
+                  image: new DecorationImage(
+                    image: new AssetImage('assets/images/water.png'),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -151,7 +144,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
               },
               child: Container(
                 child: Icon(Icons.attach_money),
-                decoration: BoxDecoration(color: Colors.amberAccent),
+                
               ),
             ),
           ),
@@ -170,11 +163,14 @@ class TreeBackEnd {
   Item planetdTree;
 
   TreeBackEnd({Zone zone, Item tree, String name}) {
-    image = Container(decoration : BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage(tree.getIcon()), 
-                  fit: BoxFit.cover,),
-                ),);
+    image = Container(
+      decoration: BoxDecoration(
+        image: new DecorationImage(
+          image: new AssetImage(tree.getIcon()),
+          fit: BoxFit.fitWidth,
+        ),
+      ),
+    );
     treeHealth = Health();
     lastTimeShaken = DateTime.now();
     if (zone != null) {
@@ -208,5 +204,15 @@ class TreeBackEnd {
 
   Health getHealth() {
     return treeHealth;
+  }
+
+  BoxDecoration getBackground() {
+    return BoxDecoration(
+      image: new DecorationImage(
+        image: new AssetImage(
+          "assets/images/unlocked/"+plantedZone.getZoneType()+"Unlocked.png",
+        ),fit: BoxFit.cover
+      ),
+    );
   }
 }
