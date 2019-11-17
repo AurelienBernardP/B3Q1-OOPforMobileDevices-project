@@ -23,11 +23,27 @@ class _PlanetState extends State<Planet>{
 
   @override
   Widget build(BuildContext context){
-    return MaterialApp(title: "World map", home: Scaffold(
-      appBar: AdTreesAppTopBar('World map', context).getBar(),
-      body: _buildGameBody(),
+    return MaterialApp(title: "World map", 
+    home: Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
+          appBar:  AdTreesAppTopBar('World map', context).getBar(),
+          body: _buildGameBody(),
+        ),
+      ],
     ),
-    );
+    ) ;
   }
   void _tapOnGrid(int x, int y){
     setState(() {
@@ -177,7 +193,7 @@ class _PlanetState extends State<Planet>{
 
   void _shopPopup(BuildContext context, Item tree){
     var alertDialog = AlertDialog(
-      title: Text("You've ran out of" + tree.getName()),
+      title: Text("You've ran out of " + tree.getName()),
       content: Row(
                   children: <Widget>[
                     Text(

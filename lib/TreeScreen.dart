@@ -1,4 +1,5 @@
 import 'package:first/Item.dart';
+import 'package:first/Timer.dart';
 import 'package:first/TreeList.dart';
 
 import 'Health.dart';
@@ -23,9 +24,16 @@ class TreeScreen extends StatefulWidget {
 class TreeScreenBodyState extends State<TreeScreen> {
   TreeBackEnd treeInfo;
   Timer _everySecond;
+
   TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
+
+  void onValueChanged() {
+    setState(() {
+      
+    });
+    }
 
   @override
   void initState() {
@@ -36,15 +44,31 @@ class TreeScreenBodyState extends State<TreeScreen> {
     // defines a timer 
     _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
       print("pased");
-      setState(() {
-        
-      });
+      this.onValueChanged();
     });
+    // if(TimersForTrees().timerTreeScreen == null){
+    //   TimersForTrees().setTimerForTreeScreen(this);
+
+    // }
+
   }
 
   Widget build(BuildContext context) {
     AppBar bar = AdTreesAppTopBar(treeInfo.name, context).getBar();
-    return Scaffold(
+    return Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
       appBar: bar,
       body: Container(
         decoration: treeInfo.getBackground(),
@@ -70,6 +94,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   );
                 },
                 child: Container(
+                  
                   child: treeInfo.getHealth().buildGeneralHealth(context),
                 ),
               ),
@@ -77,6 +102,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
           ],
         ),
       ),
+        ),
+      ],
     );
   }
 
@@ -112,6 +139,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                  // _everySecond.cancel();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemList()),
@@ -127,6 +155,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                  // _everySecond.cancel();
+
                 print("inventory");
               },
               child: Container(
@@ -138,6 +168,12 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                if(!treeInfo.getHealth().hydrateTree(1)){
+                  print("MAX");
+                }
+                setState(() {
+                  
+                });
                 print("water plant");
               },
               child: Container(
