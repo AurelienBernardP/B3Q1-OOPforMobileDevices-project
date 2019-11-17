@@ -18,7 +18,7 @@ class Wallet {
   }
 
   Wallet._internal(){
-    _amount = 0;
+    _amount = 100000;
   }
   
 
