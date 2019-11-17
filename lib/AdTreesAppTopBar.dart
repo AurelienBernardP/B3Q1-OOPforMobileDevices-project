@@ -21,7 +21,28 @@ class AdTreesAppTopBar {
       },
     ),
     );
-
+    Widget adsButton = GestureDetector(
+              onTap: (){
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text("ads"),
+                  ),
+                  barrierDismissible: true,
+                );
+              },
+              child:Container(
+                margin: new EdgeInsets.only(bottom: 10.0, left: 10.0),
+                //alignment: Alignment.topRight,
+                height: MediaQuery.of(context).size.height/20,
+                width: MediaQuery.of(context).size.height/20,
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/button_play.png"), 
+                    fit: BoxFit.fill,
+                  ),
+                ),
+              ),);
     Widget backButton = GestureDetector(
               onTap: (){Navigator.pop(context);
               },
@@ -67,6 +88,7 @@ class AdTreesAppTopBar {
                       ),
                     ),
                     Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
+                    adsButton,
                   ]
                 ),
           ],

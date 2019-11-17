@@ -98,11 +98,12 @@ class Health extends StatelessWidget{
   Widget buildGeneralHealth(BuildContext context){
       //Size
       Size size = MediaQuery.of(context).size;
-      double width = (size.width - 10)/2;
-      double height = size.height/20;
+      double width = size.width - 10;
+      double height = size.height/15;
 
       return Container(
           alignment: Alignment.center,
+          margin: EdgeInsets.all(20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
@@ -196,23 +197,13 @@ class Health extends StatelessWidget{
             ],);
   }
 
-  Row _overallHealth(double width, double height){
+  Widget _overallHealth(double width, double height){
     double overall = this._healthInfo.hydratation * this._healthInfo.nutritionMax * this._healthInfo.damageMax;
     overall += this._healthInfo.nutrition * this._healthInfo.hydratationMax * this._healthInfo.damageMax;
     overall += this._healthInfo.damage * this._healthInfo.nutritionMax * this._healthInfo.hydratationMax;
 
     overall /= 3;
     double overallMax = this._healthInfo.nutritionMax * this._healthInfo.hydratationMax * this._healthInfo.damageMax;
-
-    Text text = Text(
-                "Overall",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.blue,
-                ),);
 
     Stack health = Stack(
                     children: <Widget>[
@@ -234,15 +225,10 @@ class Health extends StatelessWidget{
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            color: Colors.black,
+                            color: Colors.blueGrey[100],
                       ))),]);
 
-    return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Expanded(child : text),
-              Expanded(child : health),
-            ],);
+    return Expanded(child : health);
   }
 
   Row _damageHealth(double width, double height){

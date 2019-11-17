@@ -1,4 +1,5 @@
 import 'package:first/Item.dart';
+import 'package:first/PollutedZones.dart';
 import 'package:first/Timer.dart';
 import 'package:first/TreeList.dart';
 
@@ -29,11 +30,11 @@ class TreeScreenBodyState extends State<TreeScreen> {
     treeInfo = info;
   }
 
-  void onValueChanged() {
-    setState(() {
+  // void onValueChanged() {
+  //   setState(() {
       
-    });
-    }
+  //   });
+  //   }
 
   @override
   void initState() {
@@ -81,12 +82,27 @@ class TreeScreenBodyState extends State<TreeScreen> {
               child: _buildMiddleSection(),
             ),
             Expanded(
-              flex: 2,
-              child: _buildActionButtons(),
+              flex: 7,
+              child: 
+              Container(
+                
+      decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
             ),
-            Expanded(
-              flex: 2,
-              child: GestureDetector(
+          ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                  Expanded(
+                    flex: 1,
+                    child: _buildActionButtons(),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child:
+                    GestureDetector(
                 onTap: () {
                   showDialog(
                     context: context,
@@ -99,7 +115,15 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   child: treeInfo.getHealth().buildGeneralHealth(context),
                 ),
               ),
+                  )
+                
+                ],),
+              )
             ),
+            // Expanded(
+            //   flex: 2,
+            //   child: 
+            // ),
           ],
         ),
       ),
@@ -110,6 +134,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
 
   Widget _buildMiddleSection() {
     return Container(
+      margin: EdgeInsets.only(top: 15),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -132,9 +157,14 @@ class TreeScreenBodyState extends State<TreeScreen> {
   }
 
   Widget _buildActionButtons() {
-    return Container(
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+    double heightIconStore = MediaQuery.of(context).size.height/15;
+
+    double heightIcon = MediaQuery.of(context).size.height/17;
+    return 
+    Container(
+      margin: EdgeInsets.all(10),
+      child: 
+        Row(
         children: <Widget>[
           Expanded(
             flex: 1,
@@ -148,20 +178,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 print("store");
               },
               child: Container(
-                child: Icon(Icons.add_shopping_cart),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () {
-                  // _everySecond.cancel();
-
-                print("inventory");
-              },
-              child: Container(
-                child: Icon(Icons.work),
+                child: Icon(Icons.add_shopping_cart, color: Colors.yellow,size: heightIconStore,),
               ),
             ),
           ),
@@ -185,11 +202,55 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     Image.asset(
                       WaterItem.getInstance().getIcon(),
                       fit: BoxFit.fill,
+                      width: heightIcon,
+                      height: heightIcon,
                     ),
                     Container(
                       alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.all(5),
+
                       child:Text(
                         WaterItem.getInstance().getQuantity().toString(),
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.yellow,
+                      ),),),  
+            ],),
+              
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                NurishementItem1.getInstance().useItem(treeInfo.getHealth());
+                // if(!treeInfo.getHealth().){
+                //   print("MAX");
+                // }
+                setState(() {
+                  
+                });
+                print("water plant");
+              },
+              child: 
+              Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      NurishementItem1.getInstance().getIcon(),
+                      fit: BoxFit.fill,
+                      width: heightIcon,
+                      height: heightIcon,
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.all(5),
+
+                      child:Text(
+                        NurishementItem1.getInstance().getQuantity().toString(),
                         textAlign: TextAlign.right,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -204,18 +265,83 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                NurishementItem2.getInstance().useItem(treeInfo.getHealth());
+                // if(!treeInfo.getHealth().){
+                //   print("MAX");
+                // }
                 setState(() {
-                  Wallet().addCoins(5);
+                  
                 });
+                print("water plant");
               },
-              child: Container(
-                child: Icon(Icons.attach_money),
-                
-              ),
+              child: 
+              Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      NurishementItem2.getInstance().getIcon(),
+                      fit: BoxFit.fill,
+                      width: heightIcon,
+                      height: heightIcon,
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.all(5),
+
+                      child:Text(
+                        NurishementItem2.getInstance().getQuantity().toString(),
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.yellow,
+                      ),),),  
+            ],),
             ),
           ),
-        ],
-      ),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                RepairItem.getInstance().useItem(treeInfo.getHealth());
+                setState(() {
+                  Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => PollutedZones()),
+                );
+                });
+
+                print("water plant");
+              },
+              child: 
+              Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      RepairItem.getInstance().getIcon(),
+                      fit: BoxFit.fill,
+                      width: heightIcon,
+                      height: heightIcon,
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.all(5),
+                      child:Text(
+                        RepairItem.getInstance().getQuantity().toString(),
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.yellow,
+                      ),),),  
+            ],),
+            ),
+          ),
+          
+          
+        ],),
     );
   }
 }
@@ -233,7 +359,7 @@ class TreeBackEnd {
       decoration: BoxDecoration(
         image: new DecorationImage(
           image: new AssetImage(tree.getIcon()),
-          fit: BoxFit.cover,
+          fit: BoxFit.fill,
         ),
       ),
     );
