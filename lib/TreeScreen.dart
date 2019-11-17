@@ -1,4 +1,5 @@
 import 'package:first/Item.dart';
+import 'package:first/Timer.dart';
 import 'package:first/TreeList.dart';
 
 import 'Health.dart';
@@ -23,9 +24,16 @@ class TreeScreen extends StatefulWidget {
 class TreeScreenBodyState extends State<TreeScreen> {
   TreeBackEnd treeInfo;
   Timer _everySecond;
+
   TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
+
+  void onValueChanged() {
+    setState(() {
+      
+    });
+    }
 
   @override
   void initState() {
@@ -36,10 +44,13 @@ class TreeScreenBodyState extends State<TreeScreen> {
     // defines a timer 
     _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
       print("pased");
-      setState(() {
-        
-      });
+      this.onValueChanged();
     });
+    // if(TimersForTrees().timerTreeScreen == null){
+    //   TimersForTrees().setTimerForTreeScreen(this);
+
+    // }
+
   }
 
   Widget build(BuildContext context) {
@@ -83,6 +94,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   );
                 },
                 child: Container(
+                  
                   child: treeInfo.getHealth().buildGeneralHealth(context),
                 ),
               ),
@@ -127,6 +139,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                  // _everySecond.cancel();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemList()),
@@ -142,6 +155,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                  // _everySecond.cancel();
+
                 print("inventory");
               },
               child: Container(
@@ -153,6 +168,12 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
+                if(!treeInfo.getHealth().hydrateTree(1)){
+                  print("MAX");
+                }
+                setState(() {
+                  
+                });
                 print("water plant");
               },
               child: Container(
@@ -198,7 +219,7 @@ class TreeBackEnd {
       decoration: BoxDecoration(
         image: new DecorationImage(
           image: new AssetImage(tree.getIcon()),
-          fit: BoxFit.fitWidth,
+          fit: BoxFit.cover,
         ),
       ),
     );
@@ -220,12 +241,13 @@ class TreeBackEnd {
 
   }
   int getMilisecondsLeft(){
-    return lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;
+    int time = lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;
+    return time <= 0 ? 0: time;
 
   }
   void shake() {
     print(getMilisecondsLeft());
-    if (getMilisecondsLeft() < 0) {
+    if (getMilisecondsLeft() <= 0) {
       lastTimeShaken = DateTime.now();
       Wallet().addCoins(7);
     }
