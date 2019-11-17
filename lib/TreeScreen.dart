@@ -51,7 +51,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   showDialog(
                     context: context,
                     builder: (context) => treeInfo.getHealth(),
-                    barrierDismissible: false,
+                    barrierDismissible: true,
                   );
                 },
                 child: Container(
