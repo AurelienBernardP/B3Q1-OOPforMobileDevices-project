@@ -379,7 +379,6 @@ class _PlanetState extends State<Planet>{
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Icon(Icons.photo_album),
                             Text('Unlock for '+  PlanetBackEnd.getInstance().getPrice().toString()+ " "),
                             Icon(Icons.strikethrough_s),
                             ],
@@ -489,8 +488,6 @@ class _PlanetState extends State<Planet>{
         children: <Widget>[
           Image.asset(
                    PlanetBackEnd.getInstance().getTreeGrid()[x][y].getIcon(),
-                  //width: 10,
-                  //height: 10,
                   fit: BoxFit.fill,
                 ),
 

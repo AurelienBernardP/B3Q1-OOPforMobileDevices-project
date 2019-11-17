@@ -79,38 +79,6 @@ class _ItemListState extends State<ItemList>{
       onTap: () {
         _tapOnGrid(x, y);
         }, 
-      /*child: Container(
-          decoration: BoxDecoration(
-            image: new DecorationImage(
-            image: new AssetImage("assets/images/window.png"), 
-            fit: BoxFit.cover,),
-          ),
-        Card(
-        //color: Colors.white,
-        
-        child: Padding(
-          padding:
-            EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0, top: 10.0),
-          child: Container(
-            alignment: Alignment.center,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Flexible(
-                  child: 
-                    _buildImage(x, y)
-                  
-                ),
-                /*Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: _buildDescription(x, y),
-                ),*/
-              ],
-            ),
-          ),
-        ),
-      ),
-      ),*/
             child: GridTile(
         child: Container(
           decoration: BoxDecoration(
@@ -131,12 +99,64 @@ class _ItemListState extends State<ItemList>{
   }
 
   Widget _buildImage(int x, int y){
-    return Image.asset(
-                  gridState[x][y].getIcon(),
-                  //width: 150,
-                  //height: 150,
-                  fit: BoxFit.fill,
-                );
+    if(_is_shop)
+return 
+Container(
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Image.asset(
+              gridState[x][y].getIcon(),
+              fit: BoxFit.fill,
+            ),
+            Container(
+              alignment: Alignment.bottomRight,
+              child:
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                              Text(
+                gridState[x][y].getPrice().toString(),
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.yellow,
+              ),),
+                            Icon(Icons.strikethrough_s,
+                            color: Colors.yellow,),
+                            ],
+                          ),
+              
+              
+              
+            ),  
+    ],),);
+    else 
+    return 
+    Container(
+      child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Image.asset(
+              gridState[x][y].getIcon(),
+              fit: BoxFit.fill,
+            ),
+            Container(
+              alignment: Alignment.bottomRight,
+              child:Text(
+                gridState[x][y].getQuantity().toString(),
+                textAlign: TextAlign.right,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                  color: Colors.yellow,
+              ),),),  
+    ],),
+    
+    );
   }
   
   Widget _addDetails(int x, int y){
@@ -153,12 +173,8 @@ class _ItemListState extends State<ItemList>{
                     Icon(Icons.strikethrough_s, color: Colors.yellow, size: 20.0),
                   ]
                 );
-    return Text(
-                      "Quantity:" +gridState[x][y].getQuantity().toString(),
-                      maxLines: 1,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                    );
+    else
+      return Text('');
   }
 
   Widget _displayItems(){
@@ -208,38 +224,72 @@ class _ItemListState extends State<ItemList>{
               //mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 _addTitle(),
-                _addDetails(_tappedItemX, _tappedItemY),
+                // _addDetails(_tappedItemX, _tappedItemY),
                 _addText(),
                 _addButton(),
               ],
             ),
         ),
           );
-    return Text("Tap on a grid to view more details!");
+    return 
+          Container(
+            color: Colors.black,
+            child: Container(
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                image: new DecorationImage(
+                  image: new AssetImage("assets/images/table.png"), 
+                    fit: BoxFit.fill,),
+                  ),
+              child:Text(
+                "Tap on a grid to view more details!",
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                  color: Colors.yellow,
+                ),),),);
   }
 
   Widget _addTitle(){
+    double height = MediaQuery.of(context).size.height;
+
     return Container(
             decoration: BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage("assets/images/title.png"), 
                   fit: BoxFit.fill,),
                 ),
-            child: Text(gridState[_tappedItemX][_tappedItemY].getName(),
+            margin: EdgeInsets.all(10),
+            child: Container(
+              margin: EdgeInsets.all(5),
+              child: Text(gridState[_tappedItemX][_tappedItemY].getName(),
                       style: TextStyle(
-                fontSize: 40.0, 
+                        fontWeight: FontWeight.bold,
+                fontSize: height/22, 
               ),
             ),
+            )
+            
         );
   }
 
   Widget _addText(){
-    return  Text(gridState[_tappedItemX][_tappedItemY].getDescription(),
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
+    return  
+      Container(
+        margin: EdgeInsets.only(left: width/20, right: width/20),
+        child: Text(gridState[_tappedItemX][_tappedItemY].getDescription(),
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 24.0, 
+                fontSize: height/30,
+                color: Colors.blueGrey[100]
               ),
-        );
+      )
+    );
   }
 
 
@@ -250,18 +300,36 @@ class _ItemListState extends State<ItemList>{
         alignment: Alignment.bottomRight,
         child: FlatButton.icon(
         //color: Colors.red,
-        label: Text('Buy item'), 
-        icon: Icon(Icons.lock_open),
+        label: Text(
+          'Buy item',
+          style: TextStyle(
+            color: Colors.yellow,
+
+          )
+        ), 
+        icon: Icon(
+          Icons.lock_open,
+          color: Colors.yellow,
+        ),
         onPressed: () { _buy();
         },
         ),
       );
+
     return Container( 
         alignment: Alignment.bottomRight,
         child: FlatButton.icon(
         //color: Colors.red,R
-        label: Text('Use item'), 
-        icon: Icon(Icons.lock_open),
+        label: Text(
+          'Use item',
+          style: TextStyle(
+            color: Colors.yellow,
+          )
+        ), 
+        icon: Icon(
+          Icons.lock_open,
+          color: Colors.yellow,
+        ),
         onPressed: () { _use();
         },
         ),

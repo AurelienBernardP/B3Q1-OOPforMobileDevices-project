@@ -17,6 +17,22 @@ class Health extends StatelessWidget{
     return buildAllHealth(context);
   }
 
+  double getHydratation(){
+    return _healthInfo.hydratation;
+  }
+
+    double getNutrition(){
+    return _healthInfo.nutrition;
+  }
+
+    double getDamage(){
+    return _healthInfo.damage;
+  }
+
+    double getOverall(){
+    return _healthInfo.getOverall();
+  }
+
 
   bool hydrateTree(double nbDrop){
     return this._healthInfo.hydrateTree(nbDrop);
@@ -288,6 +304,16 @@ class HealthBackEnd {
     this.damage = 0;
   }
 
+
+  double getOverall(){
+    double overall =  hydratation *  nutritionMax *  damageMax;
+    overall +=  nutrition *  hydratationMax *  damageMax;
+    overall +=  damage *  nutritionMax * hydratationMax;
+    overall /= 3;
+    double overallMax = nutritionMax * hydratationMax * damageMax;
+
+    return (overall * 100)/overallMax;
+  }
 
   bool hydrateTree(double nbDrop){
     if (this.hydratation >= hydratationMax)
