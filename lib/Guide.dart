@@ -8,11 +8,13 @@ class Guide extends StatefulWidget{
 }
 
 class _GuideState extends State<Guide>{
+GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
 int pageNumber = 0;
 
   @override
   Widget build(BuildContext context){
     return MaterialApp(title: "Guide", home: Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         title: Text('How to play'),
@@ -51,9 +53,13 @@ int pageNumber = 0;
                 _addTitle(),
                 //_addDetails(_tappedItemX, _tappedItemY),
                 _addText(),
+                 
                 Container(
                   alignment: Alignment.bottomRight,
-                child: _addButton(height, width),)
+                child: _addButton(height, width),
+                ),
+                
+                
               ],
             ),
       ),
