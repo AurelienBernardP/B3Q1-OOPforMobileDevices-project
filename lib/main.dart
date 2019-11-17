@@ -77,7 +77,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
             ListTile(
               leading: Icon(Icons.view_list),
-              title: Text('go planted trees list'),
+              title: Text('polluted zone'),
               onTap: () {
                 Navigator.push(
                   context,
@@ -93,6 +93,16 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemList()),
+                );
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.work),
+              title: Text('how to play!'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Guide()),
                 );
               },
             ),
