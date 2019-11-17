@@ -7,9 +7,8 @@ import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
 import 'ItemList.dart';
-import 'Timer.dart';
 import 'Zone.dart';
-
+import 'dart:async';
 class TreeScreen extends StatefulWidget {
   TreeBackEnd treeInfo;
 
@@ -23,10 +22,26 @@ class TreeScreen extends StatefulWidget {
 
 class TreeScreenBodyState extends State<TreeScreen> {
   TreeBackEnd treeInfo;
-
+  Timer _everySecond;
   TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
+
+  @override
+  void initState() {
+    super.initState();
+
+    // sets first value
+
+    // defines a timer 
+    _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
+      print("pased");
+      setState(() {
+        
+      });
+    });
+  }
+
   Widget build(BuildContext context) {
     AppBar bar = AdTreesAppTopBar(treeInfo.name, context).getBar();
     return Scaffold(
