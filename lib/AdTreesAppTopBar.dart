@@ -24,7 +24,8 @@ class AdTreesAppTopBar {
         onPressed: () => Navigator.pop(context),
       ),
       bar = new AppBar(
-      title: Center(child:Row(children: <Widget>[Text(text +" | You have "+ Wallet().getCoins().toString()),Icon(Icons.strikethrough_s),],) ),
+      title: Center(child:FittedBox(fit:BoxFit.fitWidth, 
+    child:Row(children: <Widget>[Text(text +" | You have "+ Wallet().getCoins().toString()),Icon(Icons.strikethrough_s),],),),),
       backgroundColor: Colors.green,
       leading: Navigator.canPop(context) ? backButton : null,
       actions: <Widget>[ settingsButton],
