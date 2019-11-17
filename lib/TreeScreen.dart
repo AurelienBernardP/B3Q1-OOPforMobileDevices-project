@@ -18,6 +18,11 @@ class TreeScreen extends StatefulWidget {
     treeInfo = TreeBackEnd(
         zone: location, tree: treeType, name: name != null ? name : null);
   }
+
+  TreeBackEnd getTreeInfo(){
+    return treeInfo;
+  }
+  
   @override
   TreeScreenBodyState createState() => TreeScreenBodyState(treeInfo);
 }

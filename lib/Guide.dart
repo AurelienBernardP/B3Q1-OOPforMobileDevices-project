@@ -13,12 +13,27 @@ int pageNumber = 0;
 
   @override
   Widget build(BuildContext context){
-    return MaterialApp(title: "Guide", 
-    home: Scaffold(
+    return MaterialApp(title: "Guide",
+    home: Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
       appBar: AdTreesAppTopBar('How to play', context,isGuide:true).getBar(),
       body: _buildGuide(),
+        ),
+      ],
     ),
-    );
+    ) ;
   }
 
   void _nextPage(){
