@@ -278,7 +278,7 @@ class RepairItem extends Item {
   RepairItem._internal() {
     _price = 50;
     _quantity = 0;
-    _description = "Water water water food repeat... Don't you want to spice things up a bit?";
+    _description = "Water water food repeat... Don't you want to spice things up a bit?";
     _name = "Trap";
     _icon = "assets/images/repair.png";
   }

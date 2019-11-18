@@ -57,7 +57,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
         child: Container( 
           margin: new EdgeInsets.only(top: 160.0, left: 30.0),
           child: ListView(
-            padding: EdgeInsets.only(top:10.0),
+            
           children: <Widget>[
             Container(
                 decoration:new BoxDecoration(
@@ -154,7 +154,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TreeListScreen()),
+                  MaterialPageRoute(builder: (context) => PollutedZones()),
                 );
               },
             ),
