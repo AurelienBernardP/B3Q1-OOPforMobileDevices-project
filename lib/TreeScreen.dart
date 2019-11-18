@@ -74,6 +74,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             ),
           ),
         ),
+        
+          
         Scaffold(
           backgroundColor: Colors.transparent,
       appBar: bar,
@@ -133,7 +135,48 @@ class TreeScreenBodyState extends State<TreeScreen> {
         ),
       ),
         ),
+
+        Container(
+            margin: EdgeInsets.only(top:MediaQuery.of(context).size.height/8, left: MediaQuery.of(context).size.width/50),
+            width: MediaQuery.of(context).size.height/10,
+            height: MediaQuery.of(context).size.height/10,
+            child: GestureDetector(
+              onTap: () {
+                  // _everySecond.cancel();
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ItemList()),
+                );
+                print("store");
+              },
+              child: Image.asset(
+                      "assets/images/shop.png",
+                      fit: BoxFit.fill,
+                    ),
+              ),
+            ),
       ],
+    );
+  }
+
+  void _cannotUsePopup(BuildContext context){
+    var alertDialog = AlertDialog(
+      title: Text("Sorry, you cannot use this item"),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Ok im sorry'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
     );
   }
 
@@ -173,24 +216,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                  // _everySecond.cancel();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ItemList()),
-                );
-                print("store");
-              },
-              child: Image.asset(
-                      "assets/images/shop.png",
-                      fit: BoxFit.fill,
-                    ),
-              ),
-            ),
-          Expanded(
-            flex: 1,
-            child: GestureDetector(
-              onTap: () {
-                WaterItem.getInstance().useItem(treeInfo.getHealth());
+                if(! WaterItem.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 // if(!treeInfo.getHealth().){
                 //   print("MAX");
                 // }
@@ -231,7 +258,50 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                NurishementItem1.getInstance().useItem(treeInfo.getHealth());
+                if(! RainItem.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
+                // if(!treeInfo.getHealth().){
+                //   print("MAX");
+                // }
+                setState(() {
+                  
+                });
+                print("water plant");
+              },
+              child: 
+              Stack(
+                  alignment: Alignment.center,
+                  children: <Widget>[
+                    Image.asset(
+                      RainItem.getInstance().getIcon(),
+                      fit: BoxFit.fill,
+                      width: MediaQuery.of(context).size.height/17,
+                      height: MediaQuery.of(context).size.height/17,
+
+                    ),
+                    Container(
+                      alignment: Alignment.bottomRight,
+                      margin: EdgeInsets.all(5),
+
+                      child:Text(
+                        RainItem.getInstance().getQuantity().toString(),
+                        textAlign: TextAlign.right,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                          color: Colors.yellow,
+                      ),),),  
+            ],),
+              
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                if(!NurishementItem1.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 // if(!treeInfo.getHealth().){
                 //   print("MAX");
                 // }
@@ -268,7 +338,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                NurishementItem2.getInstance().useItem(treeInfo.getHealth());
+                if(!NurishementItem2.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 // if(!treeInfo.getHealth().){
                 //   print("MAX");
                 // }
@@ -305,7 +376,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                RepairItem.getInstance().useItem(treeInfo.getHealth());
+                if(!RepairItem.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 setState(() {
                   Navigator.push(
                   context,
