@@ -110,7 +110,7 @@ class PineTree extends Item {
   PineTree._internal() {
     _price = 50;
     _quantity = 0;
-    _description = "Everyone wants me during the holidays but very few take care of me.";
+    _description = "Everyone wants me during the holidays but few take care of me.";
     _name = "Pine tree";
     _icon = "assets/images/pinetree.png";
   }
