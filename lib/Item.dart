@@ -70,11 +70,14 @@ class WaterItem extends Item {
     return _instance;
   }
 
-  void useItem(covariant Health healthbar){
-    if (_quantity > 0) {
-      healthbar.hydrateTree(1);
-      _quantity -= 1;
+  bool useItem(covariant Health healthbar){
+        if (_quantity > 0) {
+      if(healthbar.hydrateTree(1)){
+        _quantity -= 1;
+        return true;
+      }
     }
+      return false;
   }
 }
 
@@ -200,11 +203,14 @@ class NurishementItem1 extends Item {
     return _instance;
   }
 
-  void useItem(covariant Health healthbar){
+  bool useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      healthbar.nurishTree(1);
-      _quantity -= 1;
+      if(healthbar.nurishTree(1)){
+        _quantity -= 1;
+        return true;
+      }
     }
+      return false;
   }
 }
 
@@ -226,11 +232,14 @@ class NurishementItem2 extends Item {
     return _instance;
   }
 
-  void useItem(covariant Health healthbar){
+  bool useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      healthbar.nurishTree(1);
-      _quantity -= 1;
+      if(healthbar.nurishTree(1)){
+        _quantity -= 1;
+        return true;
+      }
     }
+      return false;
   }
 }
 
@@ -238,7 +247,7 @@ class RepairItem extends Item {
   static RepairItem _instance;
 
   RepairItem._internal() {
-    _price = 35;
+    _price = 50;
     _quantity = 0;
     _description = "I won't bite you I promise!";
     _name = "Trap";
@@ -252,10 +261,13 @@ class RepairItem extends Item {
     return _instance;
   }
 
-  void useItem(covariant Health healthbar){
+  bool useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      //healthbar.repairTree(1);
-      _quantity -= 1;
+      if(healthbar.cleanTree()){
+        _quantity -= 1;
+        return true;
+      }
     }
+      return false;
   }
 }

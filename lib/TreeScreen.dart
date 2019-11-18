@@ -137,6 +137,27 @@ class TreeScreenBodyState extends State<TreeScreen> {
     );
   }
 
+  void _cannotUsePopup(BuildContext context){
+    var alertDialog = AlertDialog(
+      title: Text("Sorry, you cannot use this item"),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Ok im sorry'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
   Widget _buildMiddleSection() {
     return Container(
       margin: EdgeInsets.only(top: 15),
@@ -190,7 +211,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                WaterItem.getInstance().useItem(treeInfo.getHealth());
+                if(! WaterItem.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 // if(!treeInfo.getHealth().){
                 //   print("MAX");
                 // }
@@ -231,7 +253,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                NurishementItem1.getInstance().useItem(treeInfo.getHealth());
+                if(!NurishementItem1.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 // if(!treeInfo.getHealth().){
                 //   print("MAX");
                 // }
@@ -268,7 +291,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                NurishementItem2.getInstance().useItem(treeInfo.getHealth());
+                if(!NurishementItem2.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 // if(!treeInfo.getHealth().){
                 //   print("MAX");
                 // }
@@ -305,7 +329,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                RepairItem.getInstance().useItem(treeInfo.getHealth());
+                if(!RepairItem.getInstance().useItem(treeInfo.getHealth()))
+                  _cannotUsePopup(context);
                 setState(() {
                   Navigator.push(
                   context,

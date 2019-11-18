@@ -25,8 +25,8 @@ class Health extends StatelessWidget{
     return _healthInfo.nutrition;
   }
 
-    double getDamage(){
-    return _healthInfo.damage;
+    bool getPollution(){
+    return _healthInfo.isPolluted;
   }
 
     double getOverall(){
@@ -50,12 +50,12 @@ class Health extends StatelessWidget{
     this._healthInfo.denurishTree(nutrition);
   }
 
-  bool repairTree(double reparation){
-    return this._healthInfo.repairTree(reparation);
+  bool cleanTree(){
+    return this._healthInfo.cleanTree();
   }
 
-  void damageTree(double damage){
-    this._healthInfo.damageTree(damage);
+  void polluteTree(){
+    this._healthInfo.polluteTree();
   }
 
   Widget buildAllHealth(BuildContext context){
@@ -82,7 +82,7 @@ class Health extends StatelessWidget{
                     SizedBox(height: heightBox,),
                     _nutritionHealth(widthBox, heightBox),
                     SizedBox(height: heightBox,),
-                    _damageHealth(widthBox, heightBox),
+                    _pollutionHealth(widthBox, heightBox),
               ],),
           ),
         backgroundColor: Colors.white,
@@ -198,12 +198,8 @@ class Health extends StatelessWidget{
   }
 
   Widget _overallHealth(double width, double height){
-    double overall = this._healthInfo.hydratation * this._healthInfo.nutritionMax * this._healthInfo.damageMax;
-    overall += this._healthInfo.nutrition * this._healthInfo.hydratationMax * this._healthInfo.damageMax;
-    overall += this._healthInfo.damage * this._healthInfo.nutritionMax * this._healthInfo.hydratationMax;
-
-    overall /= 3;
-    double overallMax = this._healthInfo.nutritionMax * this._healthInfo.hydratationMax * this._healthInfo.damageMax;
+    double overall = this._healthInfo.getOverall();
+    double overallMax = this._healthInfo.nutritionMax * this._healthInfo.hydratationMax;
 
     Stack health = Stack(
                     children: <Widget>[
@@ -215,11 +211,11 @@ class Health extends StatelessWidget{
                       Container(
                         color: Colors.green,
                         height: height,
-                        width: (overall * width)/overallMax,
+                        width: (overall * 100 * width)/overallMax,
                       ),
                       Center(
                         child: Text(
-                          ((overall*100)/overallMax).toStringAsFixed(2)+"%",
+                          overall.toStringAsFixed(2)+"%",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -231,9 +227,9 @@ class Health extends StatelessWidget{
     return Expanded(child : health);
   }
 
-  Row _damageHealth(double width, double height){
+  Row _pollutionHealth(double width, double height){
     Text text = Text(
-                "Damage",
+                "Pollution",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -242,28 +238,7 @@ class Health extends StatelessWidget{
                   color: Colors.red,
                 ),);
 
-    Stack health = Stack(
-                    children: <Widget>[
-                      Container(
-                        color: Colors.red,
-                        height: height,
-                        width: width
-                      ),
-                      Container(
-                        color: Colors.blue,
-                        height: height,
-                        width: (this._healthInfo.damage * width)/this._healthInfo.damageMax,
-                      ),
-                      Center(
-                        child: Text(
-                          ((this._healthInfo.damage*100)/this._healthInfo.damageMax).toStringAsFixed(2)+"%",
-                          textAlign: TextAlign.center,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20,
-                            color: Colors.black,
-                      ))),]);
+    Text health = Text(this._healthInfo.isPolluted.toString());
 
     return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -278,25 +253,29 @@ class Health extends StatelessWidget{
 class HealthBackEnd {
   double hydratationMax = 10;
   double nutritionMax = 1000;
-  double damageMax = 100;
 
   double hydratation;
   double nutrition;
-  double damage;
+  bool isPolluted;
 
   HealthBackEnd(){
     this.hydratation = 10;
     this.nutrition = 1000;
-    this.damage = 0;
+    this.isPolluted = true;
   }
 
 
   double getOverall(){
-    double overall =  hydratation *  nutritionMax *  damageMax;
-    overall +=  nutrition *  hydratationMax *  damageMax;
-    overall +=  damage *  nutritionMax * hydratationMax;
+
+    double overall =  hydratation *  nutritionMax;
+    overall +=  nutrition *  hydratationMax;
+    if(isPolluted)
+      overall +=  0 *  nutritionMax * hydratationMax;
+    else
+      overall +=  nutritionMax * hydratationMax;
+      
     overall /= 3;
-    double overallMax = nutritionMax * hydratationMax * damageMax;
+    double overallMax = nutritionMax * hydratationMax;
 
     return (overall * 100)/overallMax;
   }
@@ -341,24 +320,16 @@ class HealthBackEnd {
       this.nutrition = 0;
   }
 
-  void damageTree(double damage){
-      if (this.damage >= damageMax)
-        return;
-      
-      this.damage  += damage;
-      if(this.damage > damageMax)
-        this.damage = 100;
+  void polluteTree(){
+      this.isPolluted = true;
     }
 
-  bool repairTree(double repair){
-      if (this.damage <= 0)
-        return false;
-      
-      this.damage  -= repair;
-      if(this.damage < 0)
-        this.damage = 0;
-      
+  bool cleanTree(){
+    if(isPolluted){
+      this.isPolluted = false;
       return true;
+    }
+    return false;
     }
 
 
