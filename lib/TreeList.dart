@@ -13,25 +13,22 @@ class _TreeListScreenState extends State<TreeListScreen> {
   @override
   int _sort = 0;
 
-  String getImageHealth(double overall){
-    if(overall<20.0)
+  String getImageHealth(double overall) {
+    if (overall < 20.0)
       return "low.png";
-    else if(overall>80.0)
+    else if (overall > 80.0)
       return "high.png";
     else
       return "medium.png";
-
   }
 
   Widget build(BuildContext context) {
-
-    return 
-    Stack(
+    return Stack(
       children: <Widget>[
         new Container(
-          height: MediaQuery.of(context).size.height/8.5,
+          height: MediaQuery.of(context).size.height / 8.5,
           width: double.infinity,
-          decoration:new BoxDecoration(
+          decoration: new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/table.png"),
               fit: BoxFit.fill,
@@ -40,163 +37,194 @@ class _TreeListScreenState extends State<TreeListScreen> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-      appBar: AdTreesAppTopBar("Tree list", context).getBar(),
-      body: Container(
-        decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/table.png"),
-              fit: BoxFit.fill,
-            ),),
-        child: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.all(20.0),
-            height: 50,
-            child: Row(children: [
-              //Text("Sort by"),
-              new Radio(
-                  value: 0,
-                  groupValue: _sort,
-                  onChanged: (value) {
-                    print("0");
-                    _sort = value;
-                    setState(() {
-                      TreeList().sortByTimer();
-                    });
-                  }),
-              new Text(
-                'Timer',
-                style: new TextStyle(
-                  fontSize: 20.0, color: Colors.blueGrey[100]
-                  ),
-              ),
-              new Radio(
-                value: 1,
-                groupValue: _sort,
-                onChanged: (value) {
-                  print("1");
-                  _sort = value;
-                  setState(() {
-                    TreeList().sortByTimer();
-                  });
-                },
-              ),
-              new Text(
-                'Health',
-                style: new TextStyle(
-                  fontSize: 20.0, color: Colors.blueGrey[100]
-                ),
-              ),
-              new Radio(
-                value: 2,
-                groupValue: _sort,
-                onChanged: (value) {
-                  print("0");
-                  _sort = value;
-                  setState(() {
-                    TreeList().sortByTimer();
-                  });
-                },
-              ),
-              new Text(
-                'Dehydration',
-                style: new TextStyle(
-                  fontSize: 20.0, color: Colors.blueGrey[100]
-                ),
-              ),
-            ]),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 15, right: 15),
-            decoration: BoxDecoration(
+          appBar: AdTreesAppTopBar("Tree list", context).getBar(),
+          body: Container(
+            decoration: new BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("assets/images/title.png"), 
-                  fit: BoxFit.fill,),
+                image: new AssetImage("assets/images/table.png"),
+                fit: BoxFit.fill,
+              ),
             ),
-            child: Container(
-              margin: EdgeInsets.only(left: 10, right: 10),
-              child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              
-              children: <Widget>[
-              Text("Name", style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          )
-          ),
-              Text("Health", 
-              textAlign: TextAlign.right,
-              style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 30,
-          )
-          ),
-            ],), ),
-          ),
-          TreeList().getNbTrees() == 0
-              ? Container(
-                  alignment: Alignment.center,
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text("OMG! You don't have any trees yet, go plant some!", 
-                      style: TextStyle(
-                        fontSize: 25,
-                        color: Colors.blueGrey[100]
-                      ),
+            child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.all(20.0),
+                  height: 50,
+                  child: Row(children: [
+                    //Text("Sort by"),
+                    new Radio(
+                        value: 0,
+                        groupValue: _sort,
+                        onChanged: (value) {
+                          print("0");
+                          _sort = value;
+                          setState(() {
+                            TreeList().sortByTimer();
+                          });
+                        }),
+                    new Text(
+                      'Timer',
+                      style: new TextStyle(
+                          fontSize: 20.0, color: Colors.blueGrey[100]),
+                    ),
+                    new Radio(
+                      value: 1,
+                      groupValue: _sort,
+                      onChanged: (value) {
+                        print("1");
+                        _sort = value;
+                        setState(() {
+                          TreeList().sortByGeneralHealth();
+                        });
+                      },
+                    ),
+                    new Text(
+                      'Health',
+                      style: new TextStyle(
+                          fontSize: 20.0, color: Colors.blueGrey[100]),
+                    ),
+                    new Radio(
+                      value: 2,
+                      groupValue: _sort,
+                      onChanged: (value) {
+                        print("0");
+                        _sort = value;
+                        setState(() {
+                          TreeList().sortByHydration();
+                        });
+                      },
+                    ),
+                    new Text(
+                      'Dehydration',
+                      style: new TextStyle(
+                          fontSize: 20.0, color: Colors.blueGrey[100]),
+                    ),
+                  ]),
+                ),
+                Container(
+                  margin: EdgeInsets.only(left: 15, right: 15),
+                  decoration: BoxDecoration(
+                    image: new DecorationImage(
+                      image: new AssetImage("assets/images/title.png"),
+                      fit: BoxFit.fill,
                     ),
                   ),
-                )
-              : Flexible(
-                  child: ListView.builder(
-                      padding: EdgeInsets.only(bottom: 80.0),
-                      itemCount: TreeList().getNbTrees(),
-                      itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: 50,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Container(
-                                margin: EdgeInsets.only(left: 20),
-                                child: FittedBox(
-                                  fit: BoxFit.fitHeight,
-                                  child: Text(
-                                    TreeList().getTreeList()[index].getName(),
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 30,
-                                      color: Colors.blueGrey[100],
-                                    ),),
-                                ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width/2,
-                                margin: EdgeInsets.only(right: 20),
-                                  
-                                  height: MediaQuery.of(context).size.height/10,
-                                decoration: BoxDecoration(
-                                            image: new DecorationImage(
-                                              image: new AssetImage("assets/images/"+getImageHealth(TreeList().getTreeList()[index].getHealth().getOverall())), 
-                                                fit: BoxFit.fill,),
-                                              ),
-                                child: Text(TreeList().getTreeList()[index].getHealth().getOverall().toStringAsPrecision(3)+"%", 
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 30,
-                                ),),)
-                            ],
-                          ),
-                        );
-                      }),
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10, right: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text("Name",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            )),
+                        Text("Health",
+                            textAlign: TextAlign.right,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 30,
+                            )),
+                      ],
+                    ),
+                  ),
                 ),
-        ],
-      ),
-        ),
+                TreeList().getNbTrees() == 0
+                    ? Container(
+                        alignment: Alignment.center,
+                        child: FittedBox(
+                          fit: BoxFit.fitWidth,
+                          child: Text(
+                            "OMG! You don't have any trees yet, go plant some!",
+                            style: TextStyle(
+                                fontSize: 25, color: Colors.blueGrey[100]),
+                          ),
+                        ),
+                      )
+                    : Flexible(
+                        child: ListView.builder(
+                            padding: EdgeInsets.only(bottom: 80.0),
+                            itemCount: TreeList().getNbTrees(),
+                            itemBuilder: (BuildContext context, int index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TreeList()
+                                            .getTreeList()[index]
+                                            .getZone()
+                                            .getTreeScreenWidget()),
+                                  );
+                                },
+                                child: Container(
+                                  height: 50,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Container(
+                                        margin: EdgeInsets.only(left: 20),
+                                        child: FittedBox(
+                                          fit: BoxFit.fitHeight,
+                                          child: Text(
+                                            TreeList()
+                                                .getTreeList()[index]
+                                                .getName(),
+                                            textAlign: TextAlign.center,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 30,
+                                              color: Colors.blueGrey[100],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                2,
+                                        margin: EdgeInsets.only(right: 20),
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                10,
+                                        decoration: BoxDecoration(
+                                          image: new DecorationImage(
+                                            image: new AssetImage(
+                                                "assets/images/" +
+                                                    getImageHealth(TreeList()
+                                                        .getTreeList()[index]
+                                                        .getHealth()
+                                                        .getOverall())),
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          TreeList()
+                                                  .getTreeList()[index]
+                                                  .getHealth()
+                                                  .getOverall()
+                                                  .toStringAsPrecision(3) +
+                                              "%",
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 30,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }),
+                      ),
+              ],
+            ),
+          ),
         ),
       ],
     );
@@ -236,18 +264,19 @@ class TreeList {
 
   void sortByGeneralHealth() {
     plantedTrees
-        .sort((a, b) => a.getMilisecondsLeft() - b.getMilisecondsLeft());
+        .sort((a, b) => (a.getHealth().getOverall() - b.getHealth().getOverall()).round());
   }
 
   void sortByHydration() {
-    plantedTrees.sort();
+    plantedTrees.sort((a, b) => (a.getHealth().getHydratation() - b.getHealth().getHydratation()).round());
   }
 
-  void sortByDamage() {
-    plantedTrees.sort();
+  void sortByPolution() {
+    plantedTrees.sort((a, b) => (a.getHealth().getNbPollutions() - b.getHealth().getNbPollutions()).round());
   }
 
   void sortByNurishment() {
-    plantedTrees.sort();
+    plantedTrees.sort((a, b) => (a.getHealth().getNutrition() - b.getHealth().getNutrition()).round());
   }
+  
 }
