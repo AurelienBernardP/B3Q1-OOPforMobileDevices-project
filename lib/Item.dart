@@ -249,7 +249,7 @@ class NurishementItem2 extends Item {
   NurishementItem2._internal() {
     _price = 30;
     _quantity = 0;
-    _description = "I ain't no apple but I'll still keep the doctors away from your trees!";
+    _description = "I ain't no apple but I still keep the doctors away!";
     _name = "Nurishement";
     _icon = "assets/images/food2icon.png";
   }

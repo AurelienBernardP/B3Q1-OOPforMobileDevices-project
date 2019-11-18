@@ -5,6 +5,7 @@ import 'TreeScreen.dart';
 import 'Item.dart';
 import 'Health.dart';
 import 'TreeList.dart';
+import 'dart:math';
 import 'Characteristic.dart';
 import 'Planet.dart';
 
@@ -113,6 +114,8 @@ class TimersForTrees {
 
       currentTree.getHealth().dehydrateTree(nbDrop);
       currentTree.getHealth().denurishTree(nutrition);
+      if (new Random().nextInt(20) == 0)
+        currentTree.getHealth().polluteTree();
     }
   }
 }

@@ -51,7 +51,12 @@ class Health extends StatelessWidget{
   }
 
   bool cleanTree(){
+    this._healthInfo.nbPollutions = 0;
     return this._healthInfo.cleanTree();
+  }
+
+  int getNbPollutions(){
+    return this._healthInfo.nbPollutions;
   }
 
   void polluteTree(){
@@ -267,11 +272,13 @@ class HealthBackEnd {
   double hydratation;
   double nutrition;
   bool isPolluted;
+  int nbPollutions;
 
   HealthBackEnd(){
     this.hydratation = 10;
     this.nutrition = 1000;
     this.isPolluted = true;
+    nbPollutions = 0;
   }
 
 
@@ -332,6 +339,7 @@ class HealthBackEnd {
 
   void polluteTree(){
       this.isPolluted = true;
+      nbPollutions += 1;
     }
 
   bool cleanTree(){
