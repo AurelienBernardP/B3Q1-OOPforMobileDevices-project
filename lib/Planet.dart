@@ -626,16 +626,16 @@ class PlanetBackEnd{
 
   PlanetBackEnd._internal() {
   gridState = [
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
-  [Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Path()), Zone(Path())],
+  [Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Path()), Zone(Desert())],
+  [Zone(River()), Zone(River()), Zone(River()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Forest()), Zone(Path()), Zone(Desert()), Zone(Desert())],
+  [Zone(Forest()), Zone(Forest()), Zone(River()), Zone(Forest()), Zone(Forest()), Zone(Path()), Zone(Path()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Forest()), Zone(Forest()), Zone(River()), Zone(Forest()), Zone(Path()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Forest()), Zone(Forest()), Zone(River()), Zone(Forest()), Zone(Path()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert()), Zone(Desert())],
+  [Zone(Forest()), Zone(Forest()), Zone(River()), Zone(Path()), Zone(Path()), Zone(Path()), Zone(Path()), Zone(Path()), Zone(Path()), Zone(Path())],
+  [Zone(River()), Zone(River()), Zone(River()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy())],
+  [Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy())],
+  [Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy()), Zone(Snowy())],
   ];
 gridTree = [
   [Cactus.getInstance(), PineTree.getInstance()], 
