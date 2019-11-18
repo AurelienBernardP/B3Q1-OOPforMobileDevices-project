@@ -22,9 +22,9 @@ class ItemList extends StatefulWidget{
 class _ItemListState extends State<ItemList>{
   
   var gridState = [
-    [WaterItem.getInstance(), RepairItem.getInstance(), NurishementItem1.getInstance(),], 
-    [Cactus.getInstance(), PineTree.getInstance(), ForestTree.getInstance(),], 
-    [MiniPlant.getInstance(), NurishementItem2.getInstance(), MiniPlant.getInstance(),], 
+    [Cactus.getInstance(), ForestTree.getInstance(), PineTree.getInstance(),],
+    [MiniPlant.getInstance(), WaterItem.getInstance(), RainItem.getInstance(),], 
+    [NurishementItem1.getInstance(), NurishementItem2.getInstance(), RepairItem.getInstance(),], 
   ];
     
   int _tappedItemX = -1;
