@@ -242,7 +242,7 @@ class RepairItem extends Item {
     _quantity = 0;
     _description = "I won't bite you I promise!";
     _name = "Trap";
-    _icon = "assets/images/protect.png";
+    _icon = "assets/images/repair.png";
   }
 
   static RepairItem getInstance() {
