@@ -58,7 +58,7 @@ class WaterItem extends Item {
   WaterItem._internal() {
     _price = 5;
     _quantity = 0;
-    _description = "You can't possibly expect your plants to live without water...";
+    _description = "You can't possibly expect your plants to live without me...";
     _name = "Water";
     _icon = "assets/images/watericon.png";
   }
@@ -81,13 +81,42 @@ class WaterItem extends Item {
   }
 }
 
+class RainItem extends Item {
+  static RainItem _instance = RainItem._internal();
+
+  RainItem._internal() {
+    _price = 15;
+    _quantity = 0;
+    _description = "With me around, you won't miss anyone else, trust me.";
+    _name = "Water";
+    _icon = "assets/images/rain.png";
+  }
+
+  static RainItem getInstance() {
+    if (_instance == null) {
+      _instance = RainItem._internal();
+    }
+    return _instance;
+  }
+
+  bool useItem(covariant Health healthbar){
+    if (_quantity > 0) {
+      if(healthbar.hydrateTree(5)){
+        _quantity -= 1;
+        return true;
+      }
+    }
+      return false;
+  }
+}
+
 class PineTree extends Item {
   static PineTree _instance;
 
   PineTree._internal() {
     _price = 50;
     _quantity = 0;
-    _description = "Between every Pine tree there is a door leading to a new way of life.";
+    _description = "Everyone wants me during the holidays but very few take care of me.";
     _name = "Pine tree";
     _icon = "assets/images/pinetree.png";
   }
@@ -139,7 +168,7 @@ class ForestTree extends Item {
   ForestTree._internal() {
     _price = 40;
     _quantity = 0;
-    _description = "I might look normal spoiled but I'll give you all I have";
+    _description = "There is a reason why so many of us are out there!";
     _name = "Tree";
     _icon = "assets/images/tree.png";
   }
@@ -166,7 +195,7 @@ class MiniPlant extends Item {
     _price = 10;
     _quantity = 0;
     _name = "Mini Plant";
-    _description = "Don't you need some green on your way?";
+    _description = "Make sure you get some greens on your way before you go!";
     _icon = "assets/images/18.png";
   }
 
@@ -191,7 +220,7 @@ class NurishementItem1 extends Item {
   NurishementItem1._internal() {
     _price = 10;
     _quantity = 0;
-    _description = "Don't let my appearence fool you... I can make all the tables turn.";
+    _description = "Don't let my appearence fool you... I can actually make it better.";
     _name = "Nurishement";
     _icon = "assets/images/food1icon.png";
   }
@@ -218,9 +247,9 @@ class NurishementItem2 extends Item {
   static NurishementItem2 _instance;
 
   NurishementItem2._internal() {
-    _price = 10;
+    _price = 30;
     _quantity = 0;
-    _description = "Don't let my appearence fool you... I can make all the tables turn.";
+    _description = "I ain't no apple but I'll still keep the doctors away from your trees!";
     _name = "Nurishement";
     _icon = "assets/images/food2icon.png";
   }
@@ -234,7 +263,7 @@ class NurishementItem2 extends Item {
 
   bool useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      if(healthbar.nurishTree(1)){
+      if(healthbar.nurishTree(5)){
         _quantity -= 1;
         return true;
       }
@@ -249,7 +278,7 @@ class RepairItem extends Item {
   RepairItem._internal() {
     _price = 50;
     _quantity = 0;
-    _description = "I won't bite you I promise!";
+    _description = "Water water water food repeat... Don't you want to spice things up a bit?";
     _name = "Trap";
     _icon = "assets/images/repair.png";
   }

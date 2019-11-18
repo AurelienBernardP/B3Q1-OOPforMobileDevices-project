@@ -238,7 +238,17 @@ class Health extends StatelessWidget{
                   color: Colors.red,
                 ),);
 
-    Text health = Text(this._healthInfo.isPolluted.toString());
+    String nameImagePollution;
+    if(_healthInfo.isPolluted)
+      nameImagePollution = "skull";
+    else
+      nameImagePollution = "star";
+    Image health = Image.asset(
+                      "assets/images/"+nameImagePollution+".png",
+                      fit: BoxFit.contain,
+                      height: height,
+                      width: height,
+                    );
 
     return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
