@@ -149,7 +149,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 40,
-        color: Colors.blueGrey[100],
+        color: Colors.blueGrey[200],
       ),),
               onTap: () {
                 Navigator.push(
