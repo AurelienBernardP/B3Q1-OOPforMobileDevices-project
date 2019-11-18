@@ -277,7 +277,7 @@ class HealthBackEnd {
   HealthBackEnd(){
     this.hydratation = 10;
     this.nutrition = 1000;
-    this.isPolluted = true;
+    this.isPolluted = false;
     nbPollutions = 0;
   }
 
