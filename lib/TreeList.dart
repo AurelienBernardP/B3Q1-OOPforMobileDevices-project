@@ -12,7 +12,19 @@ class TreeListScreen extends StatefulWidget {
 class _TreeListScreenState extends State<TreeListScreen> {
   @override
   int _sort = 0;
+
+  String getImageHealth(double overall){
+    if(overall<20.0)
+      return "low.png";
+    else if(overall>80.0)
+      return "high.png";
+    else
+      return "medium.png";
+
+  }
+
   Widget build(BuildContext context) {
+
     return 
     Stack(
       children: <Widget>[
@@ -138,40 +150,45 @@ class _TreeListScreenState extends State<TreeListScreen> {
                 )
               : Flexible(
                   child: ListView.builder(
+                      padding: EdgeInsets.only(bottom: 80.0),
                       itemCount: TreeList().getNbTrees(),
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
                           height: 50,
                           child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                    child: TreeList()
-                                        .getTreeList()[index]
-                                        .getImage()),
-                                flex: 1,
-                              ),
-                              Expanded(
-                                flex: 4,
+                              Container(
+                                margin: EdgeInsets.only(left: 20),
                                 child: FittedBox(
                                   fit: BoxFit.fitHeight,
-                                  child: Text(TreeList()
-                                      .getTreeList()[index]
-                                      .getName()),
+                                  child: Text(
+                                    TreeList().getTreeList()[index].getName(),
+                                    textAlign: TextAlign.center,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 30,
+                                      color: Colors.blueGrey[100],
+                                    ),),
                                 ),
                               ),
-                              Expanded(
-                                flex: 1,
-                                child: FittedBox(
-                                  fit: BoxFit.fitHeight,
-                                  child: Text((TreeList()
-                                                  .getTreeList()[index]
-                                                  .getMilisecondsLeft() /
-                                              1000)
-                                          .toString() +
-                                      "secs"),
-                                ),
-                              ),
+                              Container(
+                                width: MediaQuery.of(context).size.width/2,
+                                margin: EdgeInsets.only(right: 20),
+                                  
+                                  height: MediaQuery.of(context).size.height/10,
+                                decoration: BoxDecoration(
+                                            image: new DecorationImage(
+                                              image: new AssetImage("assets/images/"+getImageHealth(TreeList().getTreeList()[index].getHealth().getOverall())), 
+                                                fit: BoxFit.fill,),
+                                              ),
+                                child: Text(TreeList().getTreeList()[index].getHealth().getOverall().toStringAsPrecision(3)+"%", 
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 30,
+                                ),),)
                             ],
                           ),
                         );
