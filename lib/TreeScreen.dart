@@ -218,9 +218,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
               onTap: () {
                 if(! WaterItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
-                // if(!treeInfo.getHealth().){
-                //   print("MAX");
-                // }
                 setState(() {
                   
                 });
@@ -233,8 +230,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     Image.asset(
                       WaterItem.getInstance().getIcon(),
                       fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.height/17,
-                      height: MediaQuery.of(context).size.height/17,
 
                     ),
                     Container(
@@ -260,9 +255,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
               onTap: () {
                 if(! RainItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
-                // if(!treeInfo.getHealth().){
-                //   print("MAX");
-                // }
                 setState(() {
                   
                 });
@@ -275,8 +267,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     Image.asset(
                       RainItem.getInstance().getIcon(),
                       fit: BoxFit.fill,
-                      width: MediaQuery.of(context).size.height/17,
-                      height: MediaQuery.of(context).size.height/17,
 
                     ),
                     Container(
@@ -378,12 +368,15 @@ class TreeScreenBodyState extends State<TreeScreen> {
               onTap: () {
                 if(!RepairItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
+                else{
+                  
                 setState(() {
                   Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PollutedZones()),
                 );
                 });
+                }
 
                 print("repair");
               },
