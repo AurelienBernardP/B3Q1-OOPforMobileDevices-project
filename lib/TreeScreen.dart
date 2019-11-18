@@ -442,10 +442,10 @@ class TreeBackEnd {
     }
 
     TreeList().addTreeToList(this);
-
+    
   }
 
-  
+  Zone getZone() => plantedZone;
 
 
   int getMilisecondsLeft(){
