@@ -13,14 +13,35 @@ class _TreeListScreenState extends State<TreeListScreen> {
   @override
   int _sort = 0;
   Widget build(BuildContext context) {
-    return Scaffold(
+    return 
+    Stack(
+      children: <Widget>[
+        new Container(
+          height: MediaQuery.of(context).size.height/8.5,
+          width: double.infinity,
+          decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+        ),
+        Scaffold(
+          backgroundColor: Colors.transparent,
       appBar: AdTreesAppTopBar("Tree list", context).getBar(),
-      body: Column(
+      body: Container(
+        decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"),
+              fit: BoxFit.fill,
+            ),),
+        child: Column(
         children: [
           Container(
+            margin: EdgeInsets.all(20.0),
             height: 50,
             child: Row(children: [
-              Text("sort by"),
+              //Text("Sort by"),
               new Radio(
                   value: 0,
                   groupValue: _sort,
@@ -33,7 +54,9 @@ class _TreeListScreenState extends State<TreeListScreen> {
                   }),
               new Text(
                 'Timer',
-                style: new TextStyle(fontSize: 16.0),
+                style: new TextStyle(
+                  fontSize: 20.0, color: Colors.blueGrey[100]
+                  ),
               ),
               new Radio(
                 value: 1,
@@ -47,9 +70,9 @@ class _TreeListScreenState extends State<TreeListScreen> {
                 },
               ),
               new Text(
-                'Overall Health',
+                'Health',
                 style: new TextStyle(
-                  fontSize: 16.0,
+                  fontSize: 20.0, color: Colors.blueGrey[100]
                 ),
               ),
               new Radio(
@@ -64,17 +87,53 @@ class _TreeListScreenState extends State<TreeListScreen> {
                 },
               ),
               new Text(
-                'Dehidration',
-                style: new TextStyle(fontSize: 16.0),
+                'Dehydration',
+                style: new TextStyle(
+                  fontSize: 20.0, color: Colors.blueGrey[100]
+                ),
               ),
             ]),
+          ),
+          Container(
+            margin: EdgeInsets.only(left: 15, right: 15),
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/title.png"), 
+                  fit: BoxFit.fill,),
+            ),
+            child: Container(
+              margin: EdgeInsets.only(left: 10, right: 10),
+              child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              
+              children: <Widget>[
+              Text("Name", style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+          )
+          ),
+              Text("Health", 
+              textAlign: TextAlign.right,
+              style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+            fontSize: 30,
+          )
+          ),
+            ],), ),
           ),
           TreeList().getNbTrees() == 0
               ? Container(
                   alignment: Alignment.center,
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
-                    child: Text("not trees!"),
+                    child: Text("OMG! You don't have any trees yet, go plant some!", 
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Colors.blueGrey[100]
+                      ),
+                    ),
                   ),
                 )
               : Flexible(
@@ -120,6 +179,9 @@ class _TreeListScreenState extends State<TreeListScreen> {
                 ),
         ],
       ),
+        ),
+        ),
+      ],
     );
   }
 }
