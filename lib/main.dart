@@ -106,21 +106,8 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 print("go to shop");
               },
             ),
-            ListTile(
               //leading: Icon(Icons.view_list),
-              title: Text('polluted zone', overflow: TextOverflow.ellipsis,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 20,
-        color: Colors.blueGrey[100],
-      ),),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PollutedZones()),
-                );
-              },
-            ),
+
             ListTile(
               //leading: Icon(Icons.work),
               title: Text('Go to inventory!', overflow: TextOverflow.ellipsis,
@@ -139,7 +126,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
                         ListTile(
               //leading: Icon(Icons.view_list),
-              title: Text('tree list', overflow: TextOverflow.ellipsis,
+              title: Text('See tree list', overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 20,
