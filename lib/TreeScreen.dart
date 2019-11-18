@@ -22,7 +22,7 @@ class TreeScreen extends StatefulWidget {
   TreeBackEnd getTreeInfo(){
     return treeInfo;
   }
-  
+
   @override
   TreeScreenBodyState createState() => TreeScreenBodyState(treeInfo);
 }
@@ -162,9 +162,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
   }
 
   Widget _buildActionButtons() {
-    double heightIconStore = MediaQuery.of(context).size.height/15;
 
-    double heightIcon = MediaQuery.of(context).size.height/17;
     return 
     Container(
       margin: EdgeInsets.all(10),
@@ -182,11 +180,12 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 );
                 print("store");
               },
-              child: Container(
-                child: Icon(Icons.add_shopping_cart, color: Colors.yellow,size: heightIconStore,),
+              child: Image.asset(
+                      "assets/images/shop.png",
+                      fit: BoxFit.fill,
+                    ),
               ),
             ),
-          ),
           Expanded(
             flex: 1,
             child: GestureDetector(
@@ -207,8 +206,9 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     Image.asset(
                       WaterItem.getInstance().getIcon(),
                       fit: BoxFit.fill,
-                      width: heightIcon,
-                      height: heightIcon,
+                      width: MediaQuery.of(context).size.height/17,
+                      height: MediaQuery.of(context).size.height/17,
+
                     ),
                     Container(
                       alignment: Alignment.bottomRight,
@@ -238,7 +238,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 setState(() {
                   
                 });
-                print("water plant");
+                print("nurishemet 1");
               },
               child: 
               Stack(
@@ -247,8 +247,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     Image.asset(
                       NurishementItem1.getInstance().getIcon(),
                       fit: BoxFit.fill,
-                      width: heightIcon,
-                      height: heightIcon,
                     ),
                     Container(
                       alignment: Alignment.bottomRight,
@@ -277,7 +275,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 setState(() {
                   
                 });
-                print("water plant");
+                print("nurishement 2");
               },
               child: 
               Stack(
@@ -286,8 +284,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     Image.asset(
                       NurishementItem2.getInstance().getIcon(),
                       fit: BoxFit.fill,
-                      width: heightIcon,
-                      height: heightIcon,
                     ),
                     Container(
                       alignment: Alignment.bottomRight,
@@ -317,7 +313,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 );
                 });
 
-                print("water plant");
+                print("repair");
               },
               child: 
               Stack(
@@ -326,8 +322,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     Image.asset(
                       RepairItem.getInstance().getIcon(),
                       fit: BoxFit.fill,
-                      width: heightIcon,
-                      height: heightIcon,
                     ),
                     Container(
                       alignment: Alignment.bottomRight,
@@ -385,6 +379,10 @@ class TreeBackEnd {
     TreeList().addTreeToList(this);
 
   }
+
+  
+
+
   int getMilisecondsLeft(){
     int time = lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;
     return time <= 0 ? 0: time;

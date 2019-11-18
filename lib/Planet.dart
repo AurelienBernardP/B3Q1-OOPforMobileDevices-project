@@ -608,7 +608,10 @@ class _PlanetState extends State<Planet>{
                           fit: BoxFit.fill,),
                         ),
           child: Text(treeHealth.toStringAsPrecision(3)+"%", 
-          textAlign: TextAlign.center,),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.bold
+          ),),
 
         );
   }
