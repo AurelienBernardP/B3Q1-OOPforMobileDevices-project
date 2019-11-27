@@ -14,7 +14,7 @@ import 'TreeList.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 void main() { 
 
-    //Admob.initialize('ca-app-pub-3940256099942544~3347511713');
+    Admob.initialize('ca-app-pub-3940256099942544~3347511713');
     runApp(new AdTreesApp());
     
 }
@@ -31,6 +31,7 @@ class _AdTreesAppBody extends StatefulWidget {
 }
 
 class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
+
   
   Widget build(BuildContext context) {
     return Stack(
@@ -144,7 +145,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
           ),
                 child: ListTile(
               //leading: Icon(Icons.view_list),
-              title: Text('See tree list', overflow: TextOverflow.ellipsis,
+              title: Text('poluted zones', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
@@ -155,6 +156,31 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PollutedZones()),
+                );
+              },
+            ),
+            ),
+                          Container(
+              margin: EdgeInsets.only(right: 30),
+                decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/window.png"),
+              fit: BoxFit.fill,
+            ),
+          ),
+                child: ListTile(
+              //leading: Icon(Icons.view_list),
+              title: Text('See tree list', overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.center,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+        fontSize: 40,
+        color: Colors.blueGrey[200],
+      ),),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TreeListScreen()),
                 );
               },
             ),
