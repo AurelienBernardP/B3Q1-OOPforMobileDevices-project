@@ -8,8 +8,11 @@ import 'Characteristic.dart';
 class Health extends StatelessWidget{
   HealthBackEnd _healthInfo;
 
-  Health(){
-    this._healthInfo = HealthBackEnd();
+  Health({double hydratation, double nutrition, bool isPolluted, int nbPollutions}){
+    this._healthInfo = HealthBackEnd(hydratation: hydratation,
+                                     nutrition: nutrition,
+                                     isPolluted: isPolluted,
+                                     nbPollutions: nbPollutions);
   }
 
   @override
@@ -274,11 +277,26 @@ class HealthBackEnd {
   bool isPolluted;
   int nbPollutions;
 
-  HealthBackEnd(){
-    this.hydratation = 10;
-    this.nutrition = 1000;
-    this.isPolluted = false;
-    nbPollutions = 0;
+  HealthBackEnd({double hydratation, double nutrition, bool isPolluted, int nbPollutions}){
+    if(hydratation == null)
+      this.hydratation = 10;
+    else
+      this.hydratation = hydratation;
+    
+    if(nutrition == null)
+      this.nutrition = 1000;
+    else
+      this.nutrition = nutrition;
+
+    if(isPolluted == null)
+      this.isPolluted = false;
+    else
+      this.isPolluted = isPolluted;
+
+    if(nbPollutions == null)
+      this.nbPollutions = 0;
+    else
+      this.nbPollutions = nbPollutions;
   }
 
 

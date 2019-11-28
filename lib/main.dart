@@ -1,170 +1,150 @@
 import 'package:first/ItemList.dart';
 import 'package:first/TreeList.dart';
 import 'package:first/TreeScreen.dart';
-import 'package:first/Wallet.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
+import 'AdTreesApp.dart';
 import 'PollutedZones.dart';
 import 'Timer.dart';
-import 'TreeList.dart';
-import 'package:admob_flutter/admob_flutter.dart';
-void main() { 
+import 'Save.dart';
+import 'dart:io';
+import 'dart:core';
 
+import 'package:path_provider/path_provider.dart';
+
+void main() {
     //Admob.initialize('ca-app-pub-3940256099942544~3347511713');
-    runApp(new AdTreesApp());
+    //Save().saveGame();
+    runApp(new SplashScreen());
     
 }
 
-class AdTreesApp extends StatelessWidget {
-  Widget build(BuildContext context) {
-    TimersForTrees().timers();
-    return MaterialApp(title: "AdTrees", home: _AdTreesAppBody());
-  }
+class SplashScreen extends StatefulWidget {
+  @override
+  _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _AdTreesAppBody extends StatefulWidget {
-  __AdTreesAppBodyState createState() => __AdTreesAppBodyState();
-}
-
-class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
-  
+class _SplashScreenState extends State<SplashScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: <Widget>[
-        new Container(
-          height: MediaQuery.of(context).size.height/8.5,
-          width: double.infinity,
-          decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/table.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-        ),
-        Scaffold(
-          backgroundColor: Colors.transparent,
-      appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
-      body: Container(
-        decoration: BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage("assets/images/mainmenu.png"), 
-                  fit: BoxFit.cover,),
-                ),
-        child: Container( 
-          margin: new EdgeInsets.only(top: 160.0, left: 30.0),
-          child: ListView(
-            
-          children: <Widget>[
-            Container(
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-                child:ListTile(
-              //leading: Icon(Icons.map),
-              title: Text('Go to WorldMap!', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 40,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Planet()),
-                );
-              },
-            ),),
-            Container(
-              margin: EdgeInsets.only(right: 30),
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-                child: ListTile(
-              //leading: Icon(Icons.add_shopping_cart),
-              title:  Text('Go to shop!', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 40,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                ItemList.makeShop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ItemList()),
-                );
-              },
-            ),),
-              //leading: Icon(Icons.view_list),
-
-            Container(
-              margin: EdgeInsets.only(right: 30),
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-                child:ListTile(
-              //leading: Icon(Icons.work),
-              title: Text('Go to inventory!', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 40,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                ItemList.makeInventory();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ItemList()),
-                );
-              },
-            ),),
-              Container(
-              margin: EdgeInsets.only(right: 30),
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-                child: ListTile(
-              //leading: Icon(Icons.view_list),
-              title: Text('See tree list', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 40,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PollutedZones()),
-                );
-              },
-            ),
-            ),
-          ],
-        ),
-        ),
-      ),
-        ),
-      ],
+    return FutureBuilder(
+      initialData: 'Making Tree Babies',
+      future: waitingScreen(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.done){
+            return AdTreesApp();
+          }
+          else{
+            return splashScreenDiplay();
+          }
+        },
     );
   }
+
+
+  MaterialApp splashScreenDiplay(){
+
+    return 
+    MaterialApp(
+      title: "Loading",
+      home: 
+      Scaffold(
+      body:
+      Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          Container(
+            decoration: BoxDecoration(color: Colors.greenAccent),
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                          height: 40,
+                           width: 40,
+                          decoration:new BoxDecoration(
+                            image: new DecorationImage(
+                              image: new AssetImage("assets/images/cactus.png"),
+                              fit: BoxFit.fill,
+                            ),
+                          ),),
+                      Padding(
+                        padding: EdgeInsets.only(top: 10.0),
+                      ),
+                      Text(
+                        "AdTrees",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24.0),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    CircularProgressIndicator(),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20.0),
+                    ),
+                    Text(
+                      "The Trees Are Growing",
+                      softWrap: true,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18.0,
+                          color: Colors.white),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )
+        ],
+      ),
+    )
+    );
+    
+  }
 }
+
+  Future <String> loadingData() async{
+    String userData;
+    try {
+      final directory = await getApplicationDocumentsDirectory();
+      final file = File('${directory.path}/user.txt');
+      userData = await file.readAsString();
+      print("From saved file: " +userData);
+    } catch (e) {
+      //Initialising the whole game
+      userData = Save().emergencyRecovery();
+    }
+    return userData;
+  }
+
+  Future <Text> waitingScreen() async{
+    Save();
+
+    String userData = await loadingData();
+    Save().readGame(userData);
+    await Future.delayed(Duration(seconds:5));
+    return Text("Loading...");
+  }
+
+
+

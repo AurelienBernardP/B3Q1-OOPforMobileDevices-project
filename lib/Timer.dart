@@ -8,6 +8,7 @@ import 'TreeList.dart';
 import 'dart:math';
 import 'Characteristic.dart';
 import 'Planet.dart';
+import 'Save.dart';
 
 
 class TimersForTrees {
@@ -26,6 +27,7 @@ class TimersForTrees {
       const oneMin = const Duration(minutes:1);
 
       new Timer.periodic(oneMin, (Timer t) => updateStateTrees(t));
+      new Timer.periodic(oneMin, (Timer t) => Save().saveGame());
 
   }
 

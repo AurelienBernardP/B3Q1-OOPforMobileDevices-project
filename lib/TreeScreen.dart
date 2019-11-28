@@ -14,9 +14,13 @@ import 'dart:async';
 class TreeScreen extends StatefulWidget {
   TreeBackEnd treeInfo;
 
-  TreeScreen({Zone location, Item treeType, String name}) {
-    treeInfo = TreeBackEnd(
-        zone: location, tree: treeType, name: name != null ? name : null);
+  TreeScreen({Zone zone, Item treeType, String name, TreeBackEnd tree}) {
+    if(tree == null)
+      treeInfo = TreeBackEnd( zone: zone,
+                              tree: treeType,
+                              name: name != null ? name : null);
+    else
+      treeInfo = tree;
   }
 
   TreeBackEnd getTreeInfo(){
@@ -418,7 +422,7 @@ class TreeBackEnd {
   String name;
   Item plantedTree;
 
-  TreeBackEnd({Zone zone, Item tree, String name}) {
+  TreeBackEnd({Zone zone, Item tree, String name, DateTime time, Health health}) {
     image = Container(
       decoration: BoxDecoration(
         image: new DecorationImage(
@@ -427,8 +431,14 @@ class TreeBackEnd {
         ),
       ),
     );
-    treeHealth = Health();
-    lastTimeShaken = DateTime.now();
+    if(health==null)
+      treeHealth = Health();
+    else
+      treeHealth = health;
+    if(time == null)
+      lastTimeShaken = DateTime.now();
+    else
+      lastTimeShaken = time;
     if (zone != null) {
       plantedZone = zone;
     }
@@ -447,6 +457,20 @@ class TreeBackEnd {
 
   Zone getZone() => plantedZone;
 
+
+  String getLastTimeShaken(){
+    String lastTimeShaken = this.lastTimeShaken.year.toString()+'|';
+    lastTimeShaken += this.lastTimeShaken.month.toString()+'|';
+    lastTimeShaken += this.lastTimeShaken.day.toString()+'|';
+    lastTimeShaken += this.lastTimeShaken.hour.toString()+'|';
+    lastTimeShaken += this.lastTimeShaken.minute.toString()+'|';
+    lastTimeShaken += this.lastTimeShaken.second.toString()+'|';
+    lastTimeShaken += this.lastTimeShaken.millisecond.toString()+'|';
+    lastTimeShaken += this.lastTimeShaken.microsecond.toString();
+
+
+    return lastTimeShaken;
+  }
 
   int getMilisecondsLeft(){
     int time = lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch - DateTime.now().millisecondsSinceEpoch;

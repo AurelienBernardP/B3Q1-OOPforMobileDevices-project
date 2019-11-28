@@ -1,13 +1,5 @@
 import "dart:core";
-
-/*
- * Wallet
- */
-
-//Singleton ? 
-//isSufficient private or public ?
-//adjustCoints bool or int ?
-//Une seule fonction pour add & remove
+import "Save.dart";
 
 class Wallet {
   int _amount ;
@@ -18,9 +10,12 @@ class Wallet {
   }
 
   Wallet._internal(){
-    _amount = 1000;
+    _amount = 0;
   }
-  
+
+  void reloadData(){
+    _amount = Save().getWallet();
+  }
 
   void retrieveCoins(int coinsValue){
     if(isSufficient(coinsValue))
@@ -31,6 +26,9 @@ class Wallet {
       return this._amount;
    }
 
+  String saveWallet(){
+    return _amount.toString();
+  }
 
    bool isSufficient(int coinsValue){
       if(coinsValue < 0)

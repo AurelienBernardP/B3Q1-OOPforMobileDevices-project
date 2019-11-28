@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
+import 'Save.dart';
 import 'Zone.dart';
 import 'Health.dart';
 
@@ -57,10 +58,10 @@ class WaterItem extends Item {
 
   WaterItem._internal() {
     _price = 5;
-    _quantity = 0;
     _description = "You can't possibly expect your plants to live without me...";
     _name = "Water";
     _icon = "assets/images/watericon.png";
+    _quantity = Save().getInventory(_name);
   }
 
   static WaterItem getInstance() {
@@ -86,10 +87,10 @@ class RainItem extends Item {
 
   RainItem._internal() {
     _price = 15;
-    _quantity = 0;
     _description = "With me around, you won't miss anyone else, trust me.";
-    _name = "Water";
+    _name = "Rain";
     _icon = "assets/images/rain.png";
+    _quantity = Save().getInventory(_name);
   }
 
   static RainItem getInstance() {
@@ -115,10 +116,11 @@ class PineTree extends Item {
 
   PineTree._internal() {
     _price = 50;
-    _quantity = 0;
     _description = "Everyone wants me during the holidays but few take care of me.";
     _name = "Pine tree";
     _icon = "assets/images/pinetree.png";
+    _quantity = Save().getInventory(_name);
+
   }
 
   static PineTree getInstance() {
@@ -141,10 +143,10 @@ class Cactus extends Item {
 
   Cactus._internal() {
     _price = 20;
-    _quantity = 0;
     _description = "Rough on the outside but soft on the inside... don't you love me?";
     _name = "Cactus";
     _icon = "assets/images/cactus.png";
+    _quantity = Save().getInventory(_name);
   }
 
   static Cactus getInstance() {
@@ -167,10 +169,11 @@ class ForestTree extends Item {
 
   ForestTree._internal() {
     _price = 40;
-    _quantity = 0;
     _description = "There is a reason why so many of us are out there!";
     _name = "Tree";
     _icon = "assets/images/tree.png";
+    _quantity = Save().getInventory(_name);
+
   }
 
   static ForestTree getInstance() {
@@ -193,10 +196,10 @@ class MiniPlant extends Item {
 
   MiniPlant._internal() {
     _price = 10;
-    _quantity = 0;
     _name = "Mini Plant";
     _description = "Make sure you get some greens on your way before you go!";
     _icon = "assets/images/18.png";
+    _quantity = Save().getInventory(_name);
   }
 
   static MiniPlant getInstance() {
@@ -220,9 +223,10 @@ class NurishementItem1 extends Item {
   NurishementItem1._internal() {
     _price = 10;
     _quantity = 0;
+    _name = 'Nurishment 1';
     _description = "Don't let my appearence fool you... I can actually make it better.";
-    _name = "Nurishement";
     _icon = "assets/images/food1icon.png";
+    _quantity = Save().getInventory(_name);
   }
 
   static NurishementItem1 getInstance() {
@@ -248,10 +252,10 @@ class NurishementItem2 extends Item {
 
   NurishementItem2._internal() {
     _price = 30;
-    _quantity = 0;
     _description = "I ain't no apple but I still keep the doctors away!";
-    _name = "Nurishement";
+    _name = "Nurishment 2";
     _icon = "assets/images/food2icon.png";
+    _quantity = Save().getInventory(_name);
   }
 
   static NurishementItem2 getInstance() {
@@ -277,10 +281,10 @@ class RepairItem extends Item {
 
   RepairItem._internal() {
     _price = 50;
-    _quantity = 0;
     _description = "Water water food repeat... Don't you want to spice things up a bit?";
-    _name = "Trap";
+    _name = "Cleanser";
     _icon = "assets/images/repair.png";
+    _quantity = Save().getInventory(_name);
   }
 
   static RepairItem getInstance() {

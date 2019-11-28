@@ -9,10 +9,14 @@ class Zone{
   Characteristic type;
   TreeScreen plantedTreeScreen;
   Item plantedTree;
-  bool locked = true;
+  bool locked;
 
-  Zone(Characteristic type){
+  Zone(Characteristic type, {bool isLocked}){
     this.type = type;
+    if(isLocked==null)
+      locked = true;
+    else
+      locked = isLocked;
   }
 
   bool isLocked(){
@@ -38,9 +42,12 @@ class Zone{
       plantedTreeScreen = TreeScreen();
   }
 
-  void plantTree(Item tree, {String name}){
-    plantedTree = tree;
-    plantedTreeScreen = TreeScreen(location:this, treeType:tree, name: name);
+  void plantTree(Item treeType, {String name, TreeBackEnd treeInfo}){
+    plantedTree = treeType;
+    if(treeInfo == null)
+      plantedTreeScreen = TreeScreen(zone:this,treeType:treeType, name: name);
+    else
+      plantedTreeScreen = TreeScreen(tree: treeInfo);
 
   }
 
@@ -63,5 +70,8 @@ class Zone{
   String getZoneType(){
     return this.type.getName();
   }
-  
+
+  String getTreeType(){
+    return this.plantedTree.getName();
+  }
 }
