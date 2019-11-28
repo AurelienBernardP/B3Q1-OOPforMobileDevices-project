@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'AdTreesApp.dart';
 import 'Save.dart';
+import 'package:encrypt/encrypt.dart' as encrypt;
 import 'dart:io';
 import 'dart:core';
 
 import 'package:path_provider/path_provider.dart';
 
 void main() {
-    Admob.initialize('ca-app-pub-3940256099942544~3347511713');
+    // Admob.initialize('ca-app-pub-3940256099942544~3347511713');
     runApp(new SplashScreen());
     
 }
@@ -124,11 +125,20 @@ class _SplashScreenState extends State<SplashScreen> {
       final directory = await getApplicationDocumentsDirectory();
       final file = File('${directory.path}/user.txt');
       userData = await file.readAsString();
-      print("From saved file: " +userData);
+
+      String key = 'my 32 length key................';
+      final keyEncrypter = encrypt.Key.fromUtf8(key);
+      final iv = encrypt.IV.fromLength(16);
+
+      encrypt.Encrypter encrypter = encrypt.Encrypter(encrypt.AES(keyEncrypter));
+      final decrypted = encrypter.decrypt64(userData, iv: iv);
+
     } catch (e) {
       //Initialising the whole game
       userData = Save().emergencyRecovery();
+
     }
+    
     return userData;
   }
 

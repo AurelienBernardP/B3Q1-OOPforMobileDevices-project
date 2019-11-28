@@ -28,7 +28,6 @@ class Save {
   }
 
   Save._internal(){
-    print("save");
     TreeList();
     _inventory = new List();
     _worldMap = new List.generate(10, (_) => new List(10));
@@ -196,23 +195,18 @@ class Save {
 
     }
 
+    //Ecrypting data
+    String key = 'my 32 length key................';
+    final keyEncrypter = Key.fromUtf8(key);
+    final iv = IV.fromLength(16);
+
+    Encrypter encrypter = Encrypter(AES(keyEncrypter));
+    Encrypted encrypted = encrypter.encrypt(dataToSave, iv: iv);
 
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/user.txt');
-    await file.writeAsString(dataToSave);
-    // print((new DateTime.now()).toString());
-    // print((new DateTime.now()).toString().length);
+    await file.writeAsString(encrypted.base64);
 
-    // final key = Key.fromUtf8((new DateTime.now()).toString()+'202123');
-    // final iv = IV.fromLength(16);
-
-    // final encrypter = Encrypter(AES(key));
-
-    // final encrypted = encrypter.encrypt(dataToSave, iv: iv);
-    // final decrypted = encrypter.decrypt(encrypted, iv: iv);
-
-    // print(decrypted); // Lorem ipsum dolor sit amet, consectetur adipiscing elit
-    // print(encrypted.base64); // R4PxiU3h8YoIRqVowBXm36ZcCeNeZ4s1OvVBTfFlZRdmohQqOpPQqD1YecJeZMAop/hZ4OxqgC1WtwvX/hP9mw==
 
   }
 
