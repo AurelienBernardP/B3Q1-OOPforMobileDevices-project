@@ -12,7 +12,8 @@ class TreeListScreen extends StatefulWidget {
 class _TreeListScreenState extends State<TreeListScreen> {
   @override
   int _sort = 0;
-
+  int setDisplayedText = 0;
+  
   String getImageHealth(double overall) {
     if (overall < 20.0)
       return "low.png";
@@ -59,6 +60,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                           print("0");
                           _sort = value;
                           setState(() {
+                            setDisplayedText = 0;
                             TreeList().sortByTimer();
                           });
                         }),
@@ -74,6 +76,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         print("1");
                         _sort = value;
                         setState(() {
+                          setDisplayedText = 1;
                           TreeList().sortByGeneralHealth();
                         });
                       },
@@ -90,6 +93,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         print("0");
                         _sort = value;
                         setState(() {
+                          setDisplayedText = 1;
                           TreeList().sortByHydration();
                         });
                       },
@@ -120,7 +124,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
                             )),
-                        Text("Health",
+                        Text(setDisplayedText == 0 ? "Timer" : "Health",
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               color: Colors.black,
@@ -148,7 +152,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                             padding: EdgeInsets.only(bottom: 80.0),
                             itemCount: TreeList().getNbTrees(),
                             itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(
+                              return GestureDetector(behavior: HitTestBehavior.opaque,
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -202,7 +206,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                                             fit: BoxFit.fill,
                                           ),
                                         ),
-                                        child: Text(
+                                        child: Text(setDisplayedText == 0? TreeList().getTreeList()[index].getMilisecondsLeft().toString() :
                                           TreeList()
                                                   .getTreeList()[index]
                                                   .getHealth()

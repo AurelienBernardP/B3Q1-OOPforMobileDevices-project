@@ -1,15 +1,11 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:first/ItemList.dart';
 import 'package:first/TreeList.dart';
 import 'package:first/TreeScreen.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'AdTreesAppTopBar.dart';
-import 'Planet.dart';
-import 'ItemList.dart';
 import 'AdTreesApp.dart';
-import 'PollutedZones.dart';
-import 'Timer.dart';
 import 'Save.dart';
 import 'dart:io';
 import 'dart:core';
@@ -17,8 +13,7 @@ import 'dart:core';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
-    //Admob.initialize('ca-app-pub-3940256099942544~3347511713');
-    //Save().saveGame();
+    Admob.initialize('ca-app-pub-3940256099942544~3347511713');
     runApp(new SplashScreen());
     
 }
