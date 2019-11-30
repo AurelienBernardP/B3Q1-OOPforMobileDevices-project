@@ -43,7 +43,6 @@ class Health extends StatelessWidget{
 
   void dehydrateTree(double nbDrop){
     this._healthInfo.dehydrateTree(nbDrop);
-    Save().saveGame();
   }
 
   bool nurishTree(double nutrition){
@@ -53,7 +52,6 @@ class Health extends StatelessWidget{
 
   void denurishTree(double nutrition){
     this._healthInfo.denurishTree(nutrition);
-    Save().saveGame();
   }
 
   bool cleanTree(){
@@ -67,7 +65,6 @@ class Health extends StatelessWidget{
   }
 
   void polluteTree(){
-    Save().saveGame();
     this._healthInfo.polluteTree();
   }
 
