@@ -10,10 +10,6 @@ class Wallet {
   }
 
   Wallet._internal(){
-    _amount = 0;
-  }
-
-  void reloadData(){
     _amount = Save().getWallet();
   }
 

@@ -2,6 +2,7 @@ import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'Item.dart';
+import 'Save.dart';
 
 bool _is_shop = true;
 
@@ -70,8 +71,10 @@ class _ItemListState extends State<ItemList>{
 
   void _buy(){
     setState(() {
-      if(gridState[_tappedItemX][_tappedItemY].buyItem())
+      if(gridState[_tappedItemX][_tappedItemY].buyItem()){
+        Save().saveGame();
         return;
+      }
       else
         _cannotUsePopup(context, "You're out of money! Keep calm and don't cry");
     });
@@ -79,8 +82,10 @@ class _ItemListState extends State<ItemList>{
 
   void _use(){
     setState(() {
-      if(gridState[_tappedItemX][_tappedItemY].removeItem())
+      if(gridState[_tappedItemX][_tappedItemY].removeItem()){
+        Save().saveGame();
         return;
+      }
       else
         _cannotUsePopup(context, "You're out of " + gridState[_tappedItemX][_tappedItemY].getName() + "!");
     });
