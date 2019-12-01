@@ -16,10 +16,12 @@ import "dart:core";
 import 'Wallet.dart';
 import 'Health.dart';
 import 'dart:io';
+import 'Timer.dart';
 import 'dart:core';
 
 class Save {
   int _wallet;
+  DateTime _timeCreated;
   List<int> _inventory;
   List<List<Zone>> _worldMap;
 
@@ -78,8 +80,10 @@ class Save {
     }
   }
 
-  DateTime _getLastTimeShaken(String time){
+  DateTime _getStringToDate(String time){
     List<String> date = time.split('|');
+    if(date.length != 8)
+      return null;
 
     return DateTime(int.parse(date[0]),
                     int.parse(date[1]),
@@ -92,40 +96,90 @@ class Save {
   }
 
   String emergencyRecovery(){
-    return "10000,0,0,0,0,0,0,0,0,0,F1+F1+F1+F1+F1+F1+F1+F1+P1+P1+F1+F1+F1+F1+F1+F1+F1+F1+P1+D1+R1+R1+R1+F1+F1+F1+F1+P1+D1+D1+F1+F1+R1+F1+F1+P1+P1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+P1+P1+P1+P1+P1+P1+P1+R1+R1+R1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+";
+    return dateToString(DateTime.now()) + ",10000,0,0,0,0,0,0,0,0,0,F1+F1+F1+F1+F1+F1+F1+F1+P1+P1+F1+F1+F1+F1+F1+F1+F1+F1+P1+D1+R1+R1+R1+F1+F1+F1+F1+P1+D1+D1+F1+F1+R1+F1+F1+P1+P1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+P1+P1+P1+P1+P1+P1+P1+R1+R1+R1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+";
   }
 
-  void readGame(String userData){
-    //decrpyt
-    
+  String dateToString(DateTime date){
+    String dateString;
+    dateString = date.year.toString()+'|';
+    dateString += date.month.toString()+'|';
+    dateString += date.day.toString()+'|';
+    dateString += date.hour.toString()+'|';
+    dateString += date.minute.toString()+'|';
+    dateString += date.second.toString()+'|';
+    dateString += date.millisecond.toString()+'|';
+    dateString += date.microsecond.toString();
+
+    return dateString;
+  }
+
+  bool readGame(String userData){
     //if file does not exist
+    if(userData == null)
+      return false;
+
     List<String> gameState = userData.split(",");
+    if(gameState.length != 12)
+      return false;
+
+    //Init timeCreated
+    _timeCreated = _getStringToDate(gameState[0]);
+    if(_timeCreated == null)
+      return false;
 
     //Init wallet
-    _wallet = int.parse(gameState[0]);
-
+    _wallet = int.parse(gameState[1]);
+    if(_wallet == null)
+      return false;
 
     //Init inventory
     int i;
-    for (i = 1; i < 10; i++) {
-      _inventory.add(int.parse(gameState[i])); 
+    for (i = 2; i < 11; i++) {
+      int quantity = int.parse(gameState[i]);
+      if(quantity == null)
+        return false;
+      _inventory.add(quantity); 
     }
 
     //Init worldmap worldmap & treelist
-    List<String> contentGame = gameState[i].split('+');
+    List<String> contentGame = gameState[11].split('+');
+    if(contentGame.length != 101)
+      return false;
     int m = 0;
     for (int k = 0; k < 10; k++) {
       for (int l = 0; l < 10; l++) {
-          bool zoneIsLocked =  int.parse(contentGame[m][1]) == 1;
+
+          if(contentGame[m][1] != '1' && contentGame[m][1] != '0')
+            return false;
+          bool zoneIsLocked =  (contentGame[m][1] == '1');
+          if(_getZoneType(contentGame[m][0]) == null)
+            return false;
           Zone zone = new Zone(_getZoneType(contentGame[m][0]), isLocked: zoneIsLocked);
           if(!zoneIsLocked){
             if(int.parse(contentGame[m][2]) == 1){
               Item treeType =  _getTreeType(contentGame[m][3]);
+              if(treeType == null)
+                return false;
+
               List<String> contentTree = contentGame[m].split('-');
+              if(contentTree.length != 7)
+                return false;
 
               //Content Tree: XXX - name - dateWithFormat - HealthInfo
               String name = contentTree[1];
-              DateTime lastTimeShaken = _getLastTimeShaken(contentTree[2]);
+              DateTime lastTimeShaken = _getStringToDate(contentTree[2]);
+              if(lastTimeShaken == null)
+                return false;
+
+              if(double.parse(contentTree[3]) == null)
+                return false;
+              if(double.parse(contentTree[4]) == null)
+                return false;
+              if(contentTree[5] != "true" && contentTree[5] != "false")
+                return false;
+              if(double.parse(contentTree[6]) == null)
+                return false;
+
               Health health = Health( hydratation: double.parse(contentTree[3]),
                                       nutrition: double.parse(contentTree[4]),
                                       isPolluted: (contentTree[5] == "true"),
@@ -136,22 +190,28 @@ class Save {
                                             time: lastTimeShaken,
                                             health: health);
               
-              zone.plantTree(treeType, treeInfo: tree,);
+              zone.plantTree(treeType, treeInfo: tree);
               TreeList().addTreeToList(tree);
             }
           }
           m++;
           _worldMap[k][l] = zone;
         }
-      }
-      // Wallet().reloadData();
+    }
 
+    int elapsedTimeMinute = DateTime.now().difference(_timeCreated).inMinutes;
+    
+    for (int i = 0; i < elapsedTimeMinute; i++) {
+      TimersForTrees().updateStateTrees();
+    }
+    return true;
     }
 
   void saveGame() async{
 
     //Add wallet amount
-    String dataToSave = Wallet().getCoins().toString()+',';
+    String dataToSave = dateToString(DateTime.now())+',';
+    dataToSave += Wallet().getCoins().toString()+',';
 
     //Add inventory
     dataToSave += Cactus.getInstance().getQuantity().toString()+',';
@@ -183,7 +243,7 @@ class Save {
 
             TreeBackEnd currentTree = currentZone.getTreeScreen();
             dataToSave += currentTree.getName()+'-';
-            dataToSave += currentTree.getLastTimeShaken()+'-';
+            dataToSave += dateToString(currentTree.getLastTimeShaken())+'-';
 
             Health currentHealth = currentTree.getHealth();
             dataToSave += currentHealth.getHydratation().toString()+'-';
@@ -194,21 +254,18 @@ class Save {
         }
         dataToSave += '+';
       }
-
     }
-
     //Ecrypting data
-    String key = 'my 32 length key...............1';
+    String key = '201640382014185520176639.Caramel';
     final keyEncrypter = Key.fromUtf8(key);
     final iv = IV.fromLength(16);
-
     Encrypter encrypter = Encrypter(AES(keyEncrypter));
-    Encrypted encrypted = encrypter.encrypt(dataToSave, iv: iv);
 
+
+    Encrypted encrypted = encrypter.encrypt(dataToSave, iv: iv);
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/user.txt');
 
-    print("The game is saved!");
     await file.writeAsString(encrypted.base64);
 
 
@@ -218,6 +275,7 @@ class Save {
     return _wallet;
   }
 
+  
   int getInventory(String itemName){
     switch(itemName){
       case 'Cactus':

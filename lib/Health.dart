@@ -36,7 +36,6 @@ class Health extends StatelessWidget{
   }
 
   int getNbPollutions(){
-    print("Tree nbpol: "+this._healthInfo.nbPollutions.toString());
     return this._healthInfo.nbPollutions;
   }
 

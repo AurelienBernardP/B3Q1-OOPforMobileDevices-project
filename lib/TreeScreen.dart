@@ -132,10 +132,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 ],),
               )
             ),
-            // Expanded(
-            //   flex: 2,
-            //   child: 
-            // ),
           ],
         ),
       ),
@@ -147,7 +143,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
             height: MediaQuery.of(context).size.height/10,
             child: GestureDetector(
               onTap: () {
-                  // _everySecond.cancel();
                 ItemList.makeShop();
                 Navigator.push(
                   context,
@@ -461,16 +456,7 @@ class TreeBackEnd {
   Zone getZone() => plantedZone;
 
 
-  String getLastTimeShaken(){
-    String lastTimeShaken = this.lastTimeShaken.year.toString()+'|';
-    lastTimeShaken += this.lastTimeShaken.month.toString()+'|';
-    lastTimeShaken += this.lastTimeShaken.day.toString()+'|';
-    lastTimeShaken += this.lastTimeShaken.hour.toString()+'|';
-    lastTimeShaken += this.lastTimeShaken.minute.toString()+'|';
-    lastTimeShaken += this.lastTimeShaken.second.toString()+'|';
-    lastTimeShaken += this.lastTimeShaken.millisecond.toString()+'|';
-    lastTimeShaken += this.lastTimeShaken.microsecond.toString();
-
+  DateTime getLastTimeShaken(){
 
     return lastTimeShaken;
   }
