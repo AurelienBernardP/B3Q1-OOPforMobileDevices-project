@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      initialData: 'Making Tree Babies',
+      initialData: 'Making the world greener',
       future: waitingScreen(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.done){

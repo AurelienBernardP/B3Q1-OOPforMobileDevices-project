@@ -57,7 +57,6 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         value: 0,
                         groupValue: _sort,
                         onChanged: (value) {
-                          print("0");
                           _sort = value;
                           setState(() {
                             setDisplayedText = 0;
@@ -73,7 +72,6 @@ class _TreeListScreenState extends State<TreeListScreen> {
                       value: 1,
                       groupValue: _sort,
                       onChanged: (value) {
-                        print("1");
                         _sort = value;
                         setState(() {
                           setDisplayedText = 1;
@@ -90,7 +88,6 @@ class _TreeListScreenState extends State<TreeListScreen> {
                       value: 2,
                       groupValue: _sort,
                       onChanged: (value) {
-                        print("0");
                         _sort = value;
                         setState(() {
                           setDisplayedText = 1;
@@ -141,7 +138,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            "OMG! You don't have any trees yet, go plant some!",
+                            "You don't have any trees yet! go plant some!",
                             style: TextStyle(
                                 fontSize: 25, color: Colors.blueGrey[100]),
                           ),

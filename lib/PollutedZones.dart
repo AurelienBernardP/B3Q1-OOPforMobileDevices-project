@@ -97,7 +97,7 @@ Widget _createDraggable(BuildContext context, int index){
         ),
         child: Center(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
           children: <Widget>[
             _createPollution(),
             Row(
@@ -109,7 +109,6 @@ Widget _createDraggable(BuildContext context, int index){
                   child: DragTarget(
                     builder:
                         (context, List<int> candidateData, rejectedData) {
-                      print(candidateData);
                       return Center(
                         child: Container(
                         decoration: BoxDecoration(
@@ -121,7 +120,6 @@ Widget _createDraggable(BuildContext context, int index){
                       );
                     },
                     onWillAccept: (data) {
-                      print(data);
                       if(data % 2 == 0)
                         return true;
                       return false;
@@ -155,7 +153,6 @@ Widget _createDraggable(BuildContext context, int index){
                       );
                     },
                     onWillAccept: (data) {
-                      print(data);
                       if(data % 2 != 0)
                         return true;
                       return false;

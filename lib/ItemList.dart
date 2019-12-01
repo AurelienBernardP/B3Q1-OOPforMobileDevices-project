@@ -76,27 +76,16 @@ class _ItemListState extends State<ItemList>{
         return;
       }
       else
-        _cannotUsePopup(context, "You're out of money! Keep calm and don't cry");
+        _cannotUsePopup(context, "You're out of money! Keep calm, don't cry");
     });
   }
-
-  /*void _use(){
-    setState(() {
-      if(gridState[_tappedItemX][_tappedItemY].removeItem()){
-        Save().saveGame();
-        return;
-      }
-      else
-        _cannotUsePopup(context, "You're out of " + gridState[_tappedItemX][_tappedItemY].getName() + "!");
-    });
-  }*/
 
 void _cannotUsePopup(BuildContext context, String text){
     var alertDialog = AlertDialog(
       title: Text(text),
       actions: <Widget>[
           FlatButton(
-            child: Text('Ok im sorry'),
+            child: Text('Oups! You cannot do that'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -227,11 +216,7 @@ Container(
       AspectRatio(
         aspectRatio: 1.0,
         child: Container(
-          //decoration: BoxDecoration(
-            /*image: new DecorationImage(
-            image: new AssetImage("assets/images/table.png"), 
-            fit: BoxFit.cover,),*/
-          //),
+
           color: Colors.black,
         child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -246,7 +231,7 @@ Container(
         ),
       ),
       Expanded(child: _addDescription()),
-      //_addButton(),
+
       ]
     );
   }
@@ -264,10 +249,10 @@ Container(
                   fit: BoxFit.fill,),
                 ),
             child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
+
               children: <Widget>[
                 _addTitle(),
-                // _addDetails(_tappedItemX, _tappedItemY),
+
                 _addText(),
                 _addButton(),
               ],
@@ -370,33 +355,5 @@ Container(
 
     return Text(' ');
 
-    /*Container(
-        alignment: Alignment.bottomRight,
-        margin: EdgeInsets.only(top: 15.0, right: 20.0),
-      child: Container(
-        alignment: Alignment.center,
-            decoration: BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage("assets/images/title.png"), 
-                  fit: BoxFit.fill,),
-                ),
-            
-            width: 100,
-                height: 40,
-      child: GestureDetector(
-              onTap: (){_use();},
-              child:
-            Text(
-          'Use',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          )
-        ), 
-        ),
-      ),  
-        );*/
   }
 }

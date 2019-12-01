@@ -1,7 +1,6 @@
 import 'package:first/Item.dart';
 import 'package:first/PollutedZones.dart';
 import 'package:first/Save.dart';
-import 'package:first/Timer.dart';
 import 'package:first/TreeList.dart';
 
 import 'Health.dart';
@@ -39,29 +38,9 @@ class TreeScreenBodyState extends State<TreeScreen> {
   TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
-
-  // void onValueChanged() {
-  //   setState(() {
-
-  //   });
-  //   }
-
   @override
   void initState() {
     super.initState();
-
-    // sets first value
-
-    // defines a timer
-
-    // _everySecond = Timer.periodic(Duration(seconds: 5), (Timer t) {
-    //   print("pased");
-    //   this.onValueChanged();
-    // });
-    // if(TimersForTrees().timerTreeScreen == null){
-    //   TimersForTrees().setTimerForTreeScreen(this);
-
-    // }
   }
 
   Widget build(BuildContext context) {
@@ -144,7 +123,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => ItemList()),
               );
-              print("store");
+
             },
             child: Image.asset(
               "assets/images/shop.png",
@@ -212,7 +191,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 if (!WaterItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
                 setState(() {});
-                print("water plant");
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -246,7 +224,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 if (!RainItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
                 setState(() {});
-                print("water plant");
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -279,11 +256,9 @@ class TreeScreenBodyState extends State<TreeScreen> {
               onTap: () {
                 if (!NurishementItem1.getInstance()
                     .useItem(treeInfo.getHealth())) _cannotUsePopup(context);
-                // if(!treeInfo.getHealth().){
-                //   print("MAX");
-                // }
+
                 setState(() {});
-                print("nurishemet 1");
+
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -316,11 +291,8 @@ class TreeScreenBodyState extends State<TreeScreen> {
               onTap: () {
                 if (!NurishementItem2.getInstance()
                     .useItem(treeInfo.getHealth())) _cannotUsePopup(context);
-                // if(!treeInfo.getHealth().){
-                //   print("MAX");
-                // }
+
                 setState(() {});
-                print("nurishement 2");
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -365,7 +337,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   });
                 }
 
-                print("repair");
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -452,7 +423,6 @@ class TreeBackEnd {
   }
 
   void shake() {
-    print(getMilisecondsLeft());
     if (getMilisecondsLeft() <= 0) {
       lastTimeShaken = DateTime.now();
       Wallet().addCoins(7);
