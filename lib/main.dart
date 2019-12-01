@@ -10,13 +10,15 @@ import 'Save.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 import 'dart:io';
 import 'dart:core';
-
+import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
     Admob.initialize('ca-app-pub-3940256099942544~3347511713');
-    runApp(new SplashScreen());
-    
+      SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
+    .then((_) {
+      runApp(new SplashScreen());
+    });
 }
 
 class SplashScreen extends StatefulWidget {
