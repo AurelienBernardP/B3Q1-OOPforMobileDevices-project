@@ -148,7 +148,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     String userData = await loadingData();
     Save().readGame(userData);
-    await Future.delayed(Duration(seconds:5));
+    await Future.delayed(Duration(seconds:3));
     return Text("Loading...");
   }
 
