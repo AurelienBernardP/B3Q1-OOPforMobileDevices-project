@@ -3,20 +3,21 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'Guide.dart';
 import 'Wallet.dart';
-//import 'package:admob_flutter/admob_flutter.dart';
+import 'package:admob_flutter/admob_flutter.dart';
+import 'dart:async';
 
 class AdTreesAppTopBar {
   final String text = "AdTrees";
   AppBar bar;
-
+  AdmobInterstitial interstitialAd;
   AdTreesAppTopBar(String text, BuildContext context, {bool isGuide}) {
     this.text.replaceAll('AdTrees', text);
 
-/*    AdmobInterstitial interstitialAd = AdmobInterstitial(
+    interstitialAd = AdmobInterstitial(
       adUnitId: 'ca-app-pub-3940256099942544/1033173712',
     );
     interstitialAd.load();
-   */ Widget settingsButton = Container(
+    Widget settingsButton = Container(
       margin: new EdgeInsets.only(bottom: 10.0, right: 30.0),
       child: IconButton(
         icon: Icon(Icons.help_outline, color: Colors.blueGrey[100], size: 40.0),
@@ -32,15 +33,18 @@ class AdTreesAppTopBar {
     );
     Widget adsButton = GestureDetector(
       onTap: () async {
-       /* if (await interstitialAd.isLoaded) {
+        if (await interstitialAd.isLoaded) {
+          Wallet().addCoins(2);
           interstitialAd.show();
-         */ Wallet().addCoins(2);
-            print(Wallet().getCoins().toString());
-          /*interstitialAd = AdmobInterstitial(
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => EmptyAdScreen()));
+          interstitialAd = AdmobInterstitial(
             adUnitId: 'ca-app-pub-3940256099942544/1033173712',
           );
           interstitialAd.load();
-        }*/
+        }
       },
       child: Container(
         margin: new EdgeInsets.only(bottom: 10.0, left: 10.0),
@@ -114,4 +118,16 @@ class AdTreesAppTopBar {
     this.bar = bar;
   }
   AppBar getBar() => bar;
+}
+
+class EmptyAdScreen extends StatelessWidget {
+
+  Widget build(BuildContext context) {
+    Timer(Duration(seconds: 1), () {
+      Navigator.pop(context);
+    });
+    return Scaffold(
+      body: Container(),
+    );
+  }
 }
