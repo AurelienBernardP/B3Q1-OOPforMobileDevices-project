@@ -214,7 +214,7 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "yas queen ")),
+                    "In the invetory you will be able to see the quantity you have of each item"),),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -232,7 +232,7 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "yas queen ")),
+                    "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling ,on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -250,7 +250,7 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "yas queen ")),
+                    "From the tree list you can sort and see the time left to shake the trees or their health more rapidely.\n You can select the element you sort the trees by from the list at the of the screen.\n To access a tree simply tap on its box!")),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -268,17 +268,8 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "yas queen ")),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ),
-            ),
+                    "This aplication was developed by Tasnim Safadi, Aurélien Bernard, and Kenan Ozdemir.\n\n The aim of this app is to sensitize the public about the environment in a playfull manner.\n Most of the generated revenue by this app will be transmited to organization dedicated to improve the environment.\n\n Thankyou for your contribution and support.")),
+           
           ],
         );
     }
@@ -333,11 +324,11 @@ class _GuideState extends State<Guide> {
       case 3:
         return "Inventory";
       case 4:
-        return "Shop";
-      case 5:
         return "Polution game";
-      case 6:
+      case 5:
         return "Tree List";
+      case 6:
+        return "About";
     }
   }
 }
