@@ -296,7 +296,7 @@ class RepairItem extends Item {
 
   bool useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      if(healthbar.cleanTree()){
+      if(healthbar.isPolluted()){
         _quantity -= 1;
         return true;
       }
