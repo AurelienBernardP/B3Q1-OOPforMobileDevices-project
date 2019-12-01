@@ -144,9 +144,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future <Text> waitingScreen() async{
     Save();
-
     String userData = await loadingData();
     if(!Save().readGame(userData)){
+      Save().reset();
       Save().readGame(Save().emergencyRecovery());
     }
     await Future.delayed(Duration(seconds:2));

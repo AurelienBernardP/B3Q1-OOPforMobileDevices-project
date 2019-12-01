@@ -233,7 +233,6 @@ class _TreeListScreenState extends State<TreeListScreen> {
 }
 
 class TreeList {
-  static final length = PlanetBackEnd.getInstance().getGrid().length;
   static int nbPlantedTrees;
   List<TreeBackEnd> plantedTrees;
   static final TreeList _singleton = TreeList._internal();
@@ -249,10 +248,15 @@ class TreeList {
 
   List<TreeBackEnd> getTreeList() => nbPlantedTrees != 0 ? plantedTrees : null;
 
+  void reset(){
+    plantedTrees = new List();
+    nbPlantedTrees = 0;
+  }
+
   int getNbTrees() => nbPlantedTrees;
 
   void addTreeToList(TreeBackEnd tree) {
-    if (nbPlantedTrees > (length * length)) return;
+    if (nbPlantedTrees > (100)) return;
 
     plantedTrees.add(tree);
     nbPlantedTrees++;

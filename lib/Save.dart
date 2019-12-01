@@ -21,6 +21,7 @@ import 'dart:core';
 
 class Save {
   int _wallet;
+  int nbZoneUnlocked;
   DateTime _timeCreated;
   List<int> _inventory;
   List<List<Zone>> _worldMap;
@@ -34,6 +35,14 @@ class Save {
   Save._internal(){
     TreeList();
     _inventory = new List();
+    nbZoneUnlocked = 0;
+    _worldMap = new List.generate(10, (_) => new List(10));
+  }
+
+  void reset(){
+    TreeList().reset();
+    _inventory = new List();
+    nbZoneUnlocked = 0;
     _worldMap = new List.generate(10, (_) => new List(10));
   }
   
@@ -159,6 +168,7 @@ class Save {
           
           Zone zone = new Zone(_getZoneType(contentGame[m][0]), isLocked: zoneIsLocked);
           if(!zoneIsLocked){
+            nbZoneUnlocked++;
             if(int.parse(contentGame[m][2]) == 1){
               Item treeType =  _getTreeType(contentGame[m][3]);
               if(treeType == null)
@@ -206,6 +216,7 @@ class Save {
     for (int i = 0; i < elapsedTimeMinute; i++) {
       TimersForTrees().updateStateTrees();
     }
+
     return true;
     }
 
@@ -277,7 +288,10 @@ class Save {
     return _wallet;
   }
 
-  
+  int getNbZoneUnlocked(){
+    return nbZoneUnlocked;
+  }
+
   int getInventory(String itemName){
     switch(itemName){
       case 'Cactus':
