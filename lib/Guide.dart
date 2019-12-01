@@ -9,7 +9,7 @@ class Guide extends StatefulWidget {
 
 class _GuideState extends State<Guide> {
   int pageNumber = 0;
-  final int NBPAGES = 7;
+  final int NBPAGES = 6;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -214,7 +214,7 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "yas queen ")),
+                    "In the invetory you will be able to see the quantity you have of each item"),),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -232,7 +232,7 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "yas queen ")),
+                    "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -250,7 +250,7 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "yas queen ")),
+                    "From the tree lis you can raoidly  ")),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -333,11 +333,11 @@ class _GuideState extends State<Guide> {
       case 3:
         return "Inventory";
       case 4:
-        return "Shop";
-      case 5:
         return "Polution game";
-      case 6:
+      case 5:
         return "Tree List";
+      case 6:
+        return "guide";
     }
   }
 }
