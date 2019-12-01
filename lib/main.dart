@@ -125,18 +125,17 @@ class _SplashScreenState extends State<SplashScreen> {
       final directory = await getApplicationDocumentsDirectory();
       final file = File('${directory.path}/user.txt');
       userData = await file.readAsString();
-
-      String key = 'my 32 length key................';
+      String key = '201640382014185520176639.Caramel';
       final keyEncrypter = encrypt.Key.fromUtf8(key);
       final iv = encrypt.IV.fromLength(16);
 
       encrypt.Encrypter encrypter = encrypt.Encrypter(encrypt.AES(keyEncrypter));
       final decrypted = encrypter.decrypt64(userData, iv: iv);
+
       //Verify format
       userData = decrypted;
     } catch (e) {
-      //Initialising the whole game
-      userData = Save().emergencyRecovery();
+      print("Save incorrect or not existing.");
     }
     return userData;
   }
@@ -145,8 +144,10 @@ class _SplashScreenState extends State<SplashScreen> {
     Save();
 
     String userData = await loadingData();
-    Save().readGame(userData);
-    await Future.delayed(Duration(seconds:3));
+    if(!Save().readGame(userData)){
+      Save().readGame(Save().emergencyRecovery());
+    };
+    await Future.delayed(Duration(seconds:2));
     return Text("Loading...");
   }
 

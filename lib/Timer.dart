@@ -15,24 +15,14 @@ class TimersForTrees {
     return _singleton;
   }
 
-  TimersForTrees._internal(){}
+  TimersForTrees._internal();
   
   void timers(){
       const oneMin = const Duration(minutes: 1);
 
-      new Timer.periodic(oneMin, (Timer t) => updateStateTrees(t));
+      new Timer.periodic(oneMin, (Timer t) => updateStateTrees());
 
   }
-
-
-// Nurishement: 
-// C: -1% par h
-// P: -5% par h
-// T: -2% par h
-// Damage:
-// C: (0,5)
-// T: (0, 10)
-// P: (0, 20)
 
   double scaleDown(double percentageInOneHour, double max){
     return ((percentageInOneHour/100)* max / 60);
@@ -44,21 +34,21 @@ class TimersForTrees {
       case "Cactus":
         //100 in 12h
         //8.33% in 1h
-        return scaleDown(8.33,hydratationMax);
+        return scaleDown(4.16,hydratationMax);
         break;
       case "Pine Tree":
         //100 in 30h
         //3.33% in 1h
-        return scaleDown(3.34,hydratationMax);
+        return scaleDown(1.16,hydratationMax);
         break;
       case "Tree":
         //100% in 24h
         //4.167% in 1h
-        return scaleDown(4.167,hydratationMax);
+        return scaleDown(2.05,hydratationMax);
       case "Mini Plant":
         //100% in 5 h
         //20% in 1h
-        return scaleDown(100,hydratationMax);
+        return scaleDown(10,hydratationMax);
       default:
         return 0.0;
     }
@@ -82,7 +72,7 @@ class TimersForTrees {
     }
   }
 
-  void updateStateTrees(Timer t){
+  void updateStateTrees(){
     TreeBackEnd currentTree;
     String currentTreeName;
     for (int i = 0; i < TreeList().getNbTrees(); i++) {
