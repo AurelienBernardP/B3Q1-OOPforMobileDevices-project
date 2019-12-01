@@ -1,7 +1,6 @@
 import 'package:first/Item.dart';
 import 'package:first/PollutedZones.dart';
 import 'package:first/Save.dart';
-import 'package:first/Timer.dart';
 import 'package:first/TreeList.dart';
 
 import 'Health.dart';
@@ -39,13 +38,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
   TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
-
-  // void onValueChanged() {
-  //   setState(() {
-
-  //   });
-  //   }
-
   @override
   void initState() {
     super.initState();

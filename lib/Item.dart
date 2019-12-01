@@ -281,7 +281,7 @@ class RepairItem extends Item {
 
   RepairItem._internal() {
     _price = 50;
-    _description = "Water water food repeat... Don't you want to spice things up a bit?";
+    _description = "Clean your zone, save the planet!";
     _name = "Cleanser";
     _icon = "assets/images/repair.png";
     _quantity = Save().getInventory(_name);

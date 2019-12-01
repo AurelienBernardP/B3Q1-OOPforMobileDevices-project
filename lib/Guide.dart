@@ -68,15 +68,13 @@ class _GuideState extends State<Guide> {
           ),
         ),
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.center,
+
           children: <Widget>[
             Expanded(
               child: _addTitle(),
               flex: 2,
             ),
-            //SizedBox(height: height/20),
 
-            //_addDetails(_tappedItemX, _tappedItemY),
             Expanded(
               child: _addText(),
               flex: 8,
@@ -168,9 +166,6 @@ class _GuideState extends State<Guide> {
           ],
         );
 
-      //   "A zone has different characteristics depending on its type. \n"+
-      //   " There are five types of zones: desert, forest, snowy mountains, path, river. \n"+
-      //  "  Zones can be locked or unlocked. Unlocked zones can be planted by using a tree.";
       case 1:
         return Column(
           children: <Widget>[

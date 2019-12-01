@@ -97,7 +97,7 @@ Widget _createDraggable(BuildContext context, int index){
         ),
         child: Center(
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
           children: <Widget>[
             _createPollution(),
             Row(

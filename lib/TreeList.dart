@@ -138,7 +138,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            "OMG! You don't have any trees yet, go plant some!",
+                            "You don't have any trees yet! go plant some!",
                             style: TextStyle(
                                 fontSize: 25, color: Colors.blueGrey[100]),
                           ),

@@ -110,7 +110,7 @@ class _PlanetState extends State<Planet> {
 
   void _zonePricePopup(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text("Nid moneyz bitch"),
+      title: Text("Not enough coins!"),
       content: Row(children: <Widget>[
         Text(
           "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
@@ -555,7 +555,7 @@ class _PlanetState extends State<Planet> {
           ),
         ),
         child: Row(
-            //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
             children: <Widget>[
               Container(
                 margin: EdgeInsets.all(20),
@@ -577,16 +577,7 @@ class _PlanetState extends State<Planet> {
                   margin: EdgeInsets.only(top: 25, left: 15, right: 15),
                   child: Column(
                     children: <Widget>[
-                      /*FlatButton.icon(
-          color: Colors.green,
-          label: Text('See tree'), 
-          icon: Icon(Icons.remove_red_eye),
-          onPressed: () { Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getTreeScreenWidget()),
-                );
-          },
-        ),*/
+
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -610,8 +601,7 @@ class _PlanetState extends State<Planet> {
                               fit: BoxFit.fitHeight,
                             ),
                           ),
-                          //alignment: Alignment.bottomRight,
-                          //child: Icon(Icons.remove_red_eye, color: Colors.black, size: 30.0),
+
                         ),
                       ),
                       _createTreeHealth(height, width),
