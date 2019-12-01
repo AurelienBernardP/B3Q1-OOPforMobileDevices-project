@@ -95,6 +95,9 @@ class _PlanetState extends State<Planet>{
             onPressed: () {
               _unlockZone();
               Navigator.of(context).pop();
+              setState(() {
+                Wallet().retrieveCoins(PlanetBackEnd.getInstance().getPrice());
+              });
             },
           ),
         ],
