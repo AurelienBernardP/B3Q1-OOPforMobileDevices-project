@@ -149,7 +149,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Save().reset();
       Save().readGame(Save().emergencyRecovery());
     }
-    await Future.delayed(Duration(seconds:2));
+    // await Future.delayed(Duration(seconds:2));
     return Text("Loading...");
   }
 

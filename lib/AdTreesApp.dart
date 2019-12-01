@@ -20,12 +20,13 @@ class _AdTreesAppBody extends StatefulWidget {
 }
 
 class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
-  
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     return Stack(
       children: <Widget>[
         new Container(
-          height: MediaQuery.of(context).size.height/8.5,
+          height: height/8.5,
           width: double.infinity,
           decoration:new BoxDecoration(
             image: new DecorationImage(
@@ -44,11 +45,11 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                   fit: BoxFit.cover,),
                 ),
         child: Container( 
-          margin: new EdgeInsets.only(top: 160.0, left: 30.0),
+          margin: new EdgeInsets.only(top: height/3.8, left: width/17, right: width/15),
           child: ListView(
             
           children: <Widget>[
-            Container(margin: EdgeInsets.only(right: 30),
+            Container(
                 decoration:new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/window.png"),
@@ -56,12 +57,11 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
           ),
                 child:ListTile(
-              //leading: Icon(Icons.map),
-              title: Text('Go to WorldMap!', overflow: TextOverflow.ellipsis,
+              title: Text('Worldmap', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 40,
+        fontSize: width/15,
         color: Colors.blueGrey[200],
       ),),
               onTap: () {
@@ -72,7 +72,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               },
             ),),
             Container(
-              margin: EdgeInsets.only(right: 30),
+              
                 decoration:new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/window.png"),
@@ -80,12 +80,11 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
           ),
                 child: ListTile(
-              //leading: Icon(Icons.add_shopping_cart),
-              title:  Text('Go to shop!', overflow: TextOverflow.ellipsis,
+              title:  Text('Shop', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 40,
+        fontSize: width/15,
         color: Colors.blueGrey[200],
       ),),
               onTap: () {
@@ -99,7 +98,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               //leading: Icon(Icons.view_list),
 
             Container(
-              margin: EdgeInsets.only(right: 30),
+              
                 decoration:new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/window.png"),
@@ -108,11 +107,11 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
           ),
                 child:ListTile(
               //leading: Icon(Icons.work),
-              title: Text('Go to inventory!', overflow: TextOverflow.ellipsis,
+              title: Text('Inventory', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 40,
+        fontSize: width/15,
         color: Colors.blueGrey[200],
       ),),
               onTap: () {
@@ -124,7 +123,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               },
             ),),
               Container(
-              margin: EdgeInsets.only(right: 30),
+              
                 decoration:new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/window.png"),
@@ -133,11 +132,11 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
           ),
                 child: ListTile(
               //leading: Icon(Icons.view_list),
-              title: Text('See tree list', overflow: TextOverflow.ellipsis,
+              title: Text('Tree list', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 40,
+        fontSize: width/15,
         color: Colors.blueGrey[200],
       ),),
               onTap: () {
