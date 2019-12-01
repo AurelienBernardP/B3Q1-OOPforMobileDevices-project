@@ -1,3 +1,5 @@
+import 'dart:core' as prefix0;
+
 import 'package:encrypt/encrypt.dart';
 import 'package:first/Characteristic.dart';
 import 'package:first/Item.dart';
@@ -90,7 +92,7 @@ class Save {
   }
 
   String emergencyRecovery(){
-    return "10,0,0,0,0,0,0,0,0,0,F1+F1+F1+F1+F1+F1+F1+F1+P1+P1+F1+F1+F1+F1+F1+F1+F1+F1+P1+D1+R1+R1+R1+F1+F1+F1+F1+P1+D1+D1+F1+F1+R1+F1+F1+P1+P1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+P1+P1+P1+P1+P1+P1+P1+R1+R1+R1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+";
+    return "10000,0,0,0,0,0,0,0,0,0,F1+F1+F1+F1+F1+F1+F1+F1+P1+P1+F1+F1+F1+F1+F1+F1+F1+F1+P1+D1+R1+R1+R1+F1+F1+F1+F1+P1+D1+D1+F1+F1+R1+F1+F1+P1+P1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+P1+P1+P1+P1+P1+P1+P1+R1+R1+R1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+";
   }
 
   void readGame(String userData){
@@ -126,7 +128,7 @@ class Save {
               DateTime lastTimeShaken = _getLastTimeShaken(contentTree[2]);
               Health health = Health( hydratation: double.parse(contentTree[3]),
                                       nutrition: double.parse(contentTree[4]),
-                                      isPolluted: int.parse(contentTree[5]) == 1,
+                                      isPolluted: (contentTree[5] == "true"),
                                       nbPollutions: int.parse(contentTree[6]));
               TreeBackEnd tree = TreeBackEnd(zone: zone, 
                                             tree: treeType,
@@ -142,7 +144,7 @@ class Save {
           _worldMap[k][l] = zone;
         }
       }
-      Wallet().reloadData();
+      // Wallet().reloadData();
 
     }
 
@@ -196,7 +198,7 @@ class Save {
     }
 
     //Ecrypting data
-    String key = 'my 32 length key................';
+    String key = 'my 32 length key...............1';
     final keyEncrypter = Key.fromUtf8(key);
     final iv = IV.fromLength(16);
 

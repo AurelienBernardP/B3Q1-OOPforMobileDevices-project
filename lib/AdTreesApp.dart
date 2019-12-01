@@ -1,4 +1,5 @@
 import 'package:first/ItemList.dart';
+import 'package:first/PollutedZones.dart' as prefix0;
 import 'package:first/TreeList.dart';
 import 'package:first/TreeScreen.dart';
 import 'dart:async';
@@ -144,6 +145,8 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
         color: Colors.blueGrey[200],
       ),),
               onTap: () {
+                Pollution.getInstance().resetPollution();
+                Pollution.getInstance().updatePollution(6);
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => PollutedZones()),

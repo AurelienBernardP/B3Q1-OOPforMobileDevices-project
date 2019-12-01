@@ -1,9 +1,7 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
-import 'AdTreesAppTopBar.dart';
 import 'package:flutter/cupertino.dart';
-import 'Characteristic.dart';
-
+import 'Save.dart';
 
 class Health extends StatelessWidget{
   HealthBackEnd _healthInfo;
@@ -13,6 +11,7 @@ class Health extends StatelessWidget{
                                      nutrition: nutrition,
                                      isPolluted: isPolluted,
                                      nbPollutions: nbPollutions);
+
   }
 
   @override
@@ -38,6 +37,7 @@ class Health extends StatelessWidget{
 
 
   bool hydrateTree(double nbDrop){
+    Save().saveGame();
     return this._healthInfo.hydrateTree(nbDrop);
   }
 
@@ -46,6 +46,7 @@ class Health extends StatelessWidget{
   }
 
   bool nurishTree(double nutrition){
+    Save().saveGame();
     return this._healthInfo.nurishTree(nutrition);
   }
 
@@ -55,6 +56,7 @@ class Health extends StatelessWidget{
 
   bool cleanTree(){
     this._healthInfo.nbPollutions = 0;
+    Save().saveGame();
     return this._healthInfo.cleanTree();
   }
 

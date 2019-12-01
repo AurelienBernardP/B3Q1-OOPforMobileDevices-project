@@ -658,11 +658,12 @@ gridTree = [
 
   void unlockZone(int x, int y){
     _zonePrice *= 2;
+    Save().saveGame();
     gridState[x][y].unlock(); 
   }
 
   void plant(int mapX, int mapY, int x, int y){
     gridState[mapX][mapY].plantTree(gridTree[x][y]);
-    //viewTree();
+    Save().saveGame();
   }
 }

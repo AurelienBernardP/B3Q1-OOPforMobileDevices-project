@@ -14,7 +14,7 @@ import 'dart:core';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
-    // Admob.initialize('ca-app-pub-3940256099942544~3347511713');
+    Admob.initialize('ca-app-pub-3940256099942544~3347511713');
     runApp(new SplashScreen());
     
 }
@@ -132,13 +132,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
       encrypt.Encrypter encrypter = encrypt.Encrypter(encrypt.AES(keyEncrypter));
       final decrypted = encrypter.decrypt64(userData, iv: iv);
-
+      //Verify format
+      userData = decrypted;
     } catch (e) {
       //Initialising the whole game
       userData = Save().emergencyRecovery();
-
     }
-    
     return userData;
   }
 
