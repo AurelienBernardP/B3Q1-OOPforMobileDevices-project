@@ -193,7 +193,7 @@ class Save {
               if(double.parse(contentTree[6]) == null)
                 return false;
 
-              Health health = Health( hydratation: double.parse(contentTree[3]),
+              Health health = Health( hydration: double.parse(contentTree[3]),
                                       nutrition: double.parse(contentTree[4]),
                                       isPolluted: (contentTree[5] == "true"),
                                       nbPollutions: int.parse(contentTree[6]));
@@ -259,7 +259,7 @@ class Save {
             dataToSave += dateToString(currentTree.getLastTimeShaken())+'-';
 
             Health currentHealth = currentTree.getHealth();
-            dataToSave += currentHealth.getHydratation().toString()+'-';
+            dataToSave += currentHealth.gethydration().toString()+'-';
             dataToSave += currentHealth.getNutrition().toString()+'-';
             dataToSave += currentHealth.isPolluted().toString()+'-';
             dataToSave += currentHealth.getNbPollutions().toString();

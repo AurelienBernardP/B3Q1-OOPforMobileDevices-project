@@ -276,7 +276,7 @@ class TreeList {
   }
 
   void sortByHydration() {
-    plantedTrees.sort((a, b) => (a.getHealth().getHydratation() - b.getHealth().getHydratation()).round());
+    plantedTrees.sort((a, b) => (a.getHealth().gethydration() - b.getHealth().gethydration()).round());
   }
 
   void sortByPolution() {

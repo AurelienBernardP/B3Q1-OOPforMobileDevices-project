@@ -148,8 +148,6 @@ class _GuideState extends State<Guide> {
   }
 
   _getText() {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     switch (pageNumber) {
       case 0:
         return Column(
@@ -183,7 +181,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/treeScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -196,12 +194,12 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "The show can be accesed from the main menu the world map or from the any tree.\n In the shop you will be able to exchange Coins for usable items like trees!.\n Coins can be earned in many ways:\n ·Shaking a tree you planted \n ·Playing a game to clean a planted tree \n Watching a short ad by taping on the play button")),
+                    "The shop can be accesed from the main menu the world map or from the any tree.\n In the shop you will be able to exchange Coins for usable items like trees!.\n Coins can be earned in many ways:\n ·Shaking a tree you planted \n ·Playing a game to clean a planted tree \n Watching a short ad by taping on the play button")),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/shopScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -219,7 +217,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/InventoryScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -233,16 +231,6 @@ class _GuideState extends State<Guide> {
             Expanded(
                 child: formatText(
                     "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling ,on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ),
-            ),
           ],
         );
       case 5:
@@ -255,7 +243,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/treeListScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),

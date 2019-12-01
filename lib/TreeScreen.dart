@@ -66,6 +66,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
 
   Widget build(BuildContext context) {
     AppBar bar = AdTreesAppTopBar(treeInfo.name, context).getBar();
+
     return Stack(
       children: <Widget>[
         new Container(

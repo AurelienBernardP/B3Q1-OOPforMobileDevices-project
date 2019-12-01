@@ -6,8 +6,8 @@ import 'Save.dart';
 class Health extends StatelessWidget{
   HealthBackEnd _healthInfo;
 
-  Health({double hydratation, double nutrition, bool isPolluted, int nbPollutions}){
-    this._healthInfo = HealthBackEnd(hydratation: hydratation,
+  Health({double hydration, double nutrition, bool isPolluted, int nbPollutions}){
+    this._healthInfo = HealthBackEnd(hydration: hydration,
                                      nutrition: nutrition,
                                      isPolluted: isPolluted,
                                      nbPollutions: nbPollutions);
@@ -19,8 +19,8 @@ class Health extends StatelessWidget{
     return buildAllHealth(context);
   }
 
-  double getHydratation(){
-    return _healthInfo.hydratation;
+  double gethydration(){
+    return _healthInfo.hydration;
   }
 
   double getNutrition(){
@@ -90,7 +90,7 @@ class Health extends StatelessWidget{
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                    _hydratationHealth(widthBox, heightBox),
+                    _hydrationHealth(widthBox, heightBox),
                     SizedBox(height: heightBox,),
                     _nutritionHealth(widthBox, heightBox),
                     SizedBox(height: heightBox,),
@@ -125,9 +125,9 @@ class Health extends StatelessWidget{
     }
 
 
-  Row _hydratationHealth(double width, double height){
+  Row _hydrationHealth(double width, double height){
     Text text = Text(
-                "Hydratation",
+                "hydration",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -146,11 +146,11 @@ class Health extends StatelessWidget{
                       Container(
                         color: Colors.blue,
                         height: height,
-                        width: (this._healthInfo.hydratation * width)/this._healthInfo.hydratationMax,
+                        width: (this._healthInfo.hydration * width)/this._healthInfo.hydrationMax,
                       ),
                       Center(
                         child: Text(
-                          ((this._healthInfo.hydratation*100)/this._healthInfo.hydratationMax).toStringAsFixed(2)+"%",
+                          ((this._healthInfo.hydration*100)/this._healthInfo.hydrationMax).toStringAsFixed(2)+"%",
                           textAlign: TextAlign.center,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -211,7 +211,7 @@ class Health extends StatelessWidget{
 
   Widget _overallHealth(double width, double height){
     double overall = this._healthInfo.getOverall();
-    double overallMax = this._healthInfo.nutritionMax * this._healthInfo.hydratationMax;
+    double overallMax = this._healthInfo.nutritionMax * this._healthInfo.hydrationMax;
 
     Stack health = Stack(
                     children: <Widget>[
@@ -273,19 +273,19 @@ class Health extends StatelessWidget{
 }
 
 class HealthBackEnd {
-  double hydratationMax = 10;
+  double hydrationMax = 10;
   double nutritionMax = 1000;
 
-  double hydratation;
+  double hydration;
   double nutrition;
   bool isPolluted;
   int nbPollutions;
 
-  HealthBackEnd({double hydratation, double nutrition, bool isPolluted, int nbPollutions}){
-    if(hydratation == null)
-      this.hydratation = 10;
+  HealthBackEnd({double hydration, double nutrition, bool isPolluted, int nbPollutions}){
+    if(hydration == null)
+      this.hydration = 10;
     else
-      this.hydratation = hydratation;
+      this.hydration = hydration;
     
     if(nutrition == null)
       this.nutrition = 1000;
@@ -306,37 +306,37 @@ class HealthBackEnd {
 
   double getOverall(){
 
-    double overall =  hydratation *  nutritionMax;
-    overall +=  nutrition *  hydratationMax;
+    double overall =  hydration *  nutritionMax;
+    overall +=  nutrition *  hydrationMax;
     if(isPolluted)
-      overall +=  0 *  nutritionMax * hydratationMax;
+      overall +=  0 *  nutritionMax * hydrationMax;
     else
-      overall +=  nutritionMax * hydratationMax;
+      overall +=  nutritionMax * hydrationMax;
       
     overall /= 3;
-    double overallMax = nutritionMax * hydratationMax;
+    double overallMax = nutritionMax * hydrationMax;
 
     return (overall * 100)/overallMax;
   }
 
   bool hydrateTree(double nbDrop){
-    if (this.hydratation >= hydratationMax)
+    if (this.hydration >= hydrationMax)
       return false;
     
-    this.hydratation  += nbDrop;
-    if(this.hydratation > hydratationMax)
-      this.hydratation = hydratationMax;
+    this.hydration  += nbDrop;
+    if(this.hydration > hydrationMax)
+      this.hydration = hydrationMax;
     
     return true;
   }
 
   void dehydrateTree(double nbDrop){
-    if(this.hydratation <= 0)
+    if(this.hydration <= 0)
       return;
     
-    this.hydratation  -= nbDrop;
-    if(this.hydratation < 0)
-      this.hydratation = 0;
+    this.hydration  -= nbDrop;
+    if(this.hydration < 0)
+      this.hydration = 0;
   }
 
   bool nurishTree(double nutrition){
