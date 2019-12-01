@@ -217,7 +217,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/inventoryScreen.png"),
+                    image: new AssetImage("assets/images/InventoryScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -231,16 +231,7 @@ class _GuideState extends State<Guide> {
             Expanded(
                 child: formatText(
                     "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling ,on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/gameScreen.png"),
-                    fit: BoxFit.fitHeight,
-                  ),
-                ),
-              ),
-            ),
+          
           ],
         );
       case 5:
