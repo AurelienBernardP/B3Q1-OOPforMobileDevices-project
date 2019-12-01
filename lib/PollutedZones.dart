@@ -80,11 +80,11 @@ Widget _createDraggable(BuildContext context, int index){
     return Flexible(
     child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 7,
+              crossAxisCount: 8,
               childAspectRatio: 1.0,
             ),
             itemBuilder: _createDraggable,
-            itemCount: 56,),
+            itemCount: 72,),
     );
   }
 
@@ -184,25 +184,18 @@ Widget _createDraggable(BuildContext context, int index){
 
 class Pollution{  
   static Pollution _instance;
-  List<PollutionItem> _pollutionList;
+  List<PollutionItem> _pollutionList = [];
   Map<int, PollutionItem> _pollutionMap;
   int _nbPol;
   int _curNbPol;
   Health _healthState;
 
   Pollution._internal() {
-  _pollutionList = [
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  ];
-  _pollutionMap = _pollutionList.asMap();
+    for(int i = 0; i < 72; i++)
+      _pollutionList.add(PollutionItem());
+    _pollutionMap = _pollutionList.asMap();
   }
+  
   static Pollution getInstance() {
     if (_instance == null) {
       _instance = Pollution._internal();
@@ -223,7 +216,7 @@ class Pollution{
   }
 
   void resetPollution(){
-    for(int i = 0; i < 56; i++){
+    for(int i = 0; i < 72; i++){
       _pollutionMap[i].makeInvisible();
     }
   }

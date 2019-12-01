@@ -18,7 +18,7 @@ class TimersForTrees {
   TimersForTrees._internal();
   
   void timers(){
-      const oneMin = const Duration(minutes: 1);
+      const oneMin = const Duration(seconds:  2);
 
       new Timer.periodic(oneMin, (Timer t) => updateStateTrees());
 
