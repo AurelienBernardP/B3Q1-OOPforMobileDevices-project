@@ -93,10 +93,12 @@ class _PlanetState extends State<Planet>{
           FlatButton(
             child: Text('Unlock'),
             onPressed: () {
+              setState(() {Wallet().retrieveCoins(PlanetBackEnd.getInstance().getPrice());
               _unlockZone();
-              Navigator.of(context).pop();
-              setState(() {Wallet();
+   
               });
+              Navigator.of(context).pop();
+
             },
           ),
         ],
