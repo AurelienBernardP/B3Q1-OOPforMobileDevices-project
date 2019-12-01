@@ -4,16 +4,16 @@ import 'package:flutter/widgets.dart';
 import 'Item.dart';
 import 'Save.dart';
 
-bool _is_shop = true;
+bool _isShop = true;
 
 class ItemList extends StatefulWidget{
 
   static void makeShop(){
-    _is_shop = true;
+    _isShop = true;
   }
 
   static void makeInventory(){
-    _is_shop = false;
+    _isShop = false;
   }
 
 @override
@@ -57,7 +57,7 @@ class _ItemListState extends State<ItemList>{
   }
 
   String makeTitle(){
-    if(_is_shop)
+    if(_isShop)
       return 'Shop';
     return 'Inventory';
   }
@@ -80,7 +80,7 @@ class _ItemListState extends State<ItemList>{
     });
   }
 
-  void _use(){
+  /*void _use(){
     setState(() {
       if(gridState[_tappedItemX][_tappedItemY].removeItem()){
         Save().saveGame();
@@ -89,25 +89,11 @@ class _ItemListState extends State<ItemList>{
       else
         _cannotUsePopup(context, "You're out of " + gridState[_tappedItemX][_tappedItemY].getName() + "!");
     });
-  }
+  }*/
 
 void _cannotUsePopup(BuildContext context, String text){
     var alertDialog = AlertDialog(
       title: Text(text),
-      /*content: Row(
-                  children: <Widget>[
-                    Text(
-                      "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
-                      maxLines: 1,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25.0, 
-                      ),
-                    ),
-                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
-                  ]
-                ),*/
       actions: <Widget>[
           FlatButton(
             child: Text('Ok im sorry'),
@@ -156,7 +142,7 @@ void _cannotUsePopup(BuildContext context, String text){
   }
 
   Widget _buildImage(int x, int y){
-    if(_is_shop)
+    if(_isShop)
 return 
 Container(
         child: Stack(
@@ -217,7 +203,7 @@ Container(
   }
   
   Widget _addDetails(int x, int y){
-    if(_is_shop)
+    if(_isShop)
      return Row( 
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
@@ -351,7 +337,7 @@ Container(
 
 
   Widget _addButton(){
-    if(_is_shop)
+    if(_isShop)
     //if(_unlockedZones < Wallet.available_coins())
       return Container(
         alignment: Alignment.bottomRight,
@@ -382,7 +368,9 @@ Container(
       ),  
         );
 
-    return Container(
+    return Text(' ');
+
+    /*Container(
         alignment: Alignment.bottomRight,
         margin: EdgeInsets.only(top: 15.0, right: 20.0),
       child: Container(
@@ -409,6 +397,6 @@ Container(
         ), 
         ),
       ),  
-        );
+        );*/
   }
 }
