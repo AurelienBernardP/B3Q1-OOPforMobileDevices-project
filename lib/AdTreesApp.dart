@@ -52,7 +52,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
           child: ListView(
             
           children: <Widget>[
-            Container(
+            Container(margin: EdgeInsets.only(right: 30),
                 decoration:new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/window.png"),
