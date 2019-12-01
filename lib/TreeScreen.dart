@@ -377,7 +377,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 else{  
                   setState(() {
                     Pollution.getInstance().resetPollution();
-                    Pollution.getInstance().updatePollution(treeInfo.getHealth().getNbPollutions());
+                    Pollution.getInstance().updatePollution(treeInfo.getHealth());
                     Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => PollutedZones()),
