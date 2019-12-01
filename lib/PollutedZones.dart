@@ -3,6 +3,7 @@ import 'package:first/AdTreesAppTopBar.dart';
 import 'package:first/PollutionItem.dart';
 import 'package:flutter/material.dart';
 import 'Wallet.dart';
+import 'Health.dart';
 //import 'package:flutter/widgets.dart';
 
 class PollutedZones extends StatefulWidget {
@@ -129,6 +130,10 @@ Widget _createDraggable(BuildContext context, int index){
                       setState(() {
                         Pollution.getInstance().removePollution();
                         Pollution.getInstance().getPollutionItem(_dragged).makeInvisible();
+                        if(Pollution.getInstance().getCurPollutionNb() == 0){
+                          Wallet().addCoins(Pollution.getInstance().getPollutionNb());
+                          Pollution.getInstance().getHealthState().cleanTree();
+                        }
                       });
                     },
                   ),
@@ -159,8 +164,10 @@ Widget _createDraggable(BuildContext context, int index){
                       setState(() {
                         Pollution.getInstance().removePollution();
                         Pollution.getInstance().getPollutionItem(_dragged).makeInvisible();
-                        if(Pollution.getInstance().getCurPollutionNb() == 0)
+                        if(Pollution.getInstance().getCurPollutionNb() == 0){
                           Wallet().addCoins(Pollution.getInstance().getPollutionNb());
+                          Pollution.getInstance().getHealthState().cleanTree();
+                        }
                       });
                     },
                   ),
@@ -177,13 +184,14 @@ Widget _createDraggable(BuildContext context, int index){
 
 class Pollution{  
   static Pollution _instance;
-  List<PollutionItem> pollutionList;
-  Map<int, PollutionItem> pollutionMap;
-  int nbPol;
-  int curNbPol;
+  List<PollutionItem> _pollutionList;
+  Map<int, PollutionItem> _pollutionMap;
+  int _nbPol;
+  int _curNbPol;
+  Health _healthState;
 
   Pollution._internal() {
-  pollutionList = [
+  _pollutionList = [
   PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
   PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
   PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
@@ -193,7 +201,7 @@ class Pollution{
   PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
   PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
   ];
-  pollutionMap = pollutionList.asMap();
+  _pollutionMap = _pollutionList.asMap();
   }
   static Pollution getInstance() {
     if (_instance == null) {
@@ -202,33 +210,38 @@ class Pollution{
     return _instance;
   }
 
-  void updatePollution(int nbPollution){
-    nbPol = nbPollution;
-    curNbPol = nbPollution;
-    for(int i = nbPollution; i > 0; i--)
-      pollutionMap[Random().nextInt(56)].makeVisible(Random().nextInt(4));
+  void updatePollution(Health healthBar){
+    _healthState = healthBar;
+    _nbPol = healthBar.getNbPollutions();
+    _curNbPol = _nbPol;
+    for(int i = _nbPol; i > 0; i--)
+      _pollutionMap[Random().nextInt(56)].makeVisible(Random().nextInt(4));
   }
 
   PollutionItem getPollutionItem(int index){
-    return pollutionMap[index];
+    return _pollutionMap[index];
   }
 
   void resetPollution(){
     for(int i = 0; i < 56; i++){
-      pollutionMap[i].makeInvisible();
+      _pollutionMap[i].makeInvisible();
     }
   }
 
   void removePollution(){
-    curNbPol--;
+    _curNbPol--;
   }
 
   int getCurPollutionNb(){
-    return curNbPol;
+    return _curNbPol;
   }
 
   int getPollutionNb(){
-    return nbPol;
+    return _nbPol;
+  }
+
+  Health getHealthState(){
+    return _healthState;
   }
 
 }
