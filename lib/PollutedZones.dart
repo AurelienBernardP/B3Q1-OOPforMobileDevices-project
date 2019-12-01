@@ -80,11 +80,11 @@ Widget _createDraggable(BuildContext context, int index){
     return Flexible(
     child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 7,
+              crossAxisCount: 8,
               childAspectRatio: 1.0,
             ),
             itemBuilder: _createDraggable,
-            itemCount: 56,),
+            itemCount: 72,),
     );
   }
 
@@ -192,14 +192,15 @@ class Pollution{
 
   Pollution._internal() {
   _pollutionList = [
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
-  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
+  PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(), PollutionItem(),
   ];
   _pollutionMap = _pollutionList.asMap();
   }
@@ -223,7 +224,7 @@ class Pollution{
   }
 
   void resetPollution(){
-    for(int i = 0; i < 56; i++){
+    for(int i = 0; i < 72; i++){
       _pollutionMap[i].makeInvisible();
     }
   }
