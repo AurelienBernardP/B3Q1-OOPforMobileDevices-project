@@ -13,9 +13,8 @@ class EventStream {
 
   EventStream._internal(){
    _controller = StreamController() ;
-   _stream = _controller.stream;
   }
 
   StreamController getController() => _controller;
-  Stream getStream() => _stream;
+  Stream getStream() => _controller.stream;
 }
