@@ -577,7 +577,7 @@ class _PlanetState extends State<Planet>{
           decoration: BoxDecoration(
                       image: new DecorationImage(
                         image: new AssetImage(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).getPlantedTree().getIcon()), 
-                          fit: BoxFit.fill,),
+                          fit: BoxFit.fitHeight,),
                         ),
             //alignment: Alignment.bottomRight,
             //child: Icon(Icons.remove_red_eye, color: Colors.black, size: 30.0),
