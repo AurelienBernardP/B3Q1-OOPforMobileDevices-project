@@ -148,8 +148,6 @@ class _GuideState extends State<Guide> {
   }
 
   _getText() {
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     switch (pageNumber) {
       case 0:
         return Column(
@@ -183,7 +181,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/treeScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -196,12 +194,12 @@ class _GuideState extends State<Guide> {
           children: <Widget>[
             Expanded(
                 child: formatText(
-                    "The show can be accesed from the main menu the world map or from the any tree.\n In the shop you will be able to exchange Coins for usable items like trees!.\n Coins can be earned in many ways:\n ·Shaking a tree you planted \n ·Playing a game to clean a planted tree \n Watching a short ad by taping on the play button")),
+                    "The shop can be accesed from the main menu the world map or from the any tree.\n In the shop you will be able to exchange Coins for usable items like trees!.\n Coins can be earned in many ways:\n ·Shaking a tree you planted \n ·Playing a game to clean a planted tree \n Watching a short ad by taping on the play button")),
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/shopScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -219,7 +217,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/inventoryScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -237,7 +235,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/gameScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
@@ -255,7 +253,7 @@ class _GuideState extends State<Guide> {
               child: Container(
                 decoration: BoxDecoration(
                   image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    image: new AssetImage("assets/images/treeListScreen.png"),
                     fit: BoxFit.fitHeight,
                   ),
                 ),
