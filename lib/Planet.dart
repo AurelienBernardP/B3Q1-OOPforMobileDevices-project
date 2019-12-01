@@ -59,7 +59,7 @@ class _PlanetState extends State<Planet>{
     });
   }
 
-  void _createZonePopup(BuildContext conext){
+  void _createZonePopup(){
     if (Wallet().isSufficient(PlanetBackEnd.getInstance().getPrice()))
       _unlockZonePopup(context);
     else
@@ -143,7 +143,7 @@ class _PlanetState extends State<Planet>{
     );
   }
 
-    void _createPlantPopup(BuildContext conext, Item tree){
+    void _createPlantPopup(Item tree){
     if(tree.getQuantity() > 0)
       _plantTreePopup(context, tree);
     else
@@ -241,6 +241,7 @@ class _PlanetState extends State<Planet>{
   void _plantTree(Item tree, String name){
     setState(() {
       PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).plantTree(tree, name: name);
+      tree.useItem(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY));
     });
   }
 
@@ -391,7 +392,7 @@ class _PlanetState extends State<Planet>{
                       FlatButton(
                         color: Colors.red,
                         onPressed: () {
-                          _createZonePopup(context);
+                          _createZonePopup();
                         },
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -479,7 +480,7 @@ class _PlanetState extends State<Planet>{
     y = (index % gridStateLength);
     return GestureDetector(
       onTap: (){
-        _createPlantPopup(context, PlanetBackEnd.getInstance().getTreeGrid()[x][y]);
+        _createPlantPopup(PlanetBackEnd.getInstance().getTreeGrid()[x][y]);
         }, 
        child: _buildImage(x, y),
     );
