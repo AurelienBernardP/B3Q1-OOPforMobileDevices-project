@@ -18,20 +18,12 @@ class TimersForTrees {
   TimersForTrees._internal(){}
   
   void timers(){
-      const oneMin = const Duration(minutes: 1);
+      const oneMin = const Duration(seconds: 2);
 
       new Timer.periodic(oneMin, (Timer t) => updateStateTrees(t));
-      new Timer.periodic(oneMin, (Timer t) => Save().saveGame());
 
   }
 
-  // void cancelTimerTreenScreen(){
-  //   print("canceled timer")
-  //   if(timerTreeScreen != null){
-  //     timerTreeScreen.cancel();
-  //     timerTreeScreen = null;
-  //   }
-  // }
 
 // Nurishement: 
 // C: -1% par h
@@ -104,5 +96,7 @@ class TimersForTrees {
       if (new Random().nextInt(5) == 1)
         currentTree.getHealth().polluteTree();
     }
+
+    Save().saveGame();
   }
 }

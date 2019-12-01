@@ -188,7 +188,7 @@ class Save {
             Health currentHealth = currentTree.getHealth();
             dataToSave += currentHealth.getHydratation().toString()+'-';
             dataToSave += currentHealth.getNutrition().toString()+'-';
-            dataToSave += currentHealth.getPollution().toString()+'-';
+            dataToSave += currentHealth.isPolluted().toString()+'-';
             dataToSave += currentHealth.getNbPollutions().toString();
           }
         }
@@ -207,6 +207,8 @@ class Save {
 
     final directory = await getApplicationDocumentsDirectory();
     final file = File('${directory.path}/user.txt');
+
+    print("The game is saved!");
     await file.writeAsString(encrypted.base64);
 
 

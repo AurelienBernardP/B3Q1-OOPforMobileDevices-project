@@ -23,16 +23,21 @@ class Health extends StatelessWidget{
     return _healthInfo.hydratation;
   }
 
-    double getNutrition(){
+  double getNutrition(){
     return _healthInfo.nutrition;
   }
 
-    bool getPollution(){
+  bool isPolluted(){
     return _healthInfo.isPolluted;
   }
 
-    double getOverall(){
+  double getOverall(){
     return _healthInfo.getOverall();
+  }
+
+  int getNbPollutions(){
+    print("Tree nbpol: "+this._healthInfo.nbPollutions.toString());
+    return this._healthInfo.nbPollutions;
   }
 
 
@@ -60,10 +65,6 @@ class Health extends StatelessWidget{
     bool cleanTree = _healthInfo.cleanTree();
     Save().saveGame();
     return cleanTree;
-  }
-
-  int getNbPollutions(){
-    return this._healthInfo.nbPollutions;
   }
 
   void polluteTree(){
