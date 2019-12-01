@@ -241,6 +241,7 @@ class _PlanetState extends State<Planet>{
   void _plantTree(Item tree, String name){
     setState(() {
       PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).plantTree(tree, name: name);
+      tree.useItem(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY));
     });
   }
 

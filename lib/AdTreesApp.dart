@@ -9,6 +9,7 @@ import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
 import 'PollutedZones.dart';
+import 'TreeList.dart';
 import 'Timer.dart';
 import 'Save.dart';
 
@@ -145,11 +146,9 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
         color: Colors.blueGrey[200],
       ),),
               onTap: () {
-                Pollution.getInstance().resetPollution();
-                Pollution.getInstance().updatePollution(6);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => PollutedZones()),
+                  MaterialPageRoute(builder: (context) => TreeListScreen()),
                 );
               },
             ),

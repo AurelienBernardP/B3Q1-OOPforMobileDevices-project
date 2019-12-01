@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:first/AdTreesAppTopBar.dart';
 import 'package:first/PollutionItem.dart';
 import 'package:flutter/material.dart';
+import 'Wallet.dart';
 //import 'package:flutter/widgets.dart';
 
 class PollutedZones extends StatefulWidget {
@@ -158,6 +159,8 @@ Widget _createDraggable(BuildContext context, int index){
                       setState(() {
                         Pollution.getInstance().removePollution();
                         Pollution.getInstance().getPollutionItem(_dragged).makeInvisible();
+                        if(Pollution.getInstance().getCurPollutionNb() == 0)
+                          Wallet().addCoins(Pollution.getInstance().getPollutionNb());
                       });
                     },
                   ),
@@ -177,6 +180,7 @@ class Pollution{
   List<PollutionItem> pollutionList;
   Map<int, PollutionItem> pollutionMap;
   int nbPol;
+  int curNbPol;
 
   Pollution._internal() {
   pollutionList = [
@@ -200,6 +204,7 @@ class Pollution{
 
   void updatePollution(int nbPollution){
     nbPol = nbPollution;
+    curNbPol = nbPollution;
     for(int i = nbPollution; i > 0; i--)
       pollutionMap[Random().nextInt(56)].makeVisible(Random().nextInt(4));
   }
@@ -215,7 +220,15 @@ class Pollution{
   }
 
   void removePollution(){
-    nbPol--;
+    curNbPol--;
+  }
+
+  int getCurPollutionNb(){
+    return curNbPol;
+  }
+
+  int getPollutionNb(){
+    return nbPol;
   }
 
 }

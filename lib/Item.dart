@@ -132,7 +132,7 @@ class PineTree extends Item {
 
   void useItem(covariant Zone zone){
     if (_quantity > 0) {
-      zone.plantTree(_instance);
+      //zone.plantTree(_instance);
       _quantity -= 1;
     }
   }
@@ -158,7 +158,7 @@ class Cactus extends Item {
 
   void useItem(covariant Zone zone) {
     if (_quantity > 0) {
-      zone.plantTree(_instance);
+      //zone.plantTree(_instance);
       _quantity -= 1;
     }
   }
@@ -185,7 +185,7 @@ class ForestTree extends Item {
 
   void useItem(covariant Zone zone) {
     if (_quantity > 0) {
-      zone.plantTree(_instance);
+      //zone.plantTree(_instance);
       _quantity -= 1;
     }
   }
@@ -211,7 +211,7 @@ class MiniPlant extends Item {
 
   void useItem(covariant Zone zone) {
     if (_quantity > 0) {
-      zone.plantTree(_instance);
+      //zone.plantTree(_instance);
       _quantity -= 1;
     }
   }

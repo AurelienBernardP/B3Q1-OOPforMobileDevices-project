@@ -148,6 +148,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
             child: GestureDetector(
               onTap: () {
                   // _everySecond.cancel();
+                ItemList.makeShop();
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => ItemList()),
@@ -373,14 +374,15 @@ class TreeScreenBodyState extends State<TreeScreen> {
               onTap: () {
                 if(!RepairItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
-                else{
-                  
-                setState(() {
-                  Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PollutedZones()),
-                );
-                });
+                else{  
+                  setState(() {
+                    Pollution.getInstance().resetPollution();
+                    Pollution.getInstance().updatePollution(treeInfo.getHealth().getNbPollutions());
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => PollutedZones()),
+                    );
+                  });
                 }
 
                 print("repair");
