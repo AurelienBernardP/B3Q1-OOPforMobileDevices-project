@@ -38,6 +38,13 @@ class Save {
     nbZoneUnlocked = 0;
     _worldMap = new List.generate(10, (_) => new List(10));
   }
+
+  void reset(){
+    TreeList().reset();
+    _inventory = new List();
+    nbZoneUnlocked = 0;
+    _worldMap = new List.generate(10, (_) => new List(10));
+  }
   
   Characteristic _getZoneType(String type){
     switch (type) {
@@ -209,6 +216,7 @@ class Save {
     for (int i = 0; i < elapsedTimeMinute; i++) {
       TimersForTrees().updateStateTrees();
     }
+
     return true;
     }
 
