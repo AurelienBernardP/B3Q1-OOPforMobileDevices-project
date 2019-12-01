@@ -57,7 +57,6 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         value: 0,
                         groupValue: _sort,
                         onChanged: (value) {
-                          print("0");
                           _sort = value;
                           setState(() {
                             setDisplayedText = 0;
@@ -73,7 +72,6 @@ class _TreeListScreenState extends State<TreeListScreen> {
                       value: 1,
                       groupValue: _sort,
                       onChanged: (value) {
-                        print("1");
                         _sort = value;
                         setState(() {
                           setDisplayedText = 1;
@@ -90,7 +88,6 @@ class _TreeListScreenState extends State<TreeListScreen> {
                       value: 2,
                       groupValue: _sort,
                       onChanged: (value) {
-                        print("0");
                         _sort = value;
                         setState(() {
                           setDisplayedText = 1;
