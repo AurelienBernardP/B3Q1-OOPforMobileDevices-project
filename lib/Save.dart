@@ -75,7 +75,7 @@ class Save {
         return MiniPlant.getInstance();
         break;
       default:
-        print("Error format");
+        print("Error format tree");
         return null;
     }
   }
@@ -146,14 +146,17 @@ class Save {
     if(contentGame.length != 101)
       return false;
     int m = 0;
+    int z = 0;
     for (int k = 0; k < 10; k++) {
       for (int l = 0; l < 10; l++) {
-
+          z++;
           if(contentGame[m][1] != '1' && contentGame[m][1] != '0')
             return false;
+          
           bool zoneIsLocked =  (contentGame[m][1] == '1');
           if(_getZoneType(contentGame[m][0]) == null)
             return false;
+          
           Zone zone = new Zone(_getZoneType(contentGame[m][0]), isLocked: zoneIsLocked);
           if(!zoneIsLocked){
             if(int.parse(contentGame[m][2]) == 1){
@@ -200,7 +203,6 @@ class Save {
     }
 
     int elapsedTimeMinute = DateTime.now().difference(_timeCreated).inMinutes;
-    
     for (int i = 0; i < elapsedTimeMinute; i++) {
       TimersForTrees().updateStateTrees();
     }
@@ -281,7 +283,7 @@ class Save {
       case 'Cactus':
         return _inventory[0];
         break;
-      case 'Tree':
+      case 'Forest tree':
         return _inventory[1];
         break;
       case 'Pine tree':

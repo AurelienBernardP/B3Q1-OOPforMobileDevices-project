@@ -170,7 +170,7 @@ class ForestTree extends Item {
   ForestTree._internal() {
     _price = 40;
     _description = "There is a reason why so many of us are out there!";
-    _name = "Tree";
+    _name = "Forest tree";
     _icon = "assets/images/tree.png";
     _quantity = Save().getInventory(_name);
 

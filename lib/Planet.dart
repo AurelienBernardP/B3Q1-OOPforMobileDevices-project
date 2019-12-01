@@ -245,6 +245,7 @@ class _PlanetState extends State<Planet>{
     setState(() {
       PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY).plantTree(tree, name: name);
       tree.useItem(PlanetBackEnd.getInstance().getZone(_tappedZoneX, _tappedZoneY));
+      Save().saveGame();
     });
   }
 
@@ -661,12 +662,12 @@ gridTree = [
 
   void unlockZone(int x, int y){
     _zonePrice *= 2;
-    Save().saveGame();
     gridState[x][y].unlock(); 
+    Save().saveGame();
+
   }
 
   void plant(int mapX, int mapY, int x, int y){
     gridState[mapX][mapY].plantTree(gridTree[x][y]);
-    Save().saveGame();
   }
 }
