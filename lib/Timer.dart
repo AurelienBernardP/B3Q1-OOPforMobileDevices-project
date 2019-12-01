@@ -28,27 +28,27 @@ class TimersForTrees {
     return ((percentageInOneHour/100)* max / 60);
   }
 
-  double dehydratationRatio(String typeTree){
-    double hydratationMax = 10;
+  double dehydrationRatio(String typeTree){
+    double hydrationMax = 10;
     switch (typeTree) {
       case "Cactus":
         //100 in 12h
         //8.33% in 1h
-        return scaleDown(4.16,hydratationMax);
+        return scaleDown(4.16,hydrationMax);
         break;
       case "Pine Tree":
         //100 in 30h
         //3.33% in 1h
-        return scaleDown(1.16,hydratationMax);
+        return scaleDown(1.16,hydrationMax);
         break;
       case "Tree":
         //100% in 24h
         //4.167% in 1h
-        return scaleDown(2.05,hydratationMax);
+        return scaleDown(2.05,hydrationMax);
       case "Mini Plant":
         //100% in 5 h
         //20% in 1h
-        return scaleDown(10,hydratationMax);
+        return scaleDown(10,hydrationMax);
       default:
         return 0.0;
     }
@@ -78,7 +78,7 @@ class TimersForTrees {
     for (int i = 0; i < TreeList().getNbTrees(); i++) {
       currentTree = TreeList().getTreeList()[i];
       currentTreeName = currentTree.plantedTree.getName();
-      double nbDrop = dehydratationRatio(currentTreeName);
+      double nbDrop = dehydrationRatio(currentTreeName);
       double nutrition = denurishRatio(currentTreeName);
 
       currentTree.getHealth().dehydrateTree(nbDrop);
