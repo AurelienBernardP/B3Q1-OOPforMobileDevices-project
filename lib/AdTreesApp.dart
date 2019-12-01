@@ -1,17 +1,12 @@
 import 'package:first/ItemList.dart';
-import 'package:first/PollutedZones.dart' as prefix0;
 import 'package:first/TreeList.dart';
-import 'package:first/TreeScreen.dart';
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'AdTreesAppTopBar.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
-import 'PollutedZones.dart';
 import 'TreeList.dart';
 import 'Timer.dart';
-import 'Save.dart';
 
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
