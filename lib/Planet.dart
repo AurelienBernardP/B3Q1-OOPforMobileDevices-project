@@ -617,7 +617,6 @@ class _PlanetState extends State<Planet>{
           style: TextStyle(
             fontWeight: FontWeight.bold
           ),),
-
         );
   }
 
