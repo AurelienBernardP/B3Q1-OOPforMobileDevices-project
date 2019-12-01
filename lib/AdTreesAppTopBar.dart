@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'Guide.dart';
 import 'Wallet.dart';
-import 'package:admob_flutter/admob_flutter.dart';
+//import 'package:admob_flutter/admob_flutter.dart';
 
 class AdTreesAppTopBar {
   final String text = "AdTrees";
@@ -12,11 +12,11 @@ class AdTreesAppTopBar {
   AdTreesAppTopBar(String text, BuildContext context, {bool isGuide}) {
     this.text.replaceAll('AdTrees', text);
 
-    AdmobInterstitial interstitialAd = AdmobInterstitial(
+/*    AdmobInterstitial interstitialAd = AdmobInterstitial(
       adUnitId: 'ca-app-pub-3940256099942544/1033173712',
     );
     interstitialAd.load();
-    Widget settingsButton = Container(
+   */ Widget settingsButton = Container(
       margin: new EdgeInsets.only(bottom: 10.0, right: 30.0),
       child: IconButton(
         icon: Icon(Icons.help_outline, color: Colors.blueGrey[100], size: 40.0),
@@ -32,14 +32,15 @@ class AdTreesAppTopBar {
     );
     Widget adsButton = GestureDetector(
       onTap: () async {
-        if (await interstitialAd.isLoaded) {
+       /* if (await interstitialAd.isLoaded) {
           interstitialAd.show();
-          Wallet().addCoins(2);
-          interstitialAd = AdmobInterstitial(
+         */ Wallet().addCoins(2);
+            print(Wallet().getCoins().toString());
+          /*interstitialAd = AdmobInterstitial(
             adUnitId: 'ca-app-pub-3940256099942544/1033173712',
           );
           interstitialAd.load();
-        }
+        }*/
       },
       child: Container(
         margin: new EdgeInsets.only(bottom: 10.0, left: 10.0),
