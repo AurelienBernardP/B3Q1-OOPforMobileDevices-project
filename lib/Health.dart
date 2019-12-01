@@ -37,8 +37,9 @@ class Health extends StatelessWidget{
 
 
   bool hydrateTree(double nbDrop){
+    bool result = this._healthInfo.hydrateTree(nbDrop);
     Save().saveGame();
-    return this._healthInfo.hydrateTree(nbDrop);
+    return result;
   }
 
   void dehydrateTree(double nbDrop){
@@ -46,8 +47,9 @@ class Health extends StatelessWidget{
   }
 
   bool nurishTree(double nutrition){
+    bool result = this._healthInfo.nurishTree(nutrition);
     Save().saveGame();
-    return this._healthInfo.nurishTree(nutrition);
+    return result;
   }
 
   void denurishTree(double nutrition){
@@ -55,9 +57,9 @@ class Health extends StatelessWidget{
   }
 
   bool cleanTree(){
-    this._healthInfo.nbPollutions = 0;
+    bool cleanTree = _healthInfo.cleanTree();
     Save().saveGame();
-    return this._healthInfo.cleanTree();
+    return cleanTree;
   }
 
   int getNbPollutions(){
@@ -365,6 +367,7 @@ class HealthBackEnd {
   bool cleanTree(){
     if(isPolluted){
       this.isPolluted = false;
+      nbPollutions = 0;
       return true;
     }
     return false;

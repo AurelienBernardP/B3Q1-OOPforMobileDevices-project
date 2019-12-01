@@ -15,9 +15,7 @@ class TimersForTrees {
     return _singleton;
   }
 
-  TimersForTrees._internal(){
-  }
-
+  TimersForTrees._internal(){}
   
   void timers(){
       const oneMin = const Duration(minutes: 1);
@@ -26,15 +24,6 @@ class TimersForTrees {
       new Timer.periodic(oneMin, (Timer t) => Save().saveGame());
 
   }
-
-  // void setTimerForTreeScreen(TreeScreenBodyState state){
-  //     print("set timer");
-
-  //   timerTreeScreen = Timer.periodic(Duration(seconds: 5), (Timer t) {
-  //     print("pased");
-  //     state.onValueChanged();
-  //   });
-  // }
 
   // void cancelTimerTreenScreen(){
   //   print("canceled timer")
@@ -112,7 +101,7 @@ class TimersForTrees {
 
       currentTree.getHealth().dehydrateTree(nbDrop);
       currentTree.getHealth().denurishTree(nutrition);
-      if (new Random().nextInt(20) == 0)
+      if (new Random().nextInt(5) == 1)
         currentTree.getHealth().polluteTree();
     }
   }
