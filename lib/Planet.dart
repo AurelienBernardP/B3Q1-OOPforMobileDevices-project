@@ -6,6 +6,7 @@ import 'Characteristics/allCharacteristics.dart';
 import 'Zone.dart';
 import 'Save.dart';
 import 'Wallet.dart';
+import 'dart:math';
 import 'Item.dart';
 import 'ItemList.dart';
 import 'Characteristic.dart';
@@ -626,7 +627,7 @@ class PlanetBackEnd{
   static PlanetBackEnd _instance;
   List<List<Zone>> gridState;
   List<List<Item>> gridTree;
-  int _zonePrice;
+  int _nbZoneUnlocked;
 
   PlanetBackEnd._internal() {
 gridState = Save().getWorldMap();
@@ -634,7 +635,7 @@ gridTree = [
   [Cactus.getInstance(), PineTree.getInstance()], 
   [ForestTree.getInstance(), MiniPlant.getInstance(),],
   ];
-  _zonePrice = 1;
+  _nbZoneUnlocked = Save().getNbZoneUnlocked(); 
   }
   static PlanetBackEnd getInstance() {
     if (_instance == null) {
@@ -644,7 +645,7 @@ gridTree = [
   }
 
   int getPrice(){
-    return _zonePrice;
+    return pow(2, (_nbZoneUnlocked/5).round());
   }
 
   List<List<Zone>> getGrid(){
@@ -660,8 +661,8 @@ gridTree = [
   }
 
   void unlockZone(int x, int y){
-    _zonePrice *= 2;
-    gridState[x][y].unlock(); 
+    gridState[x][y].unlock();
+    _nbZoneUnlocked++;
     Save().saveGame();
 
   }
