@@ -327,7 +327,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   _cannotUsePopup(context);
                 else {
                   setState(() {
-                    Pollution.getInstance().resetPollution();
                     Pollution.getInstance()
                         .updatePollution(treeInfo.getHealth());
                     Navigator.push(
