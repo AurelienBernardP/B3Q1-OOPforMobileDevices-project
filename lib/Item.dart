@@ -185,7 +185,6 @@ class ForestTree extends Item {
 
   void useItem(covariant Zone zone) {
     if (_quantity > 0) {
-      //zone.plantTree(_instance);
       _quantity -= 1;
     }
   }
@@ -280,7 +279,7 @@ class RepairItem extends Item {
   static RepairItem _instance;
 
   RepairItem._internal() {
-    _price = 50;
+    _price = 15;
     _description = "Clean your zone, save the planet!";
     _name = "Cleanser";
     _icon = "assets/images/repair.png";

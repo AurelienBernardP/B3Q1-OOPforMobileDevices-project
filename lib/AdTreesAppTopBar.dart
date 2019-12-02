@@ -87,6 +87,7 @@ class AdTreesAppTopBar {
           children: <Widget>[
             Text(
               text,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

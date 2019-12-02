@@ -56,63 +56,31 @@ class _SplashScreenState extends State<SplashScreen> {
         fit: StackFit.expand,
         children: <Widget>[
           Container(
-            decoration: BoxDecoration(color: Colors.greenAccent),
+            decoration:new BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/treemap.jpeg"),
+              fit: BoxFit.fill,
+            ),
+          ),
+          
           ),
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                flex: 2,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                          height: 40,
-                           width: 40,
-                          decoration:new BoxDecoration(
-                            image: new DecorationImage(
-                              image: new AssetImage("assets/images/cactus.png"),
-                              fit: BoxFit.fill,
-                            ),
-                          ),),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10.0),
-                      ),
+                    Container(
+                      child: 
                       Text(
                         "AdTrees",
                         style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.yellow[600],
                             fontWeight: FontWeight.bold,
-                            fontSize: 24.0),
+                            fontSize: 50
+                            ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircularProgressIndicator(),
-                    Padding(
-                      padding: EdgeInsets.only(top: 20.0),
                     ),
-                    Text(
-                      "The Trees Are Growing",
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18.0,
-                          color: Colors.white),
-                    )
+                    CircularProgressIndicator(backgroundColor: Colors.yellow, valueColor: new AlwaysStoppedAnimation<Color>(Colors.green)),
                   ],
                 ),
-              )
-            ],
-          )
         ],
       ),
     )
@@ -134,7 +102,6 @@ class _SplashScreenState extends State<SplashScreen> {
       encrypt.Encrypter encrypter = encrypt.Encrypter(encrypt.AES(keyEncrypter));
       final decrypted = encrypter.decrypt64(userData, iv: iv);
 
-      //Verify format
       userData = decrypted;
     } catch (e) {
       print("Save incorrect or not existing.");
@@ -149,7 +116,7 @@ class _SplashScreenState extends State<SplashScreen> {
       Save().reset();
       Save().readGame(Save().emergencyRecovery());
     }
-    // await Future.delayed(Duration(seconds:2));
+    await Future.delayed(Duration(seconds:2));
     return Text("Loading...");
   }
 
