@@ -40,6 +40,9 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
     ) ;
   }
 
+  /* creates an AlertDialog; this function will be called when the 
+   * player removes all the garbage from the screen
+   */
   void _cleanedPopup(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("All clean!"),
@@ -72,6 +75,7 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
         });
   }
 
+
   Widget _createDraggable(BuildContext context, int index){
     if(Pollution.getInstance().getPollutionItem(index).isVisible())
       return GestureDetector(
@@ -79,7 +83,7 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
           setState(() {
             _dragged = index;
           });
-          }, 
+          },
             child: Draggable(
               data: Pollution.getInstance().getPollutionItem(index).getType(),
               child: Container(
@@ -256,9 +260,11 @@ class Pollution{
       _pollutionMap[i].makeInvisible();
     _healthState = healthBar;
     _nbPol = healthBar.getNbPollutions();
+    if(_nbPol > 25)
+      _nbPol = 25;
     _curNbPol = _nbPol;
     for(int i = _nbPol; i > 0; i--)
-      _pollutionMap[Random().nextInt(56)].makeVisible(Random().nextInt(4));
+      _pollutionMap[Random().nextInt(72)].makeVisible(Random().nextInt(4));
   }
 
   /*

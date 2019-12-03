@@ -38,14 +38,23 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
         Scaffold(
           backgroundColor: Colors.transparent,
       appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
-      body: Container(
+      body: Stack(
+      children: <Widget>[
+        Container(
         decoration: BoxDecoration(
               image: new DecorationImage(
-                image: new AssetImage("assets/images/mainmenu.png"), 
+                image: new AssetImage("assets/images/treemap.jpeg"), 
                   fit: BoxFit.cover,),
+                ),),
+            Container(
+            margin: new EdgeInsets.only(left: width/24, right: width/22, bottom: height/5),
+            decoration: BoxDecoration(
+              image: new DecorationImage(
+                image: new AssetImage("assets/images/menu.png"), 
+                  fit: BoxFit.fill,),
                 ),
         child: Container( 
-          margin: new EdgeInsets.only(top: height/3.8, left: width/17, right: width/15),
+          margin: new EdgeInsets.only(top: height/4, left: width/17, right: width/15),
           child: ListView(
             
           children: <Widget>[
@@ -150,6 +159,8 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
           ],
         ),
         ),
+      ),
+      ],
       ),
         ),
       ],
