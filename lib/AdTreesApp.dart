@@ -45,7 +45,8 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
               image: new DecorationImage(
                 image: new AssetImage("assets/images/treemap.jpeg"), 
                   fit: BoxFit.cover,),
-                ),),
+                ),
+          ),
             Container(
             margin: new EdgeInsets.only(left: width/24, right: width/22, bottom: height/5),
             decoration: BoxDecoration(
