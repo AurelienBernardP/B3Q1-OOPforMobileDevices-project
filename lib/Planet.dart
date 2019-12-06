@@ -663,7 +663,7 @@ gridTree = [
   }
 
   int getPrice(){
-    return pow(2, (_nbZoneUnlocked/4).round());
+    return pow(2, (_nbZoneUnlocked/3).round());
   }
 
   List<List<Zone>> getGrid() {

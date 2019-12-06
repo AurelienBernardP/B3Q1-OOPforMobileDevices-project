@@ -127,7 +127,7 @@ class Health extends StatelessWidget{
 
   Row _hydrationHealth(double width, double height){
     Text text = Text(
-                "hydration",
+                "Hydration",
                 textAlign: TextAlign.center,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(

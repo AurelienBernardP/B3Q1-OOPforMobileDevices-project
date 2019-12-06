@@ -204,7 +204,6 @@ class Save {
                                             health: health);
               
               zone.plantTree(treeType, treeInfo: tree);
-              TreeList().addTreeToList(tree);
             }
           }
           m++;

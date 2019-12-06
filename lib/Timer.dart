@@ -83,7 +83,7 @@ class TimersForTrees {
 
       currentTree.getHealth().dehydrateTree(nbDrop);
       currentTree.getHealth().denurishTree(nutrition);
-      if (new Random().nextInt(5) == 1)
+      if (new Random().nextInt(10) == 1)
         currentTree.getHealth().polluteTree();
     }
 

@@ -105,7 +105,6 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
                 );
               },
             ),),
-              //leading: Icon(Icons.view_list),
 
             Container(
               
