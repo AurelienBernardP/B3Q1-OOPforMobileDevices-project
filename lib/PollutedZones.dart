@@ -260,8 +260,8 @@ class Pollution{
       _pollutionMap[i].makeInvisible();
     _healthState = healthBar;
     _nbPol = healthBar.getNbPollutions();
-    if(_nbPol > 25)
-      _nbPol = 25;
+    if(_nbPol > 5)
+      _nbPol = 5;
     _curNbPol = _nbPol;
     for(int i = _nbPol; i > 0; i--)
       _pollutionMap[Random().nextInt(72)].makeVisible(Random().nextInt(4));
