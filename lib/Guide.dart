@@ -68,13 +68,11 @@ class _GuideState extends State<Guide> {
           ),
         ),
         child: Column(
-
           children: <Widget>[
             Expanded(
               child: _addTitle(),
               flex: 2,
             ),
-
             Expanded(
               child: _addText(),
               flex: 8,
@@ -83,7 +81,8 @@ class _GuideState extends State<Guide> {
               child: Container(
                 margin:
                     EdgeInsets.only(bottom: height / 80, right: width / 100),
-                child: Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Container(
                       margin: EdgeInsets.only(
@@ -148,103 +147,134 @@ class _GuideState extends State<Guide> {
   _getText() {
     switch (pageNumber) {
       case 0:
-        return Column(
-          children: <Widget>[
-            Expanded(
-                child: formatText(
-                    "The world map is divided into zones.\n A zone has different characteristics depending on its type.\n This zones can be unlocked with coins and trees can be plated in them.\n To perform any action on a zone just tap on it and options will apear")),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/treemap.jpeg"),
-                    fit: BoxFit.fitHeight,
-                  ),
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    formatText(
+                        "The world map is divided into zones.\n A zone has different characteristics depending on its type.\n This zones can be unlocked with coins and trees can be plated in them.\n To perform any action on a zone just tap on it and options will apear"),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset("assets/images/treemap.jpeg"),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            );
+          },
         );
 
       case 1:
-        return Column(
-          children: <Widget>[
-            Expanded(
-                child: formatText(
-                    "A tree can be accesed from the world map or from the tree list.\n Here you can see the health of your plant, you can also water it nurish it or play a game to clean it.\n Each option is displayed with a tapable button.\n ")),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/treeScreen.png"),
-                    fit: BoxFit.fitHeight,
-                  ),
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    formatText(
+                        "A tree can be accesed from the world map or from the tree list.\n Here you can see the health of your plant, you can also water it nurish it or play a game to clean it.\n Each option is displayed with a tapable button.\n"),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset("assets/images/treeScreen.png"),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            );
+          },
         );
       case 2:
-          return Column(
-          children: <Widget>[
-            Expanded(
-                child: formatText(
-                    "The shop can be accesed from the main menu the world map or from the any tree.\n In the shop you will be able to exchange Coins for usable items like trees!.\n Coins can be earned in many ways:\n ·Shaking a tree you planted \n ·Playing a game to clean a planted tree \n Watching a short ad by taping on the play button")),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/shopScreen.png"),
-                    fit: BoxFit.fitHeight,
-                  ),
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    formatText(
+                        "The shop can be accesed from the main menu the world map or from the any tree.\n In the shop you will be able to exchange Coins for usable items like trees!.\n Coins can be earned in many ways:\n ·Shaking a tree you planted \n ·Playing a game to clean a planted tree \n Watching a short ad by taping on the play button"),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset("assets/images/shopScreen.png"),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            );
+          },
         );
       case 3:
-        return Column(
-          children: <Widget>[
-            Expanded(
-                child: formatText(
-                    "In the invetory you will be able to see the quantity you have of each item"),),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/InventoryScreen.png"),
-                    fit: BoxFit.fitHeight,
-                  ),
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    formatText(
+                        "In the invetory you will be able to see the quantity you have of each item"),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset("assets/images/InventoryScreen.png"),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
+            );
+          },
         );
       case 4:
-        return Column(
-          children: <Widget>[
-            Expanded(
-                child: formatText(
-                    "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling ,on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),),
-          ],
-        );
-      case 5:
-        return Column(
-          children: <Widget>[
-            Expanded(
-                child: formatText(
-                    "From the tree list you can sort and see the time left to shake the trees or their health more rapidely.\n You can select the element you sort the trees by from the list at the of the screen.\n To access a tree simply tap on its box!")),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  image: new DecorationImage(
-                    image: new AssetImage("assets/images/treeListScreen.png"),
-                    fit: BoxFit.fitHeight,
-                  ),
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    formatText(
+                  "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling ,on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),
+                    
+                  ],
                 ),
               ),
-            ),
-          ],
+            );
+          },
+        );
+      case 5:
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    formatText(
+                    "From the tree list you can sort and see the time left to shake the trees or their health more rapidely.\n You can select the element you sort the trees by from the list at the of the screen.\n To access a tree simply tap on its box!"),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset("assets/images/treeListScreen.png"),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         );
       case 6:
         return Column(
@@ -252,7 +282,6 @@ class _GuideState extends State<Guide> {
             Expanded(
                 child: formatText(
                     "This aplication was developed by Tasnim Safadi, Aurélien Bernard, and Kenan Ozdemir.\n\n The aim of this app is to sensitize the public about the environment in a playfull manner.\n Most of the generated revenue by this app will be transmited to organization dedicated to improve the environment.\n\n Thankyou for your contribution and support.")),
-           
           ],
         );
     }
