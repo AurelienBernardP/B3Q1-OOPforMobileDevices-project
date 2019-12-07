@@ -48,7 +48,7 @@ class _ItemListState extends State<ItemList>{
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-          appBar:  AdTreesAppTopBar(makeTitle(), context).getBar(),
+          appBar:  AdTreesAppTopBar(_makeTitle(), context).getBar(),
           body: _displayItems(), 
         ),
       ],
@@ -56,12 +56,21 @@ class _ItemListState extends State<ItemList>{
     ) ;
   }
 
-  String makeTitle(){
+  /*
+   * input: /
+   * output: the title of the current screen
+   */
+  String _makeTitle(){
     if(_isShop)
       return 'Shop';
     return 'Inventory';
   }
 
+  /*
+   * input: x and y, the cordinates of the square that was tapped on
+   * effect: refreshes the screen and updates the value of the x and y 
+   * coordinates of the tapped item
+   */
   void _tapOnGrid(int x, int y){
     setState(() {
       _tappedItemX = x;
@@ -69,6 +78,10 @@ class _ItemListState extends State<ItemList>{
     });
   }
 
+  /*
+   * input: /
+   * effect: purchases the selected item if possible
+   */
   void _buy(){
     setState(() {
       if(gridState[_tappedItemX][_tappedItemY].buyItem()){
@@ -80,6 +93,11 @@ class _ItemListState extends State<ItemList>{
     });
   }
 
+  /*
+   * input: context, BuildContext
+   *        text, a string
+   * effect: displays a popup with the title 'text'
+   */
 void _cannotUsePopup(BuildContext context, String text){
     var alertDialog = AlertDialog(
       title: Text(text),
@@ -101,7 +119,12 @@ void _cannotUsePopup(BuildContext context, String text){
     );
   }
 
-
+  /*
+   * input: context, BuildContext
+   *        index, an int
+   * output: a widget that represents the "square" of the item
+   * at the index index
+   */
   Widget _buildCard(BuildContext context, int index) {
     int gridStateLength = gridState.length;
     int x, y = 0;
@@ -110,8 +133,8 @@ void _cannotUsePopup(BuildContext context, String text){
     return GestureDetector(
       onTap: () {
         _tapOnGrid(x, y);
-        }, 
-            child: GridTile(
+      }, 
+      child: GridTile(
         child: Container(
           decoration: BoxDecoration(
             image: new DecorationImage(
@@ -121,94 +144,88 @@ void _cannotUsePopup(BuildContext context, String text){
           child: Container(
             margin: new EdgeInsets.all(10.0),
             child: Center(
-            
-            child: _buildImage(x, y),
-          ),
+              child: _buildImage(x, y),
+            ),
           ),
         ),
       ),
     );
   }
 
+  /*
+   * input: x, an int
+   *        y, an int
+   * output: a widget that will be displayed on the grid at the position (x,y)
+   */
   Widget _buildImage(int x, int y){
     if(_isShop)
-return 
-Container(
-        child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Image.asset(
-              gridState[x][y].getIcon(),
-              fit: BoxFit.fill,
-            ),
-            Container(
-              alignment: Alignment.bottomRight,
-              child:
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                          children: <Widget>[
-                              Text(
-                gridState[x][y].getPrice().toString(),
-                textAlign: TextAlign.left,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.yellow,
-              ),),
-                            Icon(Icons.strikethrough_s,
-                            color: Colors.yellow,),
-                            ],
-                          ),
-              
-              
-              
-            ),  
-    ],),);
-    else 
-    return 
-    Container(
-      child: Stack(
-          alignment: Alignment.center,
-          children: <Widget>[
-            Image.asset(
-              gridState[x][y].getIcon(),
-              fit: BoxFit.fill,
-            ),
-            Container(
-              alignment: Alignment.bottomRight,
-              child:Text(
-                gridState[x][y].getQuantity().toString(),
-                textAlign: TextAlign.right,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                  color: Colors.yellow,
-              ),),),  
-    ],),
-    
-    );
-  }
-  
-  Widget _addDetails(int x, int y){
-    if(_isShop)
-     return Row( 
-                  mainAxisAlignment: MainAxisAlignment.center,
+      return 
+        Container(
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Image.asset(
+                gridState[x][y].getIcon(),
+                fit: BoxFit.fill,
+              ),
+              Container(
+                alignment: Alignment.bottomRight,
+                child:
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      "Price:" + gridState[x][y].getPrice(),
-                      maxLines: 1,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
+                      gridState[x][y].getPrice().toString(),
+                      textAlign: TextAlign.left,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.yellow,
+                      ),
                     ),
-                    Icon(Icons.strikethrough_s, color: Colors.yellow, size: 20.0),
-                  ]
-                );
-    else
-      return Text('');
+                    Icon(
+                      Icons.strikethrough_s,
+                      color: Colors.yellow,
+                    ),
+                  ],
+                ),  
+              ),  
+            ],
+          ),
+        );
+    else 
+      return 
+        Container(
+          child: Stack(
+            alignment: Alignment.center,
+            children: <Widget>[
+              Image.asset(
+                gridState[x][y].getIcon(),
+                fit: BoxFit.fill,
+              ),
+              Container(
+                alignment: Alignment.bottomRight,
+                child:Text(
+                  gridState[x][y].getQuantity().toString(),
+                  textAlign: TextAlign.right,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                    color: Colors.yellow,
+                  ),
+                ),
+              ),  
+            ],
+          ),
+        );
   }
 
+  /*
+  * input: /
+  * output: a widget that contains everything on the screen that isn't related to the app bar
+  */
   Widget _displayItems(){
     int gridStateLength = gridState.length;
     return Column(
@@ -216,9 +233,8 @@ Container(
       AspectRatio(
         aspectRatio: 1.0,
         child: Container(
-
           color: Colors.black,
-        child: GridView.builder(
+          child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 3,
               childAspectRatio: 1.0,
@@ -231,78 +247,98 @@ Container(
         ),
       ),
       Expanded(child: _addDescription()),
-
       ]
     );
   }
 
+
+  /*
+   * input: /
+   * output: a widget that will be displayed under the grid;
+   * it will contain the currently selected item's description
+   * if an item has already been selected
+   */
   Widget _addDescription(){
     if(_tappedItemX >= 0 && _tappedItemY >= 0)
-        return
+      return
         Container(
-          color: Colors.black,
+        color: Colors.black,
         child: Container(
             constraints: BoxConstraints.expand(), 
             decoration: BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage("assets/images/table.png"), 
-                  fit: BoxFit.fill,),
-                ),
+                  fit: BoxFit.fill,
+              ),
+            ),
             child: Column(
-
               children: <Widget>[
                 _addTitle(),
-
                 _addText(),
                 _addButton(),
               ],
             ),
-        ),
-          );
+          ),
+        );
     return 
-          Container(
-            color: Colors.black,
-            child: Container(
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                image: new DecorationImage(
-                  image: new AssetImage("assets/images/table.png"), 
-                    fit: BoxFit.fill,),
-                  ),
-              child:Text(
-                "Tap on a grid to view more details!",
-                textAlign: TextAlign.center,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.yellow,
-                ),),),);
+      Container(
+        color: Colors.black,
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/table.png"), 
+              fit: BoxFit.fill,
+            ),
+          ),
+          child:Text(
+            "Tap on a grid to view more details!",
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Colors.yellow,
+            ),
+          ),
+        ),
+      );
   }
 
+
+  /*
+   * input: /
+   * output: a widget that will display the name of the selected item
+   */
   Widget _addTitle(){
     double height = MediaQuery.of(context).size.height;
 
-    return Container(
-            decoration: BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage("assets/images/title.png"), 
-                  fit: BoxFit.fill,),
-                ),
-            margin: EdgeInsets.all(10),
-            child: Container(
-              margin: EdgeInsets.all(5),
-              child: Text(gridState[_tappedItemX][_tappedItemY].getName(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                fontSize: height/22, 
-              ),
+    return 
+      Container(      
+        decoration: BoxDecoration(
+          image: new DecorationImage(
+            image: new AssetImage("assets/images/title.png"), 
+            fit: BoxFit.fill,
+          ),
+        ),
+        margin: EdgeInsets.all(10),
+        child: Container(
+          margin: EdgeInsets.all(5),
+          child: Text(
+            gridState[_tappedItemX][_tappedItemY].getName(),
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: height/22, 
             ),
-            )
-            
-        );
+          ),
+        )    
+      );
   }
 
+  /*
+   * input: /
+   * output: a widget that will display the description of the selected item
+   */
   Widget _addText(){
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -310,50 +346,55 @@ Container(
     return  
       Container(
         margin: EdgeInsets.only(left: width/20, right: width/20),
-        child: Text(gridState[_tappedItemX][_tappedItemY].getDescription(),
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: height/30,
-                color: Colors.blueGrey[100]
-              ),
-      )
-    );
+        child: Text(
+          gridState[_tappedItemX][_tappedItemY].getDescription(),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: height/30,
+            color: Colors.blueGrey[100]
+          ),
+        )
+      );
   }
 
-
+  /*
+   * input: /
+   * output: a widget that will be either the "buy" button of an empty text
+   */
   Widget _addButton(){
     if(_isShop)
-    //if(_unlockedZones < Wallet.available_coins())
       return Container(
         alignment: Alignment.bottomRight,
         margin: EdgeInsets.only(top: 15.0, right: 20.0),
-      child: Container(
-        alignment: Alignment.center,
-            decoration: BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage("assets/images/title.png"), 
-                  fit: BoxFit.fill,),
-                ),
-            
-            width: 100,
-                height: 40,
-      child: GestureDetector(
-              onTap: (){_buy();},
-              child:
-            Text(
-          'Buy',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-            fontSize: 25,
-          )
-        ), 
-        ),
-      ),  
-        );
+        child: Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            image: new DecorationImage(
+              image: new AssetImage("assets/images/title.png"), 
+              fit: BoxFit.fill,
+            ),
+          ),
+          width: 100,
+          height: 40,
+          child: GestureDetector(
+            onTap: (){
+              _buy();
+            },
+            child: Text(
+              'Buy',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+              )
+            ), 
+          ),
+        ),  
+      );
 
     return Text(' ');
 
   }
+  
 }
