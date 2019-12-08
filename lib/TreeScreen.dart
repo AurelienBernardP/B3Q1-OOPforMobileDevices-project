@@ -10,6 +10,7 @@ import 'Wallet.dart';
 import 'ItemList.dart';
 import 'Zone.dart';
 import 'dart:async';
+import 'TreeBackEnd.dart';
 
 class TreeScreen extends StatefulWidget {
   TreeBackEnd treeInfo;
@@ -122,7 +123,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => ItemList()),
               );
-
             },
             child: Image.asset(
               "assets/images/shop.png",
@@ -165,7 +165,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  treeInfo.shake();
+
                 });
               },
               child: Container(
@@ -257,7 +257,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     .useItem(treeInfo.getHealth())) _cannotUsePopup(context);
 
                 setState(() {});
-
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -334,7 +333,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
                     );
                   });
                 }
-
               },
               child: Stack(
                 alignment: Alignment.center,
@@ -363,89 +361,6 @@ class TreeScreenBodyState extends State<TreeScreen> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class TreeBackEnd {
-  Health treeHealth;
-  Widget image;
-  Zone plantedZone;
-  DateTime lastTimeShaken;
-  String name;
-  Item plantedTree;
-
-  TreeBackEnd(
-      {Zone zone, Item tree, String name, DateTime time, Health health}) {
-    image = Container(
-      decoration: BoxDecoration(
-        image: new DecorationImage(
-          image: new AssetImage(tree.getIcon()),
-          fit: BoxFit.fill,
-        ),
-      ),
-    );
-    if (health == null)
-      treeHealth = Health();
-    else
-      treeHealth = health;
-    if (time == null)
-      lastTimeShaken = DateTime.now();
-    else
-      lastTimeShaken = time;
-    if (zone != null) {
-      plantedZone = zone;
-    }
-    if (tree != null) {
-      plantedTree = tree;
-    }
-    if (name != null) {
-      this.name = name;
-    } else {
-      this.name = "Grooot";
-    }
-
-    TreeList().addTreeToList(this);
-  }
-
-  Zone getZone() => plantedZone;
-
-  DateTime getLastTimeShaken() {
-    return lastTimeShaken;
-  }
-
-  int getMilisecondsLeft() {
-    int time = lastTimeShaken.add(Duration(minutes: 1)).millisecondsSinceEpoch -
-        DateTime.now().millisecondsSinceEpoch;
-    return time <= 0 ? 0 : time;
-  }
-
-  void shake() {
-    if (getMilisecondsLeft() <= 0) {
-      lastTimeShaken = DateTime.now();
-      Wallet().addCoins(7);
-      Save().saveGame();
-    }
-  }
-
-  Widget getImage() {
-    return image;
-  }
-
-  Health getHealth() {
-    return treeHealth;
-  }
-
-  String getName() => name;
-  BoxDecoration getBackground() {
-    return BoxDecoration(
-      image: new DecorationImage(
-          image: new AssetImage(
-            "assets/images/unlocked/" +
-                plantedZone.getZoneType() +
-                "Unlocked.png",
-          ),
-          fit: BoxFit.cover),
     );
   }
 }
