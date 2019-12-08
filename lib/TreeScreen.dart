@@ -1,17 +1,19 @@
 import 'package:first/Item.dart';
 import 'package:first/PollutedZones.dart';
-import 'package:first/Save.dart';
-import 'package:first/TreeList.dart';
 import 'Pollution.dart';
-import 'Health.dart';
 import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
-import 'Wallet.dart';
 import 'ItemList.dart';
 import 'Zone.dart';
 import 'dart:async';
 import 'TreeBackEnd.dart';
 
+/*
+ * TreeScreen class
+ * Attributes:
+ *    treeInfo : reference to the class containing data
+ *               to be dispalyed
+ */
 class TreeScreen extends StatefulWidget {
   TreeBackEnd treeInfo;
 
@@ -33,11 +35,11 @@ class TreeScreen extends StatefulWidget {
 
 class TreeScreenBodyState extends State<TreeScreen> {
   TreeBackEnd treeInfo;
-  Timer _everySecond;
 
   TreeScreenBodyState(TreeBackEnd info) {
     treeInfo = info;
   }
+
   @override
   void initState() {
     super.initState();
@@ -48,6 +50,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
 
     return Stack(
       children: <Widget>[
+        //appbar background
         new Container(
           height: MediaQuery.of(context).size.height / 8.5,
           width: double.infinity,
@@ -58,6 +61,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
             ),
           ),
         ),
+
         Scaffold(
           backgroundColor: Colors.transparent,
           appBar: bar,
@@ -71,41 +75,42 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   child: _buildMiddleSection(),
                 ),
                 Expanded(
-                    flex: 7,
-                    child: Container(
-                      decoration: new BoxDecoration(
-                        image: new DecorationImage(
-                          image: new AssetImage("assets/images/table.png"),
-                          fit: BoxFit.fill,
+                  flex: 7,
+                  child: Container(
+                    decoration: new BoxDecoration(
+                      image: new DecorationImage(
+                        image: new AssetImage("assets/images/table.png"),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: _buildActionButtons(),
                         ),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: <Widget>[
-                          Expanded(
-                            flex: 1,
-                            child: _buildActionButtons(),
-                          ),
-                          Expanded(
-                            flex: 1,
-                            child: GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) => treeInfo.getHealth(),
-                                  barrierDismissible: true,
-                                );
-                              },
-                              child: Container(
-                                child: treeInfo
-                                    .getHealth()
-                                    .buildGeneralHealth(context),
-                              ),
+                        Expanded(
+                          flex: 1,
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) => treeInfo.getHealth(),
+                                barrierDismissible: true,
+                              );
+                            },
+                            child: Container(
+                              child: treeInfo
+                                  .getHealth()
+                                  .buildGeneralHealth(context),
                             ),
-                          )
-                        ],
-                      ),
-                    )),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
@@ -134,12 +139,18 @@ class TreeScreenBodyState extends State<TreeScreen> {
     );
   }
 
+  /*
+   * arguments:
+   *           conetext: buildcontext object in which the popup is built in
+   * 
+   * effect: opens a popup
+   */
   void _cannotUsePopup(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("Sorry, you cannot use this item"),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok im sorry'),
+          child: Text('Got it!'),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -148,12 +159,18 @@ class TreeScreenBodyState extends State<TreeScreen> {
     );
 
     showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return alertDialog;
-        });
+      context: context,
+      builder: (BuildContext context) {
+        return alertDialog;
+      },
+    );
   }
 
+  /*
+   * arguments : /
+   * 
+   * return : Widget containing the tree icon
+   */
   Widget _buildMiddleSection() {
     return Container(
       margin: EdgeInsets.only(top: 15),
@@ -164,9 +181,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
             flex: 1,
             child: GestureDetector(
               onTap: () {
-                setState(() {
-
-                });
+                setState(() {});
               },
               child: Container(
                 child: treeInfo.getImage(),
@@ -178,19 +193,29 @@ class TreeScreenBodyState extends State<TreeScreen> {
     );
   }
 
+  /*
+   * arguments : /
+   * 
+   * return : Widget containing all the action buttons
+   *          to use items on the displayed tree
+   */
   Widget _buildActionButtons() {
     return Container(
       margin: EdgeInsets.all(10),
       child: Row(
         children: <Widget>[
+          //use small water button
           Expanded(
             flex: 1,
             child: GestureDetector(
               onTap: () {
+
                 if (!WaterItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
+
                 setState(() {});
               },
+
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -216,14 +241,19 @@ class TreeScreenBodyState extends State<TreeScreen> {
               ),
             ),
           ),
+
+          //use large water button
           Expanded(
             flex: 1,
             child: GestureDetector(
               onTap: () {
+
                 if (!RainItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
+
                 setState(() {});
               },
+
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -249,15 +279,18 @@ class TreeScreenBodyState extends State<TreeScreen> {
               ),
             ),
           ),
+          //use small nurishment button
           Expanded(
             flex: 1,
             child: GestureDetector(
               onTap: () {
+
                 if (!NurishementItem1.getInstance()
                     .useItem(treeInfo.getHealth())) _cannotUsePopup(context);
 
                 setState(() {});
               },
+
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -283,15 +316,18 @@ class TreeScreenBodyState extends State<TreeScreen> {
               ),
             ),
           ),
+          //use slarge nurishment button
           Expanded(
             flex: 1,
             child: GestureDetector(
               onTap: () {
+
                 if (!NurishementItem2.getInstance()
                     .useItem(treeInfo.getHealth())) _cannotUsePopup(context);
 
                 setState(() {});
               },
+
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
@@ -317,12 +353,15 @@ class TreeScreenBodyState extends State<TreeScreen> {
               ),
             ),
           ),
+          //use repair item button
           Expanded(
             flex: 1,
             child: GestureDetector(
               onTap: () {
+
                 if (!RepairItem.getInstance().useItem(treeInfo.getHealth()))
                   _cannotUsePopup(context);
+
                 else {
                   setState(() {
                     Pollution.getInstance()
@@ -334,6 +373,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
                   });
                 }
               },
+
               child: Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
