@@ -12,6 +12,7 @@ import 'Item.dart';
  *    plantedTree: an Item that is planted
  *    locked: a boolean used in order to determine whether a zone is locked or not
  */
+
 class Zone{
 
   Characteristic type;

@@ -1,6 +1,3 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-
 /*
  * PollutionItem class
  * Attributes:
@@ -8,6 +5,7 @@ import 'package:flutter/widgets.dart';
  *    type: an integer that will change depending on the garbage
  *    image: the image associated with the garbage type
  */
+
 class PollutionItem{
 
   bool visible = false;

@@ -13,7 +13,6 @@ class PollutedZones extends StatefulWidget {
 class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateMixin{
 
   int _dragged = 0; //variable used to detect the current PollutionItem being dragged
-  //GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey();
 
   @override
   Widget build(BuildContext context) {
