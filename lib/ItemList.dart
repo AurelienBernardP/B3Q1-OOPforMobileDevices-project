@@ -67,7 +67,8 @@ class _ItemListState extends State<ItemList>{
   }
 
   /*
-   * input: x and y, the cordinates of the square that was tapped on
+   * input: x, an integer the horizontal position of the square that was tapped on
+   *        y, an integer the vertical position of the square that was tapped on
    * effect: refreshes the screen and updates the value of the x and y 
    * coordinates of the tapped item
    */
