@@ -1,8 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
-import 'TreeScreen.dart';
-import 'Planet.dart';
+import 'TreeBackEnd.dart';
 
 class TreeListScreen extends StatefulWidget {
   @override
@@ -60,11 +59,11 @@ class _TreeListScreenState extends State<TreeListScreen> {
                           _sort = value;
                           setState(() {
                             setDisplayedText = 0;
-                            TreeList().sortByTimer();
+                            TreeList().sortByNbPollution();
                           });
                         }),
                     new Text(
-                      'Timer',
+                      'polution',
                       style: new TextStyle(
                           fontSize: 20.0, color: Colors.blueGrey[100]),
                     ),
@@ -203,7 +202,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                                             fit: BoxFit.fill,
                                           ),
                                         ),
-                                        child: Text(setDisplayedText == 0? TreeList().getTreeList()[index].getMilisecondsLeft().toString() :
+                                        child: Text(setDisplayedText == 0? TreeList().getTreeList()[index].getHealth().toString() :
                                           TreeList()
                                                   .getTreeList()[index]
                                                   .getHealth()
@@ -262,14 +261,14 @@ class TreeList {
     nbPlantedTrees++;
   }
 
-  void sortByTimer() {
-    plantedTrees
-        .sort((a, b) => a.getMilisecondsLeft() - b.getMilisecondsLeft());
-  }
-
   void sortByGeneralHealth() {
     plantedTrees
         .sort((a, b) => (a.getHealth().getOverall() - b.getHealth().getOverall()).round());
+  }
+
+  void sortByNbPollution() {
+    plantedTrees
+        .sort((a, b) => (a.getHealth().getNbPollutions() - b.getHealth().getNbPollutions()));
   }
 
   void sortByHydration() {
