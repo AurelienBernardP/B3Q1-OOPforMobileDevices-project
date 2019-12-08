@@ -8,10 +8,13 @@ class Guide extends StatefulWidget {
 }
 
 class _GuideState extends State<Guide> {
-  int pageNumber = 0;
-  final int NBPAGES = 7;
+
+  int pageNumber = 0; // number of the page the user is on in the guide
+  final int NBPAGES = 7; // number of pages there are in the guide
+
   @override
   Widget build(BuildContext context) {
+
     return MaterialApp(
       title: "Guide",
       home: Stack(
@@ -37,25 +40,45 @@ class _GuideState extends State<Guide> {
     );
   }
 
+  /*
+   * input: /
+   * effect: increases the number of the current page in the guide,
+   *         if number of max pages is reached it rolls back to 0 and refreshes the screen
+   */
   void _nextPage() {
+
     setState(() {
       pageNumber = (pageNumber + 1) % NBPAGES;
     });
   }
 
+  /*
+   * input: /
+   * effect: decreases the number of the current page in the guide,
+   *         if done on 0 it set to te last page of the guide and refreshed the screen
+   */
   void _previousPage() {
-    setState(() {
-      if (pageNumber == 0) {
-        pageNumber = NBPAGES - 1;
-      } else {
-        pageNumber = (pageNumber - 1);
-      }
-    });
+
+    setState(
+      () {
+        if (pageNumber == 0) {
+          pageNumber = NBPAGES - 1;
+        } else {
+          pageNumber = (pageNumber - 1);
+        }
+      },
+    );
   }
 
-  _buildGuide() {
+  /*
+   * input: /
+   * Returns: built widget corresponding to the body of the screen
+   */
+  Widget _buildGuide() {
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return Container(
       color: Colors.black,
       child: Container(
@@ -88,13 +111,13 @@ class _GuideState extends State<Guide> {
                       margin: EdgeInsets.only(
                           bottom: height / 80, left: width / 100),
                       alignment: Alignment.bottomLeft,
-                      child: _addLeftButton(height, width),
+                      child: _addLeftButton(height),
                     ),
                     Container(
                       margin: EdgeInsets.only(
                           bottom: height / 80, right: width / 100),
                       alignment: Alignment.bottomRight,
-                      child: _addRightButton(height, width),
+                      child: _addRightButton(height),
                     ),
                   ],
                 ),
@@ -107,45 +130,68 @@ class _GuideState extends State<Guide> {
     );
   }
 
-  _addTitle() {
+  /*
+   * input: /
+   * Return: Built widget corresponding to the title of the guide's page
+   */
+  Widget _addTitle() {
+
     double height = MediaQuery.of(context).size.height;
 
     return Container(
-        decoration: BoxDecoration(
-          image: new DecorationImage(
-            image: new AssetImage("assets/images/title.png"),
-            fit: BoxFit.fill,
+      decoration: BoxDecoration(
+        image: new DecorationImage(
+          image: new AssetImage("assets/images/title.png"),
+          fit: BoxFit.fill,
+        ),
+      ),
+      margin: EdgeInsets.all(height / 25),
+      child: Container(
+        margin: EdgeInsets.all(5),
+        child: Text(
+          _getTitle(),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: height / 22,
           ),
         ),
-        margin: EdgeInsets.all(height / 25),
-        child: Container(
-          margin: EdgeInsets.all(5),
-          child: Text(
-            _getTitle(),
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: height / 22,
-            ),
-          ),
-        ));
+      ),
+    );
   }
 
-  _addText() {
+  /*
+   * input: /
+   * Return: the built widget corresponding to content of the guide's page
+   */
+  Widget _addText() {
     return Container(margin: new EdgeInsets.all(20.0), child: _getText());
   }
 
+  /*
+   * input: Text as a String
+   * Return: Text widget with the design  set for this screen
+   */
   Text formatText(String text) {
+
     double height = MediaQuery.of(context).size.height;
 
-    return Text(text,
-        style: TextStyle(
-          color: Colors.grey[100],
-          fontSize: height / 35,
-        ));
+    return Text(
+      text,
+      style: TextStyle(
+        color: Colors.grey[100],
+        fontSize: height / 35,
+      ),
+    );
   }
 
+  /*
+   * input: /
+   * Return: Content of the Guide corresponding to the guiven page
+   */
   _getText() {
+    
     switch (pageNumber) {
+
       case 0:
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -191,6 +237,7 @@ class _GuideState extends State<Guide> {
             );
           },
         );
+
       case 2:
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -213,6 +260,7 @@ class _GuideState extends State<Guide> {
             );
           },
         );
+
       case 3:
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -235,6 +283,7 @@ class _GuideState extends State<Guide> {
             );
           },
         );
+
       case 4:
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -246,14 +295,18 @@ class _GuideState extends State<Guide> {
                 child: Column(
                   children: <Widget>[
                     formatText(
-                  "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling ,on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),
-                    
+                        "From the cleanser item in the tree screen (shield icon) you can acess the game.\n A poluted zone will apear, and it is your task to clean and sort the trash in the area!\n Trash needs to be sorted between compost, on the left, and recycling ,on the right.\n The trash can be dragged into the corresponding bin.\n You will be rewarded for each trash you throw correctly, but only if you clean them all!"),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Image.asset("assets/images/gameScreen.png"),
+                    ),
                   ],
                 ),
               ),
             );
           },
         );
+
       case 5:
         return LayoutBuilder(
           builder: (BuildContext context, BoxConstraints viewportConstraints) {
@@ -265,7 +318,7 @@ class _GuideState extends State<Guide> {
                 child: Column(
                   children: <Widget>[
                     formatText(
-                    "From the tree list you can sort and see the time left to shake the trees or their health more rapidely.\n You can select the element you sort the trees by from the list at the of the screen.\n To access a tree simply tap on its box!"),
+                        "From the tree list you can sort and see the time left to shake the trees or their health more rapidely.\n You can select the element you sort the trees by from the list at the of the screen.\n To access a tree simply tap on its box!"),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       child: Image.asset("assets/images/treeListScreen.png"),
@@ -276,18 +329,34 @@ class _GuideState extends State<Guide> {
             );
           },
         );
+
       case 6:
-        return Column(
-          children: <Widget>[
-            Expanded(
-                child: formatText(
-                    "This aplication was developed by Tasnim Safadi, Aurélien Bernard, and Kenan Ozdemir.\n\n The aim of this app is to sensitize the public about the environment in a playfull manner.\n Most of the generated revenue by this app will be transmited to organization dedicated to improve the environment.\n\n Thankyou for your contribution and support.")),
-          ],
+        return LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints viewportConstraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  minHeight: viewportConstraints.maxHeight,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    formatText(
+                        "This aplication was developed by Tasnim Safadi, Aurélien Bernard, and Kenan Ozdemir.\n\n The aim of this app is to sensitize the public about the environment in a playfull manner.\n Most of the generated revenue by this app will be transmited to organization dedicated to improve the environment.\n\n Thankyou for your contribution and support."),
+                  ],
+                ),
+              ),
+            );
+          },
         );
     }
   }
 
-  Widget _addRightButton(double height, double width) {
+  /*
+   * input: height : height and width of the desired square button
+   *        
+   * Return: button with a right arrow gesture detector to go to the next page
+   */
+  Widget _addRightButton(double height) {
     return GestureDetector(
       onTap: () {
         _nextPage();
@@ -306,7 +375,12 @@ class _GuideState extends State<Guide> {
     );
   }
 
-  Widget _addLeftButton(double height, double width) {
+  /*
+   * input: height : height and width of the desired square button
+   *        
+   * Return: button with a left arrow gesture detector to go to the previous page
+   */
+  Widget _addLeftButton(double height) {
     return GestureDetector(
       onTap: () {
         _previousPage();
@@ -325,22 +399,37 @@ class _GuideState extends State<Guide> {
     );
   }
 
-  _getTitle() {
+  /*
+   * input: /
+   *        
+   * Return: String holdng the title of the page
+   */
+  String _getTitle() {
+
     switch (pageNumber) {
+
       case 0:
         return "Map";
+
       case 1:
         return "Tree screen";
+
       case 2:
         return "Shop & coins";
+
       case 3:
         return "Inventory";
+
       case 4:
         return "Polution game";
+
       case 5:
         return "Tree List";
+
       case 6:
         return "About";
+
     }
   }
+
 }
