@@ -1,25 +1,41 @@
 import 'package:first/Item.dart';
-
 import 'package:first/TreeList.dart';
-
-import 'Health.dart';
-
 import 'package:flutter/material.dart';
 
+import 'Health.dart';
 import 'Zone.dart';
 import 'dart:async';
 
-
+/*
+ * TreeBackEnd class
+ * Attributes :
+ *    _treeHealth : Health object describing the health of the tree
+ *    _image : flutter widget image displayed to the screen
+ *    _plantedZone : reference to the zone object where the tree is planted
+ *    _name : string, given name of the tree
+ *    plantedTree : item of the tree that is planted
+ */
 class TreeBackEnd {
-  Health treeHealth;
-  Widget image;
-  Zone plantedZone;
-  String name;
-  Item plantedTree;
 
+  Health _treeHealth;
+  Widget _image;
+  Zone _plantedZone;
+  String _name;
+  Item plantedTree;
+  
+  /* Class contructor
+   * arguments :(they are all optional)
+   *    _treeHealth : Health object describing the health of the tree
+   *    _image : image displayed to the screen
+   *    _plantedZone : reference to the zone object where the tree is planted
+   *    _name : string, given name of the tree
+   *    plantedTree : item of the tree that is planted
+   * 
+   * return: intatiated class
+   */
   TreeBackEnd(
-      {Zone zone, Item tree, String name, DateTime time, Health health}) {
-    image = Container(
+      {Zone zone, Item tree, String name, Health health}) {
+    _image = Container(
       decoration: BoxDecoration(
         image: new DecorationImage(
           image: new AssetImage(tree.getIcon()),
@@ -28,42 +44,68 @@ class TreeBackEnd {
       ),
     );
     if (health == null)
-      treeHealth = Health();
+      _treeHealth = Health();
     else
-      treeHealth = health;
+      _treeHealth = health;
     if (zone != null) {
-      plantedZone = zone;
+      _plantedZone = zone;
     }
     if (tree != null) {
       plantedTree = tree;
     }
     if (name != null) {
-      this.name = name;
+      this._name = name;
     } else {
-      this.name = "Grooot";
+      this._name = "Grooot";
     }
 
     TreeList().addTreeToList(this);
   }
 
-  Zone getZone() => plantedZone;
+  /*Getter
+   * arguments: /
+   * 
+   * returns: reference to the zone object where the tree is planted
+   */
+  Zone getZone() => _plantedZone;
 
-
+  /*Getter
+   * arguments: /
+   * 
+   * returns: reference to flutter widget image displayed to the screen
+   */
   Widget getImage() {
-    return image;
+    return _image;
   }
 
+  /*Getter
+   * arguments: /
+   * 
+   * returns: reference to Health object describing the health of this tree
+   */
   Health getHealth() {
-    return treeHealth;
+    return _treeHealth;
   }
 
-  String getName() => name;
+  /*Getter
+   * arguments: /
+   * 
+   * returns: reference to string given name of the tree
+   */
+  String getName() => _name;
+
+  /* background image getter
+   * arguments: /
+   * 
+   * returns: Flutter BoxDecoration object dependant of the zonetype in which
+   *          the tree is planted
+   */
   BoxDecoration getBackground() {
     return BoxDecoration(
       image: new DecorationImage(
           image: new AssetImage(
             "assets/images/unlocked/" +
-                plantedZone.getZoneType() +
+                _plantedZone.getZoneType() +
                 "Unlocked.png",
           ),
           fit: BoxFit.cover),
