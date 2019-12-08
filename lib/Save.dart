@@ -89,21 +89,6 @@ class Save {
     }
   }
 
-  DateTime _getStringToDate(String time){
-    List<String> date = time.split('|');
-    if(date.length != 8)
-      return null;
-
-    return DateTime(int.parse(date[0]),
-                    int.parse(date[1]),
-                    int.parse(date[2]),
-                    int.parse(date[3]),
-                    int.parse(date[4]),
-                    int.parse(date[5]),
-                    int.parse(date[6]),
-                    int.parse(date[7]));
-  }
-
   String emergencyRecovery(){
     return dateToString(DateTime.now()) + ",10000,0,0,0,0,0,0,0,0,0,F1+F1+F1+F1+F1+F1+F1+F1+P1+P1+F1+F1+F1+F1+F1+F1+F1+F1+P1+D1+R1+R1+R1+F1+F1+F1+F1+P1+D1+D1+F1+F1+R1+F1+F1+P1+P1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+F1+P1+D1+D1+D1+D1+D1+F1+F1+R1+P1+P1+P1+P1+P1+P1+P1+R1+R1+R1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+S1+";
   }
@@ -131,11 +116,6 @@ class Save {
     if(gameState.length != 12)
       return false;
 
-    //Init timeCreated
-    _timeCreated = _getStringToDate(gameState[0]);
-    if(_timeCreated == null)
-      return false;
-
     //Init wallet
     _wallet = int.parse(gameState[1]);
     if(_wallet == null)
@@ -155,18 +135,18 @@ class Save {
     if(contentGame.length != 101)
       return false;
     int m = 0;
-    int z = 0;
     for (int k = 0; k < 10; k++) {
       for (int l = 0; l < 10; l++) {
-          z++;
           if(contentGame[m][1] != '1' && contentGame[m][1] != '0')
             return false;
           
           bool zoneIsLocked =  (contentGame[m][1] == '1');
+          
           if(_getZoneType(contentGame[m][0]) == null)
             return false;
           
           Zone zone = new Zone(_getZoneType(contentGame[m][0]), isLocked: zoneIsLocked);
+          
           if(!zoneIsLocked){
             nbZoneUnlocked++;
             if(int.parse(contentGame[m][2]) == 1){
@@ -175,32 +155,27 @@ class Save {
                 return false;
 
               List<String> contentTree = contentGame[m].split('-');
-              if(contentTree.length != 7)
+              if(contentTree.length != 6)
                 return false;
-
-              //Content Tree: XXX - name - dateWithFormat - HealthInfo
+              //Content Tree: XXX - name - HealthInfo
               String name = contentTree[1];
-              DateTime lastTimeShaken = _getStringToDate(contentTree[2]);
-              if(lastTimeShaken == null)
-                return false;
 
+              if(double.parse(contentTree[2]) == null)
+                return false;
               if(double.parse(contentTree[3]) == null)
                 return false;
-              if(double.parse(contentTree[4]) == null)
+              if(contentTree[4] != "true" && contentTree[4] != "false")
                 return false;
-              if(contentTree[5] != "true" && contentTree[5] != "false")
-                return false;
-              if(double.parse(contentTree[6]) == null)
+              if(double.parse(contentTree[5]) == null)
                 return false;
 
-              Health health = Health( hydration: double.parse(contentTree[3]),
-                                      nutrition: double.parse(contentTree[4]),
-                                      isPolluted: (contentTree[5] == "true"),
-                                      nbPollutions: int.parse(contentTree[6]));
+              Health health = Health( hydration: double.parse(contentTree[2]),
+                                      nutrition: double.parse(contentTree[3]),
+                                      isPolluted: (contentTree[4] == "true"),
+                                      nbPollutions: int.parse(contentTree[5]));
               TreeBackEnd tree = TreeBackEnd(zone: zone, 
                                             tree: treeType,
                                             name: name,
-                                            time: lastTimeShaken,
                                             health: health);
               
               zone.plantTree(treeType, treeInfo: tree);
@@ -255,7 +230,6 @@ class Save {
 
             TreeBackEnd currentTree = currentZone.getTreeScreen();
             dataToSave += currentTree.getName()+'-';
-            dataToSave += dateToString(currentTree.getLastTimeShaken())+'-';
 
             Health currentHealth = currentTree.getHealth();
             dataToSave += currentHealth.gethydration().toString()+'-';
@@ -267,6 +241,7 @@ class Save {
         dataToSave += '+';
       }
     }
+
     //Ecrypting data
     String key = '201640382014185520176639.Caramel';
     final keyEncrypter = Key.fromUtf8(key);
