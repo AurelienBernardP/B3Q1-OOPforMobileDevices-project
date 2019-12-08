@@ -9,9 +9,14 @@ import 'ItemList.dart';
 import 'TreeList.dart';
 import 'Timer.dart';
 
+
+/*
+ * This widget builds the main menu screen and 
+ * starts the tree timers to update health
+ */
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
-    TimersForTrees().timers();
+    TimersForTrees().timers();//start the timers to updat the health of trees with time
     return MaterialApp(title: "AdTrees", home: _AdTreesAppBody());
   }
 }
@@ -21,15 +26,18 @@ class _AdTreesAppBody extends StatefulWidget {
 }
 
 class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
+
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     return Stack(
       children: <Widget>[
+        // apbar background design
         new Container(
-          height: height/8.5,
+          height: height / 8.5,
           width: double.infinity,
-          decoration:new BoxDecoration(
+          decoration: new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/table.png"),
               fit: BoxFit.fill,
@@ -38,129 +46,157 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
         ),
         Scaffold(
           backgroundColor: Colors.transparent,
-      appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
-      body: Stack(
-      children: <Widget>[
-        Container(
-        decoration: BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage("assets/images/treemap.jpeg"), 
-                  fit: BoxFit.cover,),
-                ),
-          ),
-            Container(
-            margin: new EdgeInsets.only(left: width/24, right: width/22, bottom: height/5),
-            decoration: BoxDecoration(
-              image: new DecorationImage(
-                image: new AssetImage("assets/images/menu.png"), 
-                  fit: BoxFit.fill,),
-                ),
-        child: Container( 
-          margin: new EdgeInsets.only(top: height/4, left: width/17, right: width/15),
-          child: ListView(
-            
-          children: <Widget>[
-            Container(
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-                child:ListTile(
-              title: AutoSizeText('Worldmap', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: width/15,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Planet()),
-                );
-              },
-            ),),
-            Container(
-              
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-                child: ListTile(
-              title:  AutoSizeText('Shop', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: width/15,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                ItemList.makeShop();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ItemList()),
-                );
-              },
-            ),),
+          appBar: AdTreesAppTopBar("AdTrees!", context).getBar(),
+          body: Stack(
 
-            Container(
-              
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
-          ),
-                child:ListTile(
-              title: AutoSizeText('Inventory', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: width/15,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                ItemList.makeInventory();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ItemList()),
-                );
-              },
-            ),),
+            // screen background image
+            children: <Widget>[
               Container(
-              
-                decoration:new BoxDecoration(
-            image: new DecorationImage(
-              image: new AssetImage("assets/images/window.png"),
-              fit: BoxFit.fill,
-            ),
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/treemap.jpeg"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Container(
+                margin: new EdgeInsets.only(
+                    left: width / 24, right: width / 22, bottom: height / 5),
+                decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/menu.png"),
+                    fit: BoxFit.fill,
+                  ),
+                ),
+
+                // Menu container withe the tiles
+                child: Container(
+                  margin: new EdgeInsets.only(
+                      top: height / 4, left: width / 17, right: width / 15),
+                  child: ListView(
+                    children: <Widget>[
+
+                      // Wordlmap tapable tile
+                      Container(
+                        decoration: new BoxDecoration(
+                          image: new DecorationImage(
+                            image: new AssetImage("assets/images/window.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: ListTile(
+                          title: AutoSizeText(
+                            'Worldmap',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width / 15,
+                              color: Colors.blueGrey[200],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Planet()),
+                            );
+                          },
+                        ),
+                      ),
+
+                      // Shop tapable tile
+                      Container(
+                        decoration: new BoxDecoration(
+                          image: new DecorationImage(
+                            image: new AssetImage("assets/images/window.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: ListTile(
+                          title: AutoSizeText(
+                            'Shop',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width / 15,
+                              color: Colors.blueGrey[200],
+                            ),
+                          ),
+                          onTap: () {
+                            ItemList.makeShop();//make screen show the price instead of the quantity owned
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ItemList()),
+                            );
+                          },
+                        ),
+                      ),
+
+                      // Inventory tapable tile
+                      Container(
+                        decoration: new BoxDecoration(
+                          image: new DecorationImage(
+                            image: new AssetImage("assets/images/window.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: ListTile(
+                          title: AutoSizeText(
+                            'Inventory',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width / 15,
+                              color: Colors.blueGrey[200],
+                            ),
+                          ),
+                          onTap: () {
+                            ItemList.makeInventory();//make screen show the quantity owned instead of the price
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ItemList()),
+                            );
+                          },
+                        ),
+                      ),
+                      // Tree list tapable tile
+                      Container(
+                        decoration: new BoxDecoration(
+                          image: new DecorationImage(
+                            image: new AssetImage("assets/images/window.png"),
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        child: ListTile(
+                          title: AutoSizeText(
+                            'Tree list',
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: width / 15,
+                              color: Colors.blueGrey[200],
+                            ),
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => TreeListScreen()),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-                child: ListTile(
-              title: AutoSizeText('Tree list', overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.center,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: width/15,
-        color: Colors.blueGrey[200],
-      ),),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => TreeListScreen()),
-                );
-              },
-            ),
-            ),
-          ],
-        ),
-        ),
-      ),
-      ],
-      ),
         ),
       ],
     );
