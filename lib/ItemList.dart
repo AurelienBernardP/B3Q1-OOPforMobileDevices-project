@@ -103,10 +103,10 @@ class _ItemListState extends State<ItemList>{
    */
   void _boughtPopup(BuildContext context){
     var alertDialog = AlertDialog(
-      title: Text('You have more ' + gridState[_tappedItemX][_tappedItemY].getName() + '!'),
+      title: AutoSizeText('You have more ' + gridState[_tappedItemX][_tappedItemY].getName() + '!'),
       actions: <Widget>[
           FlatButton(
-            child: Text('Go use your items!'),
+            child: AutoSizeText('Go use your items!'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -129,10 +129,10 @@ class _ItemListState extends State<ItemList>{
    */
   void _cannotBuyPopup(BuildContext context){
     var alertDialog = AlertDialog(
-      title: Text("You're out of money! Keep calm, don't cry"),
+      title: AutoSizeText("You're out of money! Keep calm, don't cry"),
       actions: <Widget>[
           FlatButton(
-            child: Text('Oups! You\'re too broke to do this...'),
+            child: AutoSizeText('Oups! You\'re too broke to do this...'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -203,7 +203,7 @@ class _ItemListState extends State<ItemList>{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Text(
+                    AutoSizeText(
                       gridState[x][y].getPrice().toString(),
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
@@ -235,7 +235,7 @@ class _ItemListState extends State<ItemList>{
               ),
               Container(
                 alignment: Alignment.bottomRight,
-                child:Text(
+                child:AutoSizeText(
                   gridState[x][y].getQuantity().toString(),
                   textAlign: TextAlign.right,
                   overflow: TextOverflow.ellipsis,
@@ -320,7 +320,7 @@ class _ItemListState extends State<ItemList>{
               fit: BoxFit.fill,
             ),
           ),
-          child:Text(
+          child:AutoSizeText(
             "Tap on a grid to view more details!",
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -353,7 +353,7 @@ class _ItemListState extends State<ItemList>{
         margin: EdgeInsets.all(10),
         child: Container(
           margin: EdgeInsets.all(5),
-          child: Text(
+          child: AutoSizeText(
             gridState[_tappedItemX][_tappedItemY].getName(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -412,7 +412,7 @@ class _ItemListState extends State<ItemList>{
             onTap: (){
               _buy();
             },
-            child: Text(
+            child: AutoSizeText(
               'Buy',
               textAlign: TextAlign.center,
               style: TextStyle(

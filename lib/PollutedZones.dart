@@ -1,5 +1,6 @@
 import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'Wallet.dart';
 import 'Pollution.dart';
 
@@ -42,9 +43,9 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
    */
   void _cleanedPopup(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text("All clean!"),
+      title: AutoSizeText("All clean!"),
       content: Row(children: <Widget>[
-        Text(
+        AutoSizeText(
           "Congratulations, you got rid of the garbage.",
           maxLines: 1,
           softWrap: true,
@@ -56,7 +57,7 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
       ]),
       actions: <Widget>[
         FlatButton(
-          child: Text('Back to tree'),
+          child: AutoSizeText('Back to tree'),
           onPressed: () {
             Navigator.of(context).pop();
             Navigator.pop(context);

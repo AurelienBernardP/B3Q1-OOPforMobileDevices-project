@@ -3,6 +3,7 @@ import 'package:first/TreeList.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'AdTreesAppTopBar.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'Planet.dart';
 import 'ItemList.dart';
 import 'TreeList.dart';
@@ -67,7 +68,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
           ),
                 child:ListTile(
-              title: Text('Worldmap', overflow: TextOverflow.ellipsis,
+              title: AutoSizeText('Worldmap', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
@@ -90,7 +91,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
           ),
                 child: ListTile(
-              title:  Text('Shop', overflow: TextOverflow.ellipsis,
+              title:  AutoSizeText('Shop', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
@@ -115,8 +116,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
           ),
                 child:ListTile(
-              //leading: Icon(Icons.work),
-              title: Text('Inventory', overflow: TextOverflow.ellipsis,
+              title: AutoSizeText('Inventory', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
@@ -140,8 +140,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
             ),
           ),
                 child: ListTile(
-              //leading: Icon(Icons.view_list),
-              title: Text('Tree list', overflow: TextOverflow.ellipsis,
+              title: AutoSizeText('Tree list', overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
       style: TextStyle(
         fontWeight: FontWeight.bold,
