@@ -1,6 +1,7 @@
 import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'Item.dart';
 import 'Save.dart';
 
@@ -374,7 +375,7 @@ class _ItemListState extends State<ItemList>{
     return  
       Container(
         margin: EdgeInsets.only(left: width/20, right: width/20),
-        child: Text(
+        child: AutoSizeText(
           gridState[_tappedItemX][_tappedItemY].getDescription(),
           textAlign: TextAlign.center,
           style: TextStyle(
