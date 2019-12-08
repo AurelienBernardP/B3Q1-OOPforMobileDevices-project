@@ -650,7 +650,8 @@ class _PlanetState extends State<Planet> {
                       .buildZone(context),
                 ),
               ),
-              Container(
+              FittedBox(
+              child: Container(
                   margin: EdgeInsets.only(top: width/18, left: width/20, right: width/20, bottom: width/18),
                   child: Column(
                     children: <Widget>[
@@ -681,8 +682,11 @@ class _PlanetState extends State<Planet> {
                       ),
                       _createTreeHealth(height, width),
                     ],
-                  ))
-            ]));
+                  )
+                ))
+            ]
+            )
+            );
   }
 
   /*
@@ -718,5 +722,5 @@ class _PlanetState extends State<Planet> {
       ),
     );
   }
-  
+
 }

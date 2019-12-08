@@ -302,7 +302,7 @@ class _ItemListState extends State<ItemList>{
             child: Column(
               children: <Widget>[
                 _addTitle(),
-                _addText(),
+                Expanded(child:_addText()),
                 _addButton(),
               ],
             ),
@@ -390,10 +390,12 @@ class _ItemListState extends State<ItemList>{
    * output: a widget that will be either the "buy" button of an empty text
    */
   Widget _addButton(){
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
     if(_isShop)
       return Container(
         alignment: Alignment.bottomRight,
-        margin: EdgeInsets.only(top: 15.0, right: 20.0),
+        margin: EdgeInsets.only(top: height/60, right: width/20, bottom: height/35),
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
