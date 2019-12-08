@@ -103,10 +103,10 @@ class _ItemListState extends State<ItemList>{
    */
   void _boughtPopup(BuildContext context){
     var alertDialog = AlertDialog(
-      title: AutoSizeText('You have more ' + gridState[_tappedItemX][_tappedItemY].getName() + '!'),
+      title: Text('You have more ' + gridState[_tappedItemX][_tappedItemY].getName() + '!'),
       actions: <Widget>[
           FlatButton(
-            child: AutoSizeText('Go use your items!'),
+            child: Text('Go use your items!'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -129,10 +129,10 @@ class _ItemListState extends State<ItemList>{
    */
   void _cannotBuyPopup(BuildContext context){
     var alertDialog = AlertDialog(
-      title: AutoSizeText("You're out of money! Keep calm, don't cry"),
+      title: Text("You're out of money! Keep calm, don't cry"),
       actions: <Widget>[
           FlatButton(
-            child: AutoSizeText('Oups! You\'re too broke to do this...'),
+            child: Text('Oups! You\'re too broke to do this...'),
             onPressed: () {
               Navigator.of(context).pop();
             },

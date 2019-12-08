@@ -83,9 +83,9 @@ class _PlanetState extends State<Planet> {
    */
   void _unlockZonePopup(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: AutoSizeText("Unlock Zone?"),
+      title: Text("Unlock Zone?"),
       content: Row(children: <Widget>[
-        AutoSizeText(
+        Text(
           "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
           maxLines: 1,
           softWrap: true,
@@ -98,13 +98,13 @@ class _PlanetState extends State<Planet> {
       ]),
       actions: <Widget>[
         FlatButton(
-          child: AutoSizeText('Cancel'),
+          child: Text('Cancel'),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: AutoSizeText('Unlock'),
+          child: Text('Unlock'),
           onPressed: () {
             setState(() {
               Wallet().retrieveCoins(PlanetBackEnd.getInstance().getPrice());
@@ -129,9 +129,9 @@ class _PlanetState extends State<Planet> {
    */
   void _zonePricePopup(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: AutoSizeText("Not enough coins!"),
+      title: Text("Not enough coins!"),
       content: Row(children: <Widget>[
-        AutoSizeText(
+        Text(
           "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
           maxLines: 1,
           softWrap: true,
@@ -144,7 +144,7 @@ class _PlanetState extends State<Planet> {
       ]),
       actions: <Widget>[
         FlatButton(
-          child: AutoSizeText('Ok im sorry'),
+          child: Text('Ok im sorry'),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -178,7 +178,7 @@ class _PlanetState extends State<Planet> {
   void _plantTreePopup(BuildContext context, Item tree) {
     String treeName;
     var alertDialog = AlertDialog(
-      title: AutoSizeText("Pick a cute name for your " + tree.getName()),
+      title: Text("Pick a cute name for your " + tree.getName()),
       content: new Row(
         children: <Widget>[
           new Expanded(
@@ -194,13 +194,13 @@ class _PlanetState extends State<Planet> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: AutoSizeText('Cancel'),
+          child: Text('Cancel'),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: AutoSizeText('Plant'),
+          child: Text('Plant'),
           onPressed: () {
             _plantTree(tree, treeName);
             Navigator.of(context).pop();
@@ -222,9 +222,9 @@ class _PlanetState extends State<Planet> {
    */
   void _shopPopup(BuildContext context, Item tree) {
     var alertDialog = AlertDialog(
-      title: AutoSizeText("You've ran out of " + tree.getName()),
+      title: Text("You've ran out of " + tree.getName()),
       content: Row(children: <Widget>[
-        AutoSizeText(
+        Text(
           "Price:" + tree.getPrice(),
           maxLines: 1,
           softWrap: true,
@@ -237,13 +237,13 @@ class _PlanetState extends State<Planet> {
       ]),
       actions: <Widget>[
         FlatButton(
-          child: AutoSizeText('Cancel'),
+          child: Text('Cancel'),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: AutoSizeText('Go to shop'),
+          child: Text('Go to shop'),
           onPressed: () {
             Navigator.of(context).pop();
             ItemList.makeShop();
