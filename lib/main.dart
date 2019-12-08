@@ -59,7 +59,7 @@ class _SplashScreenState extends State<SplashScreen> {
             decoration:new BoxDecoration(
             image: new DecorationImage(
               image: new AssetImage("assets/images/treemap.jpeg"),
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
             ),
           ),
           
