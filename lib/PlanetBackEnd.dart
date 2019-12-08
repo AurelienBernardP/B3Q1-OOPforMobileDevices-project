@@ -72,12 +72,24 @@ class PlanetBackEnd {
     return gridState[x][y];
   }
 
+  /*
+   * input: x, an integer 
+   *        y, an integer
+   * effect: unlock the zone at the position [x][y] in gridState 
+   */
   void unlockZone(int x, int y){
     _nbZoneUnlocked++;
     gridState[x][y].unlock();
     Save().saveGame();
   }
 
+  /*
+   * input: mapX, an integer 
+   *        mapY, an integer
+   *        x, an integer 
+   *        y, an integer
+   * effect: plants the tree at the position [x][y] in gridTree in the zone at the position [mapX][mapY] in gridState 
+   */
   void plant(int mapX, int mapY, int x, int y) {
     gridState[mapX][mapY].plantTree(gridTree[x][y]);
   }
