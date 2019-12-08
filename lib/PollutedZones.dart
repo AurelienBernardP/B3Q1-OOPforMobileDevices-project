@@ -74,6 +74,7 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
 
 
   Widget _createDraggable(BuildContext context, int index){
+    var width = MediaQuery.of(context).size.width / 8;
     if(Pollution.getInstance().getPollutionItem(index).isVisible())
       return GestureDetector(
         onTapDown: (TapDownDetails details) {
@@ -84,8 +85,8 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
             child: Draggable(
               data: Pollution.getInstance().getPollutionItem(index).getType(),
               child: Container(
-                width: 50.0,
-                height: 50.0,
+                width: width,
+                height: width,
                 decoration: BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(Pollution.getInstance().getPollutionItem(index).getImage()), 
@@ -93,24 +94,24 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
                 ),
               ),
               feedback: Container(
-                width: 50.0,
-                height: 50.0,
+                width: width,
+                height: width,
                 decoration: BoxDecoration(
               image: new DecorationImage(
                 image: new AssetImage(Pollution.getInstance().getPollutionItem(index).getImage()), 
                   fit: BoxFit.fill,),
                 ),
               ),
-              childWhenDragging: Container(width: 50.0,
-                height: 50.0,),
+              childWhenDragging: Container(width: width,
+                height: width,),
             ),
             );
-    return Container(width: 50, height: 50);
+    return Container(width: width, height: width);
   }
 
   Widget _createPollution(){
-    return Flexible(
-    child: GridView.builder(
+    return Expanded(
+      child: GridView.builder(
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 8,
               childAspectRatio: 1.0,
@@ -121,6 +122,7 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
   }
 
   Widget _buildBody(){
+    var width = MediaQuery.of(context).size.width / 4;
     return Container(
         decoration: BoxDecoration(
               image: new DecorationImage(
@@ -136,8 +138,8 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  width: 100.0,
-                  height: 100.0,
+                  width: width,
+                  height: width,
                   child: DragTarget(
                     builder:
                         (context, List<int> candidateData, rejectedData) {
@@ -170,8 +172,8 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
                   ),
                 ),
                 Container(
-                  width: 100.0,
-                  height: 100.0,
+                  width: width,
+                  height: width,
                   child: DragTarget(
                     builder:
                         (context, List<int> candidateData, rejectedData) {
