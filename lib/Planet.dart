@@ -1,6 +1,7 @@
 import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'Save.dart';
 import 'Wallet.dart';
 import 'Item.dart';
@@ -82,9 +83,9 @@ class _PlanetState extends State<Planet> {
    */
   void _unlockZonePopup(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text("Unlock Zone?"),
+      title: AutoSizeText("Unlock Zone?"),
       content: Row(children: <Widget>[
-        Text(
+        AutoSizeText(
           "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
           maxLines: 1,
           softWrap: true,
@@ -97,13 +98,13 @@ class _PlanetState extends State<Planet> {
       ]),
       actions: <Widget>[
         FlatButton(
-          child: Text('Cancel'),
+          child: AutoSizeText('Cancel'),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text('Unlock'),
+          child: AutoSizeText('Unlock'),
           onPressed: () {
             setState(() {
               Wallet().retrieveCoins(PlanetBackEnd.getInstance().getPrice());
@@ -128,9 +129,9 @@ class _PlanetState extends State<Planet> {
    */
   void _zonePricePopup(BuildContext context) {
     var alertDialog = AlertDialog(
-      title: Text("Not enough coins!"),
+      title: AutoSizeText("Not enough coins!"),
       content: Row(children: <Widget>[
-        Text(
+        AutoSizeText(
           "Price:" + PlanetBackEnd.getInstance().getPrice().toString(),
           maxLines: 1,
           softWrap: true,
@@ -143,7 +144,7 @@ class _PlanetState extends State<Planet> {
       ]),
       actions: <Widget>[
         FlatButton(
-          child: Text('Ok im sorry'),
+          child: AutoSizeText('Ok im sorry'),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -177,7 +178,7 @@ class _PlanetState extends State<Planet> {
   void _plantTreePopup(BuildContext context, Item tree) {
     String treeName;
     var alertDialog = AlertDialog(
-      title: Text("Pick a cute name for your " + tree.getName()),
+      title: AutoSizeText("Pick a cute name for your " + tree.getName()),
       content: new Row(
         children: <Widget>[
           new Expanded(
@@ -193,13 +194,13 @@ class _PlanetState extends State<Planet> {
       ),
       actions: <Widget>[
         FlatButton(
-          child: Text('Cancel'),
+          child: AutoSizeText('Cancel'),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text('Plant'),
+          child: AutoSizeText('Plant'),
           onPressed: () {
             _plantTree(tree, treeName);
             Navigator.of(context).pop();
@@ -221,9 +222,9 @@ class _PlanetState extends State<Planet> {
    */
   void _shopPopup(BuildContext context, Item tree) {
     var alertDialog = AlertDialog(
-      title: Text("You've ran out of " + tree.getName()),
+      title: AutoSizeText("You've ran out of " + tree.getName()),
       content: Row(children: <Widget>[
-        Text(
+        AutoSizeText(
           "Price:" + tree.getPrice(),
           maxLines: 1,
           softWrap: true,
@@ -236,13 +237,13 @@ class _PlanetState extends State<Planet> {
       ]),
       actions: <Widget>[
         FlatButton(
-          child: Text('Cancel'),
+          child: AutoSizeText('Cancel'),
           onPressed: () {
             Navigator.of(context).pop();
           },
         ),
         FlatButton(
-          child: Text('Go to shop'),
+          child: AutoSizeText('Go to shop'),
           onPressed: () {
             Navigator.of(context).pop();
             ItemList.makeShop();
@@ -389,7 +390,7 @@ class _PlanetState extends State<Planet> {
                     fit: BoxFit.fill,
                   ),
                 ),
-                child: Text(
+                child: AutoSizeText(
                   "Select a zone \nfor more \ninfo!",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
@@ -464,7 +465,7 @@ class _PlanetState extends State<Planet> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text('Unlock for ' +
+                        AutoSizeText('Unlock for ' +
                             PlanetBackEnd.getInstance().getPrice().toString() +
                             " "),
                         Icon(Icons.strikethrough_s),
@@ -511,7 +512,7 @@ class _PlanetState extends State<Planet> {
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Text(
+                AutoSizeText(
                   "Plant a tree:",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
@@ -593,7 +594,7 @@ class _PlanetState extends State<Planet> {
           ),
           Container(
             alignment: Alignment.bottomRight,
-            child: Text(
+            child: AutoSizeText(
               PlanetBackEnd.getInstance()
                   .getTreeGrid()[x][y]
                   .getQuantity()
@@ -650,7 +651,8 @@ class _PlanetState extends State<Planet> {
                       .buildZone(context),
                 ),
               ),
-              Container(
+              FittedBox(
+              child: Container(
                   margin: EdgeInsets.only(top: width/18, left: width/20, right: width/20, bottom: width/18),
                   child: Column(
                     children: <Widget>[
@@ -681,8 +683,11 @@ class _PlanetState extends State<Planet> {
                       ),
                       _createTreeHealth(height, width),
                     ],
-                  ))
-            ]));
+                  )
+                ))
+            ]
+            )
+            );
   }
 
   /*
@@ -711,12 +716,12 @@ class _PlanetState extends State<Planet> {
           fit: BoxFit.fill,
         ),
       ),
-      child: Text(
+      child: AutoSizeText(
         treeHealth.toStringAsPrecision(3) + "%",
         textAlign: TextAlign.center,
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }
-  
+
 }

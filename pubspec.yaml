@@ -17,6 +17,7 @@ environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
+  auto_size_text: ^2.1.0
   encrypt: ^3.3.1
   device_id: ^0.2.0
   device_info: ^0.4.1+2

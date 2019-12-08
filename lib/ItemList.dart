@@ -1,6 +1,7 @@
 import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'Item.dart';
 import 'Save.dart';
 
@@ -102,10 +103,10 @@ class _ItemListState extends State<ItemList>{
    */
   void _boughtPopup(BuildContext context){
     var alertDialog = AlertDialog(
-      title: Text('You have more ' + gridState[_tappedItemX][_tappedItemY].getName() + '!'),
+      title: AutoSizeText('You have more ' + gridState[_tappedItemX][_tappedItemY].getName() + '!'),
       actions: <Widget>[
           FlatButton(
-            child: Text('Go use your items!'),
+            child: AutoSizeText('Go use your items!'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -128,10 +129,10 @@ class _ItemListState extends State<ItemList>{
    */
   void _cannotBuyPopup(BuildContext context){
     var alertDialog = AlertDialog(
-      title: Text("You're out of money! Keep calm, don't cry"),
+      title: AutoSizeText("You're out of money! Keep calm, don't cry"),
       actions: <Widget>[
           FlatButton(
-            child: Text('Oups! You\'re too broke to do this...'),
+            child: AutoSizeText('Oups! You\'re too broke to do this...'),
             onPressed: () {
               Navigator.of(context).pop();
             },
@@ -202,7 +203,7 @@ class _ItemListState extends State<ItemList>{
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    Text(
+                    AutoSizeText(
                       gridState[x][y].getPrice().toString(),
                       textAlign: TextAlign.left,
                       overflow: TextOverflow.ellipsis,
@@ -234,7 +235,7 @@ class _ItemListState extends State<ItemList>{
               ),
               Container(
                 alignment: Alignment.bottomRight,
-                child:Text(
+                child:AutoSizeText(
                   gridState[x][y].getQuantity().toString(),
                   textAlign: TextAlign.right,
                   overflow: TextOverflow.ellipsis,
@@ -302,7 +303,7 @@ class _ItemListState extends State<ItemList>{
             child: Column(
               children: <Widget>[
                 _addTitle(),
-                _addText(),
+                Expanded(child:_addText()),
                 _addButton(),
               ],
             ),
@@ -319,7 +320,7 @@ class _ItemListState extends State<ItemList>{
               fit: BoxFit.fill,
             ),
           ),
-          child:Text(
+          child:AutoSizeText(
             "Tap on a grid to view more details!",
             textAlign: TextAlign.center,
             overflow: TextOverflow.ellipsis,
@@ -352,7 +353,7 @@ class _ItemListState extends State<ItemList>{
         margin: EdgeInsets.all(10),
         child: Container(
           margin: EdgeInsets.all(5),
-          child: Text(
+          child: AutoSizeText(
             gridState[_tappedItemX][_tappedItemY].getName(),
             style: TextStyle(
               fontWeight: FontWeight.bold,
@@ -374,7 +375,7 @@ class _ItemListState extends State<ItemList>{
     return  
       Container(
         margin: EdgeInsets.only(left: width/20, right: width/20),
-        child: Text(
+        child: AutoSizeText(
           gridState[_tappedItemX][_tappedItemY].getDescription(),
           textAlign: TextAlign.center,
           style: TextStyle(
@@ -390,10 +391,13 @@ class _ItemListState extends State<ItemList>{
    * output: a widget that will be either the "buy" button of an empty text
    */
   Widget _addButton(){
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     if(_isShop)
       return Container(
         alignment: Alignment.bottomRight,
-        margin: EdgeInsets.only(top: 15.0, right: 20.0),
+        margin: EdgeInsets.only(top: height/60, right: width/20, bottom: height/35),
         child: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(
@@ -402,13 +406,13 @@ class _ItemListState extends State<ItemList>{
               fit: BoxFit.fill,
             ),
           ),
-          width: 100,
-          height: 40,
+          width: width/4,
+          height: height/20,
           child: GestureDetector(
             onTap: (){
               _buy();
             },
-            child: Text(
+            child: AutoSizeText(
               'Buy',
               textAlign: TextAlign.center,
               style: TextStyle(
