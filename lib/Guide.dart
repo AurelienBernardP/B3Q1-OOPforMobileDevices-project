@@ -9,8 +9,8 @@ class Guide extends StatefulWidget {
 
 class _GuideState extends State<Guide> {
 
-  int pageNumber = 0; // number of the page the user is on in the guide
-  final int NBPAGES = 7; // number of pages there are in the guide
+  int _pageNumber = 0; // number of the page the user is on in the guide
+  final int _NBPAGES = 7; // number of pages there are in the guide
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class _GuideState extends State<Guide> {
   void _nextPage() {
 
     setState(() {
-      pageNumber = (pageNumber + 1) % NBPAGES;
+      _pageNumber = (_pageNumber + 1) % _NBPAGES;
     });
   }
 
@@ -61,10 +61,10 @@ class _GuideState extends State<Guide> {
 
     setState(
       () {
-        if (pageNumber == 0) {
-          pageNumber = NBPAGES - 1;
+        if (_pageNumber == 0) {
+          _pageNumber = _NBPAGES - 1;
         } else {
-          pageNumber = (pageNumber - 1);
+          _pageNumber = (_pageNumber - 1);
         }
       },
     );
@@ -189,8 +189,8 @@ class _GuideState extends State<Guide> {
    * Return: Content of the Guide corresponding to the guiven page
    */
   _getText() {
-    
-    switch (pageNumber) {
+
+    switch (_pageNumber) {
 
       case 0:
         return LayoutBuilder(
@@ -406,7 +406,7 @@ class _GuideState extends State<Guide> {
    */
   String _getTitle() {
 
-    switch (pageNumber) {
+    switch (_pageNumber) {
 
       case 0:
         return "Map";
