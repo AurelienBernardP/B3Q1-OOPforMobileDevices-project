@@ -1,23 +1,38 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'Guide.dart';
 import 'Wallet.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 import 'dart:async';
 
+/* This class creates a general appbar that can be used
+ * throughout the whole application
+ * 
+ */
 class AdTreesAppTopBar {
-  final String text = "AdTrees";
-  AppBar bar;
-  AdmobInterstitial interstitialAd;
-  AdTreesAppTopBar(String text, BuildContext context, {bool isGuide}) {
-    this.text.replaceAll('AdTrees', text);
+  final String text = "AdTrees"; //appbar title by default
+  AppBar bar; //Appbar
+  AdmobInterstitial interstitialAd; // admob advertisement reference
 
+  /*Constructor
+   * arguments:
+   *    text- String to be displayed as the title of the appbar
+   *    context- context in which the appbar is being built 
+   *    isGuide- (optional parameter) - boolean that should be set to true if
+   *            if the bar is build inn the guide to avoid navigation to the current screen
+   * 
+   * return: AdTreesAppTopBar object holding an instantiated appbar 
+   */
+  AdTreesAppTopBar(String text, BuildContext context, {bool isGuide}) {
+    this.text.replaceAll('AdTrees', text); //replace the defaullt text
+
+    //intatiiate the app advertisement
     interstitialAd = AdmobInterstitial(
       adUnitId: 'ca-app-pub-3940256099942544/1033173712',
     );
+    //load the avertisement for it to be readily available
     interstitialAd.load();
-    Widget settingsButton = Container(
+
+    Widget guideButton = Container(
       margin: new EdgeInsets.only(bottom: 10.0, right: 30.0),
       child: IconButton(
         icon: Icon(Icons.help_outline, color: Colors.blueGrey[100], size: 40.0),
@@ -31,24 +46,22 @@ class AdTreesAppTopBar {
         },
       ),
     );
+    //button to diisplay an advert
     Widget adsButton = GestureDetector(
       onTap: () async {
         if (await interstitialAd.isLoaded) {
-          Wallet().addCoins(2);
-          interstitialAd.show();
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => EmptyAdScreen()));
+          Wallet().addCoins(2); //reward the user
+          interstitialAd.show(); //show the advert
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EmptyAdScreen()));
           interstitialAd = AdmobInterstitial(
             adUnitId: 'ca-app-pub-3940256099942544/1033173712',
           );
-          interstitialAd.load();
+          interstitialAd.load(); //load new ad
         }
       },
       child: Container(
         margin: new EdgeInsets.only(bottom: 10.0, left: 10.0),
-        //alignment: Alignment.topRight,
         height: MediaQuery.of(context).size.height / 20,
         width: MediaQuery.of(context).size.height / 20,
         decoration: BoxDecoration(
@@ -65,7 +78,6 @@ class AdTreesAppTopBar {
       },
       child: Container(
         margin: new EdgeInsets.only(bottom: 10.0, left: 10.0),
-        //alignment: Alignment.topRight,
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
@@ -75,12 +87,9 @@ class AdTreesAppTopBar {
           ),
         ),
       ),
-    ),
-        /*IconButton(
-        icon: Icon(Icons.arrow_back),
-        onPressed: () => Navigator.pop(context),
-      ),*/
-        bar = new AppBar(
+    );
+
+    bar = new AppBar(
       title: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,21 +121,33 @@ class AdTreesAppTopBar {
           ],
         ),
       ),
-      backgroundColor: Colors.transparent,
-      leading: Navigator.canPop(context) ? backButton : null,
-      actions: <Widget>[settingsButton],
+      backgroundColor: Colors
+          .transparent, //transparent backgroud to be able to have a different design for each screen
+      leading: Navigator.canPop(context)
+          ? backButton// make a back arrow if it is not the first screen of the app
+          : null, 
+      actions: <Widget>[guideButton],
     );
+    
     this.bar = bar;
   }
+
+  /* appbar getter
+   * arguments :/
+   * 
+   * returns: instantiated appbar during this class constructor
+   */
   AppBar getBar() => bar;
 }
 
 class EmptyAdScreen extends StatelessWidget {
 
   Widget build(BuildContext context) {
+
     Timer(Duration(seconds: 1), () {
       Navigator.pop(context);
     });
+
     return Scaffold(
       body: Container(),
     );
