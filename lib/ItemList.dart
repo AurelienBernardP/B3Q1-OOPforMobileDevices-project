@@ -85,25 +85,52 @@ class _ItemListState extends State<ItemList>{
   void _buy(){
     setState(() {
       if(gridState[_tappedItemX][_tappedItemY].buyItem()){
+        _boughtPopup(context);
         Save().saveGame();
         return;
       }
       else
-        _cannotUsePopup(context, "You're out of money! Keep calm, don't cry");
+        _cannotBuyPopup(context);
     });
   }
 
   /*
    * input: context, BuildContext
-   *        text, a string
-   * effect: displays a popup with the title 'text'
+   * effect: displays a popup in order to inform the user that the item was
+   * bought successfully
    */
-void _cannotUsePopup(BuildContext context, String text){
+  void _boughtPopup(BuildContext context){
     var alertDialog = AlertDialog(
-      title: Text(text),
+      title: Text('You have more ' + gridState[_tappedItemX][_tappedItemY].getName() + '!'),
       actions: <Widget>[
           FlatButton(
-            child: Text('Oups! You cannot do that'),
+            child: Text('Go use your items!'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+    );
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context){
+        return alertDialog;
+      }
+    );
+  }
+
+  /*
+   * input: context, BuildContext
+   * effect: displays a popup in order to inform the user
+   * that he cannot buy that item
+   */
+  void _cannotBuyPopup(BuildContext context){
+    var alertDialog = AlertDialog(
+      title: Text("You're out of money! Keep calm, don't cry"),
+      actions: <Widget>[
+          FlatButton(
+            child: Text('Oups! You\'re too broke to do this...'),
             onPressed: () {
               Navigator.of(context).pop();
             },
