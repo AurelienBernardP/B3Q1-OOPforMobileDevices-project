@@ -3,17 +3,37 @@ import 'AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'TreeBackEnd.dart';
 
+/*
+ * TreeListScreen class
+ * Displays a list of trees sorted by the users input criteria
+ */
 class TreeListScreen extends StatefulWidget {
   @override
   _TreeListScreenState createState() => _TreeListScreenState();
 }
 
+/*
+ * _TreeListScreenState class
+ * Displays a list of trees sorted by the users input criteria
+ * 
+ * Attributes:
+ *        sort: number defining the attribute with which the list is sorted 
+ *              0: number of polutions
+ *              1: general health
+ *              2: hydration
+ *        _setDisplayedText: number defining if the nuber of polution is displayed(0) or a healthbar(1)
+ */
 class _TreeListScreenState extends State<TreeListScreen> {
-  @override
-  int _sort = 0;
-  int setDisplayedText = 0;
   
+  int _sort = 0;
+  int _setDisplayedText = 0;
+
+/* arguments
+ * 
+ * 
+ */
   String getImageHealth(double overall) {
+
     if (overall < 20.0)
       return "low.png";
     else if (overall > 80.0)
@@ -58,12 +78,12 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         onChanged: (value) {
                           _sort = value;
                           setState(() {
-                            setDisplayedText = 0;
-                            TreeList().sortByNbPollution();
+                            _setDisplayedText = 0;
+                            TreeList().sortByNbPolution();
                           });
                         }),
                     new Text(
-                      'polution',
+                      'Polution number',
                       style: new TextStyle(
                           fontSize: 20.0, color: Colors.blueGrey[100]),
                     ),
@@ -73,7 +93,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                       onChanged: (value) {
                         _sort = value;
                         setState(() {
-                          setDisplayedText = 1;
+                          _setDisplayedText = 1;
                           TreeList().sortByGeneralHealth();
                         });
                       },
@@ -89,7 +109,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                       onChanged: (value) {
                         _sort = value;
                         setState(() {
-                          setDisplayedText = 1;
+                          _setDisplayedText = 1;
                           TreeList().sortByHydration();
                         });
                       },
@@ -120,7 +140,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                               fontWeight: FontWeight.bold,
                               fontSize: 30,
                             )),
-                        Text(setDisplayedText == 0 ? "Timer" : "Health",
+                        Text(_setDisplayedText == 0 ? "Polutions" : "Health",
                             textAlign: TextAlign.right,
                             style: TextStyle(
                               color: Colors.black,
@@ -202,7 +222,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                                             fit: BoxFit.fill,
                                           ),
                                         ),
-                                        child: Text(setDisplayedText == 0? TreeList().getTreeList()[index].getHealth().toString() :
+                                        child: Text(_setDisplayedText == 0? TreeList().getTreeList()[index].getHealth().toString() :
                                           TreeList()
                                                   .getTreeList()[index]
                                                   .getHealth()
@@ -266,7 +286,7 @@ class TreeList {
         .sort((a, b) => (a.getHealth().getOverall() - b.getHealth().getOverall()).round());
   }
 
-  void sortByNbPollution() {
+  void sortByNbPolution() {
     plantedTrees
         .sort((a, b) => (a.getHealth().getNbPollutions() - b.getHealth().getNbPollutions()));
   }
