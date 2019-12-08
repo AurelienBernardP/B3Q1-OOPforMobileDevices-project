@@ -42,6 +42,11 @@ class _PlanetState extends State<Planet> {
     );
   }
 
+  /*
+   * input: x, an int
+   *        y, an int
+   * effect: sets the value of tappedZoneX to x and tappedZoneY to y
+   */
   void _tapOnGrid(int x, int y) {
     setState(() {
       _tappedZoneX = x;
@@ -49,12 +54,21 @@ class _PlanetState extends State<Planet> {
     });
   }
 
+  /*
+   * input: /
+   * effect: unlocks the zone at the position (tappedZoneX, tappedZoneY)
+   */
   void _unlockZone() {
     setState(() {
       PlanetBackEnd.getInstance().unlockZone(_tappedZoneX, _tappedZoneY);
     });
   }
 
+  /*
+   * input: /
+   * effect: creates a popup to either confirm the zone purchase of the user
+   *          or to inform the user that s/he does not have enough coins to buy the zone
+   */
   void _createZonePopup() {
     if (Wallet().isSufficient(PlanetBackEnd.getInstance().getPrice()))
       _unlockZonePopup(context);
@@ -62,6 +76,10 @@ class _PlanetState extends State<Planet> {
       _zonePricePopup(context);
   }
 
+  /*
+   * input: context, BuildContext
+   * effect: creates a popup to confirm the zone purchase of the user
+   */
   void _unlockZonePopup(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("Unlock Zone?"),
@@ -104,6 +122,10 @@ class _PlanetState extends State<Planet> {
         });
   }
 
+  /*
+   * input: context, BuildContext
+   * effect: creates a popup to inform the user that s/he does not have enough coins to buy the zone
+   */
   void _zonePricePopup(BuildContext context) {
     var alertDialog = AlertDialog(
       title: Text("Not enough coins!"),
@@ -136,6 +158,11 @@ class _PlanetState extends State<Planet> {
         });
   }
 
+  /*
+   * input: tree, an Item that is the tree the user is trying to plant on the zone
+   * effect: creates a popup to either enter the tree name
+   *          or to inform the user that s/he does not have that tree type left
+   */
   void _createPlantPopup(Item tree) {
     if (tree.getQuantity() > 0)
       _plantTreePopup(context, tree);
@@ -143,6 +170,10 @@ class _PlanetState extends State<Planet> {
       _shopPopup(context, tree);
   }
 
+  /*
+   * input: tree, an Item that is the tree the user is trying to plant on the zone
+   * effect: creates a popup for the user to enter the tree name
+   */
   void _plantTreePopup(BuildContext context, Item tree) {
     String treeName;
     var alertDialog = AlertDialog(
@@ -184,6 +215,10 @@ class _PlanetState extends State<Planet> {
         });
   }
 
+  /*
+   * input: tree, an Item that is the tree the user is trying to plant on the zone
+   * effect: creates a popup to inform the user that s/he does not have that tree type left
+   */
   void _shopPopup(BuildContext context, Item tree) {
     var alertDialog = AlertDialog(
       title: Text("You've ran out of " + tree.getName()),
@@ -227,6 +262,11 @@ class _PlanetState extends State<Planet> {
         });
   }
 
+  /*
+   * input: tree, an Item that is the tree to be planted on the zone
+   *        name, a string that is the name of the tree to be planted
+   * effect: plants 'tree' with the name 'name' on the zone (tappedZoneX, tappedZoneY)
+   */
   void _plantTree(Item tree, String name) {
     setState(() {
       PlanetBackEnd.getInstance()
@@ -238,6 +278,11 @@ class _PlanetState extends State<Planet> {
     });
   }
 
+  /*
+   * input: context, BuildContext
+   *        index, an integer
+   * output: the widget that will be displayed at the position index in the gridView
+   */
   Widget _buildGridItems(BuildContext context, int index) {
     int gridStateLength = PlanetBackEnd.getInstance().getGrid().length;
     int x, y = 0;
@@ -259,6 +304,13 @@ class _PlanetState extends State<Planet> {
     );
   }
 
+  /*
+   * input: x, an integer
+   *        y, an integer
+   * output: an empty widget if the zone at the position (x, y) is unlocked but empty
+   *         a lock icon if the zone at the position (x, y) is locked
+   *         a floral icon if the zone at the position (x, y) has a tree planted
+   */
   Widget _buildGridItem(int x, int y) {
     if (PlanetBackEnd.getInstance().getZone(x, y).isLocked())
       return Icon(Icons.lock_outline, size: 20.0);
@@ -267,6 +319,10 @@ class _PlanetState extends State<Planet> {
     return Text(' ');
   }
 
+  /*
+   * input: /
+   * output: the widget that contains everything on the screen that isn't related to the app bar
+   */
   Widget _buildGameBody() {
     int gridStateLength = PlanetBackEnd.getInstance().getGrid().length;
     return Column(children: <Widget>[
@@ -292,6 +348,11 @@ class _PlanetState extends State<Planet> {
     ]);
   }
 
+  /*
+   * input: /
+   * output: a widget that is the description of a zone if the user selected a zone
+   *                       suggests to the user to select a zone
+   */
   Widget _addDescription() {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -301,7 +362,7 @@ class _PlanetState extends State<Planet> {
           .isPlanted())
         return _buildTreeDescription();
       else {
-        return _buildZoneDescriptionNotPlanted(_tappedZoneX, _tappedZoneY);
+        return _buildZoneDescriptionNotPlanted();
       }
     }
     return Container(
@@ -329,7 +390,7 @@ class _PlanetState extends State<Planet> {
                   ),
                 ),
                 child: Text(
-                  "Select a tree \nfor more \ninfo!",
+                  "Select a zone \nfor more \ninfo!",
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -346,7 +407,14 @@ class _PlanetState extends State<Planet> {
     );
   }
 
-  Widget _buildZoneDescriptionNotPlanted(int x, int y) {
+  /*
+   * input: /
+   * output: a widget that displays the characteristics of the selected zone
+   *            and contains the icon of the trees the user can plant if the zone is unlocked
+   *         a widget that displays the characteristics of the selected zone
+   *            and an unlock button if the zone is locked
+   */
+  Widget _buildZoneDescriptionNotPlanted() {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
 
@@ -368,7 +436,7 @@ class _PlanetState extends State<Planet> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.all(width/30),
               child: Container(
                 width: width / 2.2,
                 height: height / 5,
@@ -379,12 +447,12 @@ class _PlanetState extends State<Planet> {
                   ),
                 ),
                 child: PlanetBackEnd.getInstance()
-                    .getZone(x, y)
+                    .getZone(_tappedZoneX, _tappedZoneY)
                     .buildZone(context),
               ),
             ),
             Container(
-              margin: EdgeInsets.all(10),
+              margin: EdgeInsets.all(width/30),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -425,7 +493,7 @@ class _PlanetState extends State<Planet> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Container(
-              margin: EdgeInsets.all(20),
+              margin: EdgeInsets.all(width/30),
               child: Container(
                 width: width / 2.2,
                 height: height / 5,
@@ -436,7 +504,7 @@ class _PlanetState extends State<Planet> {
                   ),
                 ),
                 child: PlanetBackEnd.getInstance()
-                    .getZone(x, y)
+                    .getZone(_tappedZoneX, _tappedZoneY)
                     .buildZone(context),
               ),
             ),
@@ -456,12 +524,16 @@ class _PlanetState extends State<Planet> {
                 _buildTreeGrid(),
               ],
             ),
-            SizedBox(width: 10)
+            SizedBox(width: width/30)
           ],
         ),
       );
   }
 
+  /*
+   * input: /
+   * output: a widget that is a grid containing all the trees that can be planted
+   */
   Widget _buildTreeGrid() {
     int gridStateLength = PlanetBackEnd.getInstance().getTreeGrid().length;
     double width = MediaQuery.of(context).size.width;
@@ -503,6 +575,11 @@ class _PlanetState extends State<Planet> {
     );
   }
 
+  /*
+   * input: x, an integer
+   *        y, an integer
+   * output: a widget that displays the icon of the tree in the position [x][y] in gridTree and its available quantity
+   */
   Widget _buildImage(int x, int y) {
     return Container(
       decoration:
@@ -535,6 +612,11 @@ class _PlanetState extends State<Planet> {
     );
   }
 
+  /*
+   * input: /
+   * output: a widget that displays the characteristics of the selected zone
+   *            and contains the icon of the tree planted in that zone
+   */
   Widget _buildTreeDescription() {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
@@ -551,10 +633,9 @@ class _PlanetState extends State<Planet> {
           ),
         ),
         child: Row(
-
             children: <Widget>[
               Container(
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.all(width/30),
                 child: Container(
                   width: width / 2.2,
                   height: height / 5,
@@ -570,10 +651,9 @@ class _PlanetState extends State<Planet> {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 25, left: 15, right: 15),
+                  margin: EdgeInsets.only(top: width/18, left: width/20, right: width/20, bottom: width/18),
                   child: Column(
                     children: <Widget>[
-
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
@@ -597,7 +677,6 @@ class _PlanetState extends State<Planet> {
                               fit: BoxFit.fitHeight,
                             ),
                           ),
-
                         ),
                       ),
                       _createTreeHealth(height, width),
@@ -606,6 +685,10 @@ class _PlanetState extends State<Planet> {
             ]));
   }
 
+  /*
+   * input: /
+   * output: a widget that displays the current health of the tree planted on the selected zone
+   */
   Widget _createTreeHealth(double height, double width) {
     double treeHealth = PlanetBackEnd.getInstance()
         .getZone(_tappedZoneX, _tappedZoneY)
@@ -635,4 +718,5 @@ class _PlanetState extends State<Planet> {
       ),
     );
   }
+  
 }
