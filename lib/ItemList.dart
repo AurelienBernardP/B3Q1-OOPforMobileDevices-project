@@ -392,6 +392,7 @@ class _ItemListState extends State<ItemList>{
   Widget _addButton(){
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
+
     if(_isShop)
       return Container(
         alignment: Alignment.bottomRight,
@@ -404,8 +405,8 @@ class _ItemListState extends State<ItemList>{
               fit: BoxFit.fill,
             ),
           ),
-          width: 100,
-          height: 40,
+          width: width/4,
+          height: height/20,
           child: GestureDetector(
             onTap: (){
               _buy();
