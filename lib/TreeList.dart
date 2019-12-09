@@ -24,16 +24,15 @@ class TreeListScreen extends StatefulWidget {
  *        _setDisplayedText: number defining if the nuber of polution is displayed(0) or a healthbar(1)
  */
 class _TreeListScreenState extends State<TreeListScreen> {
-  
   int _sort = 0;
   int _setDisplayedText = 0;
 
-/* arguments
+/* arguments:
+ *          overall: number between 0.0 and 100.0 decribing numerically the overall health of a tree
  * 
- * 
+ * return: String describing qualitatively the health of the tree
  */
   String getImageHealth(double overall) {
-
     if (overall < 20.0)
       return "low.png";
     else if (overall > 80.0)
@@ -45,6 +44,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
+        //appbar background
         new Container(
           height: MediaQuery.of(context).size.height / 8.5,
           width: double.infinity,
@@ -67,12 +67,15 @@ class _TreeListScreenState extends State<TreeListScreen> {
             ),
             child: Column(
               children: [
+                //raidio buttons to select sorting characteristic
                 Container(
                   margin: EdgeInsets.all(20.0),
                   height: 50,
-                  child: Row(children: [
-                    //Text("Sort by"),
-                    new Radio(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      //number of polutions button
+                      new Radio(
                         value: 0,
                         groupValue: _sort,
                         onChanged: (value) {
@@ -81,46 +84,44 @@ class _TreeListScreenState extends State<TreeListScreen> {
                             _setDisplayedText = 0;
                             TreeList().sortByNbPolution();
                           });
-                        }),
-                    new Text(
-                      'Polution number',
-                      style: new TextStyle(
-                          fontSize: 20.0, color: Colors.blueGrey[100]),
-                    ),
-                    new Radio(
-                      value: 1,
-                      groupValue: _sort,
-                      onChanged: (value) {
-                        _sort = value;
-                        setState(() {
-                          _setDisplayedText = 1;
-                          TreeList().sortByGeneralHealth();
-                        });
-                      },
-                    ),
-                    new Text(
-                      'Health',
-                      style: new TextStyle(
-                          fontSize: 20.0, color: Colors.blueGrey[100]),
-                    ),
-                    new Radio(
-                      value: 2,
-                      groupValue: _sort,
-                      onChanged: (value) {
-                        _sort = value;
-                        setState(() {
-                          _setDisplayedText = 1;
-                          TreeList().sortByHydration();
-                        });
-                      },
-                    ),
-                    new Text(
-                      'Dehydration',
-                      style: new TextStyle(
-                          fontSize: 20.0, color: Colors.blueGrey[100]),
-                    ),
-                  ]),
+                        },
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 4,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            'Number of litter',
+                            style: TextStyle(color: Colors.blueGrey[100]),
+                          ),
+                        ),
+                      ),
+                      //Health button
+                      new Radio(
+                        value: 1,
+                        groupValue: _sort,
+                        onChanged: (value) {
+                          _sort = value;
+                          setState(() {
+                            _setDisplayedText = 1;
+                            TreeList().sortByGeneralHealth();
+                          });
+                        },
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width / 4,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            'Health',
+                            style: TextStyle(color: Colors.blueGrey[100]),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                //background decoration
                 Container(
                   margin: EdgeInsets.only(left: 15, right: 15),
                   decoration: BoxDecoration(
@@ -129,35 +130,41 @@ class _TreeListScreenState extends State<TreeListScreen> {
                       fit: BoxFit.fill,
                     ),
                   ),
+                  //elements of the page title
                   child: Container(
                     margin: EdgeInsets.only(left: 10, right: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text("Name",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            )),
-                        Text(_setDisplayedText == 0 ? "Polutions" : "Health",
-                            textAlign: TextAlign.right,
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 30,
-                            )),
+                        Text(
+                          "Name",
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
+                        ),
+                        Text(
+                          _setDisplayedText == 0 ? "Polutions" : "Health",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 30,
+                          ),
+                        ),
                       ],
                     ),
                   ),
                 ),
+                //if the number of planted trees is 0 display a message otherwise display the trees
                 TreeList().getNbTrees() == 0
                     ? Container(
                         alignment: Alignment.center,
                         child: FittedBox(
                           fit: BoxFit.fitWidth,
                           child: Text(
-                            "You don't have any trees yet! go plant some!",
+                            "You don't have any trees yet! Go plant some!",
                             style: TextStyle(
                                 fontSize: 25, color: Colors.blueGrey[100]),
                           ),
@@ -168,7 +175,9 @@ class _TreeListScreenState extends State<TreeListScreen> {
                             padding: EdgeInsets.only(bottom: 80.0),
                             itemCount: TreeList().getNbTrees(),
                             itemBuilder: (BuildContext context, int index) {
-                              return GestureDetector(behavior: HitTestBehavior.opaque,
+                              // each element of the list of trees
+                              return GestureDetector(
+                                behavior: HitTestBehavior.opaque,
                                 onTap: () {
                                   Navigator.push(
                                     context,
@@ -186,9 +195,12 @@ class _TreeListScreenState extends State<TreeListScreen> {
                                         MainAxisAlignment.spaceBetween,
                                     children: <Widget>[
                                       Container(
+                                        width:
+                                            MediaQuery.of(context).size.width /
+                                                3.5,
                                         margin: EdgeInsets.only(left: 20),
                                         child: FittedBox(
-                                          fit: BoxFit.fitHeight,
+                                          fit: BoxFit.contain,
                                           child: Text(
                                             TreeList()
                                                 .getTreeList()[index]
@@ -222,13 +234,19 @@ class _TreeListScreenState extends State<TreeListScreen> {
                                             fit: BoxFit.fill,
                                           ),
                                         ),
-                                        child: Text(_setDisplayedText == 0? TreeList().getTreeList()[index].getHealth().toString() :
-                                          TreeList()
+                                        child: Text(
+                                          _setDisplayedText == 0
+                                              ? TreeList()
                                                   .getTreeList()[index]
                                                   .getHealth()
-                                                  .getOverall()
-                                                  .toStringAsPrecision(3) +
-                                              "%",
+                                                  .getNbPollutions()
+                                                  .toString()
+                                              : TreeList()
+                                                      .getTreeList()[index]
+                                                      .getHealth()
+                                                      .getOverall()
+                                                      .toStringAsPrecision(3) +
+                                                  "%",
                                           textAlign: TextAlign.center,
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
@@ -251,56 +269,115 @@ class _TreeListScreenState extends State<TreeListScreen> {
   }
 }
 
+/*TreeList  class
+ * 
+ * Singleton class that keeps a list of all the planted trees
+ * This class also have functions to manipulate this list
+ * 
+ * variables : 
+ *            _nbPlantedTrees : number of elements in the list
+ *            _plantedTrees : treeBackEnd list
+ *            _singleton : instance of this class
+ */
 class TreeList {
-  static int nbPlantedTrees;
-  List<TreeBackEnd> plantedTrees;
+
+  static int _nbPlantedTrees;
+  List<TreeBackEnd> _plantedTrees;
   static final TreeList _singleton = TreeList._internal();
 
+  /*TreeList
+  * arguments: /
+  *
+  * return: the instantiatesd class
+  */
   factory TreeList() {
     return _singleton;
   }
 
+   /*getTreeList
+  * arguments: /
+  *
+  * return: list of TreeBackEnd holding all planted trees
+  */
   TreeList._internal() {
-    plantedTrees = new List();
-    nbPlantedTrees = 0;
+    _plantedTrees = new List();
+    _nbPlantedTrees = 0;
   }
 
-  List<TreeBackEnd> getTreeList() => nbPlantedTrees != 0 ? plantedTrees : null;
+  /*getTreeList
+  * arguments: /
+  *
+  * return: list of TreeBackEnd holding all planted trees
+  */
+  List<TreeBackEnd> getTreeList() => _nbPlantedTrees != 0 ? _plantedTrees : null;
 
-  void reset(){
-    plantedTrees = new List();
-    nbPlantedTrees = 0;
+  /*reset
+  * arguments: /
+  *
+  * return: resets the singleton to 0 trees
+  */
+  void reset() {
+    _plantedTrees = new List();
+    _nbPlantedTrees = 0;
   }
 
-  int getNbTrees() => nbPlantedTrees;
+  /*getNbTrees
+  * arguments: /
+  *
+  * return: integer, the number of ele,ments in the list of trees
+  */
+  int getNbTrees() => _nbPlantedTrees;
 
+  /*addTreeToList
+  * arguments: tree: treeBackEnd class
+  *
+  * effect: adds tree to the list of this class
+  */
   void addTreeToList(TreeBackEnd tree) {
-    if (nbPlantedTrees > (100)) return;
+    if (_nbPlantedTrees > (100)) return;
 
-    plantedTrees.add(tree);
-    nbPlantedTrees++;
+    _plantedTrees.add(tree);
+    _nbPlantedTrees++;
   }
 
+  /*SortByGeneralHealth
+  * arguments: /
+  *
+  * effect: sort the list by the tree's general health
+  */
   void sortByGeneralHealth() {
-    plantedTrees
-        .sort((a, b) => (a.getHealth().getOverall() - b.getHealth().getOverall()).round());
+    _plantedTrees.sort((a, b) =>
+        (a.getHealth().getOverall() - b.getHealth().getOverall()).round());
   }
 
+  /*SortByNbPolution
+  * arguments: /
+  *
+  * effect: sort the list by the tree's number of polutions
+  */
   void sortByNbPolution() {
-    plantedTrees
-        .sort((a, b) => (a.getHealth().getNbPollutions() - b.getHealth().getNbPollutions()));
+    _plantedTrees.sort((a, b) =>
+        (a.getHealth().getNbPollutions() - b.getHealth().getNbPollutions()));
   }
 
+  /*SortByNbPolution
+  * arguments: /
+  *
+  * effect: sort the list by the tree's hydration
+  */
   void sortByHydration() {
-    plantedTrees.sort((a, b) => (a.getHealth().gethydration() - b.getHealth().gethydration()).round());
+    _plantedTrees.sort((a, b) =>
+        (a.getHealth().gethydration() - b.getHealth().gethydration()).round());
   }
 
-  void sortByPolution() {
-    plantedTrees.sort((a, b) => (a.getHealth().getNbPollutions() - b.getHealth().getNbPollutions()).round());
-  }
-
+  /*SortByNbPolution
+  * arguments: /
+  *
+  * effect: sort the list by the tree's nurishment
+  */
   void sortByNurishment() {
-    plantedTrees.sort((a, b) => (a.getHealth().getNutrition() - b.getHealth().getNutrition()).round());
+    _plantedTrees.sort((a, b) =>
+        (a.getHealth().getNutrition() - b.getHealth().getNutrition()).round());
   }
-  
+
 }
