@@ -160,13 +160,16 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
                     },
                     onAccept: (data) {
                       setState(() {
-                        Pollution.getInstance().removePollution();
-                        Pollution.getInstance().getPollutionItem(_dragged).makeInvisible();
-                        if(Pollution.getInstance().getCurPollutionNb() == 0){
-                          Wallet().addCoins(Pollution.getInstance().getPollutionNb());
-                          Pollution.getInstance().getHealthState().cleanTree();
-                          _cleanedPopup(context);
+                        if(Pollution.getInstance().getPollutionItem(_dragged).makeInvisible()){
+                          Pollution.getInstance().removePollution();
+                          if(Pollution.getInstance().getCurPollutionNb() == 0){
+                            Wallet().addCoins(Pollution.getInstance().getPollutionNb());
+                            Pollution.getInstance().getHealthState().cleanTree();
+                            _cleanedPopup(context);
+                          }
                         }
+
+                        
                       });
                     },
                   ),
@@ -194,12 +197,13 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
                     },
                     onAccept: (data) {
                       setState(() {
-                        Pollution.getInstance().removePollution();
-                        Pollution.getInstance().getPollutionItem(_dragged).makeInvisible();
-                        if(Pollution.getInstance().getCurPollutionNb() == 0){
-                          Wallet().addCoins(Pollution.getInstance().getPollutionNb());
-                          Pollution.getInstance().getHealthState().cleanTree();
-                          _cleanedPopup(context);
+                        if(Pollution.getInstance().getPollutionItem(_dragged).makeInvisible()){
+                          Pollution.getInstance().removePollution();
+                          if(Pollution.getInstance().getCurPollutionNb() == 0){
+                            Wallet().addCoins(Pollution.getInstance().getPollutionNb());
+                            Pollution.getInstance().getHealthState().cleanTree();
+                            _cleanedPopup(context);
+                          }
                         }
                       });
                     },

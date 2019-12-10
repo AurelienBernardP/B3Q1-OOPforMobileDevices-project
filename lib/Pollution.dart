@@ -42,12 +42,11 @@ class Pollution{
    * effect: updates the assiociated Health to the Pollution
    */
   void updatePollution(Health healthBar){
+
     for(int i = 0; i < 72; i++)
       _pollutionMap[i].makeInvisible();
     _healthState = healthBar;
     _nbPol = healthBar.getNbPollutions();
-    if(_nbPol > 5)
-      _nbPol = 5;
     _curNbPol = _nbPol;
     for(int i = _nbPol; i > 0; i--)
       _pollutionMap[Random().nextInt(72)].makeVisible(Random().nextInt(4));

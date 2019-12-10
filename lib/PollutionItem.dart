@@ -44,10 +44,14 @@ class PollutionItem{
 
   /*
    * input: /
-   * effect: makes the PollutionItem invisible
+   * output: makes the PollutionItem invisible and returns true if the PollutionItem was actually visible
    */
-  void makeInvisible(){
-    visible = false;
+  bool makeInvisible(){
+    if(visible){
+      visible = false;
+      return true;
+    }
+    return false;
   }
 
   /*
