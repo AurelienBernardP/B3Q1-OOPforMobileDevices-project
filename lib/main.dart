@@ -1,7 +1,4 @@
 import 'package:admob_flutter/admob_flutter.dart';
-import 'package:first/ItemList.dart';
-import 'package:first/TreeList.dart';
-import 'package:first/TreeScreen.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() {
+    //initialize the admob package with a test acount id
     Admob.initialize('ca-app-pub-3940256099942544~3347511713');
       SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) {
