@@ -230,7 +230,7 @@ class Health extends StatelessWidget {
       Container(
         color: Colors.green,
         height: height,
-        width: (overall * 100 * width) / overallMax > 0.0 ? (overall * 100 * width) / overallMax > 0.0 : 0.0,
+        width: (((overall * 100 * width) / overallMax) > 0.0) ? (overall * 100 * width) / overallMax : 0.0,
       ),
       Center(
           child: Text(overall.toStringAsFixed(2) + "%",
