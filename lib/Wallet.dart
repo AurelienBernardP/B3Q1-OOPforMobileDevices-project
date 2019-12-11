@@ -13,7 +13,7 @@ class Wallet {
   static final Wallet _singleton = Wallet._internal();
 
   /*Wallet
-  * arguments: /
+  * input: /
   *
   * return: the instantiatesd class
   */
@@ -22,7 +22,7 @@ class Wallet {
   }
 
   /*
-  * arguments: /
+  * input: /
   *
   * return: the amount of wallet from the save
   */
@@ -31,7 +31,7 @@ class Wallet {
   }
 
   /* retrieveCoins
-  * arguments: 
+  * input: 
   *    coinsValue: an integer indicating the amount to retrieve from the wallet
   *
   * return: /
@@ -41,7 +41,7 @@ class Wallet {
   }
 
   /*getCoins
-  * arguments: /
+  * input: /
   *
   * return: the amount of the wallet
   */
@@ -50,7 +50,7 @@ class Wallet {
   }
 
   /*isSufficient
-  * arguments: 
+  * input: 
   *   coinsValue: an integer representing the value of an object
   *
   * return:
@@ -66,7 +66,7 @@ class Wallet {
   }
 
   /* addCoins
-  * arguments: 
+  * input: 
   *    coinsValue: an integer indicating the amount to add to the wallet
   *
   * return: /

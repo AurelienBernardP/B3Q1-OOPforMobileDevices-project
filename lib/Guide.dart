@@ -2,6 +2,11 @@ import 'package:first/AdTreesAppTopBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+
+/* Guide
+ * Class tasked with the display and intertaction in the game guide
+ * 
+ */
 class Guide extends StatefulWidget {
   @override
   _GuideState createState() => _GuideState();

@@ -9,7 +9,9 @@ import 'dart:async';
 import 'TreeBackEnd.dart';
 
 /*
- * TreeScreen class
+ * Tree class
+ *    In charge of the display of a tree and its attributes as well as
+ *    the interactions with the tree
  * Attributes:
  *    treeInfo : reference to the class containing data
  *               to be dispalyed
@@ -140,7 +142,7 @@ class TreeScreenBodyState extends State<Tree> {
   }
 
   /*
-   * arguments:
+   * input:
    *           conetext: buildcontext object in which the popup is built in
    * 
    * effect: opens a popup
@@ -167,7 +169,7 @@ class TreeScreenBodyState extends State<Tree> {
   }
 
   /*
-   * arguments : /
+   * input : /
    * 
    * return : Widget containing the tree icon
    */
@@ -194,7 +196,7 @@ class TreeScreenBodyState extends State<Tree> {
   }
 
   /*
-   * arguments : /
+   * input : /
    * 
    * return : Widget containing all the action buttons
    *          to use items on the displayed tree

@@ -10,7 +10,8 @@ import 'TreeList.dart';
 import 'Timer.dart';
 
 
-/*
+/* AdTreesApp
+ *
  * This widget builds the main menu screen and 
  * starts the tree timers to update health
  */
