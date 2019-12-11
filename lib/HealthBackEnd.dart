@@ -1,6 +1,6 @@
 import 'Save.dart';
 
-/*
+/*   
  * HealthBackEnd class
  * Attributes:
  *    hydration, nutrition: real numbers representing the different needs of a tree
@@ -137,7 +137,7 @@ class HealthBackEnd {
    */
   void polluteTree() {
     this.isPolluted = true;
-    if (nbPollutions <= nbPollutionsMax) nbPollutions += 1;
+    if (nbPollutions < nbPollutionsMax) nbPollutions += 1;
   }
 
   /*Function decreasing totally the number of pollution
