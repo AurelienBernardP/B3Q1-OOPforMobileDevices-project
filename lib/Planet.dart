@@ -24,7 +24,7 @@ class _PlanetState extends State<Planet> {
       home: Stack(
         children: <Widget>[
           new Container(
-            height: MediaQuery.of(context).size.height / 8.5,
+            height: MediaQuery.of(context).size.height / 9.2,
             width: double.infinity,
             decoration: new BoxDecoration(
               image: new DecorationImage(
