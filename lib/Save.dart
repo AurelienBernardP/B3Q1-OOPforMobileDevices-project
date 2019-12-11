@@ -28,7 +28,7 @@ import 'PlanetBackEnd.dart';
  */
 class Save {
   int _wallet;
-  int nbZoneUnlocked;
+  int _nbZoneUnlocked;
   DateTime _timeCreated;
   List<int> _inventory;
   List<List<Zone>> _worldMap;
@@ -48,7 +48,7 @@ class Save {
   Save._internal() {
     TreeList();
     _inventory = new List();
-    nbZoneUnlocked = 0;
+    _nbZoneUnlocked = 0;
     _worldMap = new List.generate(10, (_) => new List(10));
   }
 
@@ -60,7 +60,7 @@ class Save {
   void reset() {
     TreeList().reset();
     _inventory = new List();
-    nbZoneUnlocked = 0;
+    _nbZoneUnlocked = 0;
     _worldMap = new List.generate(10, (_) => new List(10));
   }
 
@@ -188,7 +188,7 @@ class Save {
         Zone zone = new Zone(Characteristic(_getZoneType(contentGame[m][0])),
                                             isLocked: zoneIsLocked);
         if (!zoneIsLocked) {
-          nbZoneUnlocked++;
+          _nbZoneUnlocked++;
           if (int.parse(contentGame[m][2]) == 1) {
             Item treeType = _getTreeType(contentGame[m][3]);
             if (treeType == null) return false;
@@ -307,7 +307,7 @@ class Save {
    * output: the number of zone unlocked of the map from the save
    */
   int getNbZoneUnlocked() {
-    return nbZoneUnlocked;
+    return _nbZoneUnlocked;
   }
 
   /*Getter
