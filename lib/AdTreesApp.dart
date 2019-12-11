@@ -10,7 +10,8 @@ import 'TreeList.dart';
 import 'Timer.dart';
 
 
-/*
+/* AdTreesApp
+ *
  * This widget builds the main menu screen and 
  * starts the tree timers to update health
  */
@@ -35,7 +36,7 @@ class __AdTreesAppBodyState extends State<_AdTreesAppBody> {
       children: <Widget>[
         // apbar background design
         new Container(
-          height: height / 8.5,
+          height: MediaQuery.of(context).size.height / 9.2,
           width: double.infinity,
           decoration: new BoxDecoration(
             image: new DecorationImage(

@@ -1,22 +1,29 @@
-import '../Characteristic.dart';
-import 'CharacteristicDisplay.dart';
+import 'CharacteristicBackEnd.dart';
 
-class Desert extends Characteristic{
+/*
+ * Desert class
+ * Attributes:
+ *    has the same attributes as CharacteristicBackEnd class
+ */
+class Desert extends CharacteristicBackEnd {
   static final Desert _singleton = Desert._internal();
 
-  factory Desert(){
+  factory Desert() {
     return _singleton;
   }
 
-  Desert._internal(){
+  //private constructor, initialising Desert for the first time
+  Desert._internal() {
     this.soilQuality = 0;
     this.vulnerability = 0;
     this.sunExposure = 2;
-    this.display = CharacteristicDisplay(this);
   }
-  @override
-  String getName(){
+
+  /*Getter
+   * input: /
+   * output: the name of the zone Desert
+   */
+  String getName() {
     return "Desert";
   }
 }
-

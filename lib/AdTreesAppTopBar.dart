@@ -4,9 +4,15 @@ import 'Wallet.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 import 'dart:async';
 
-/* This class creates a general appbar that can be used
+/* adTreesAppTopBar 
+ *
+ * This class creates a general appbar that can be used
  * throughout the whole application
  * 
+ *   atributes: 
+ *     text : appbar title
+ *     bar : Appbar
+ *     intertitialAd : admob advertisement reference
  */
 class AdTreesAppTopBar {
   final String text = "AdTrees"; //appbar title by default
@@ -14,7 +20,7 @@ class AdTreesAppTopBar {
   AdmobInterstitial interstitialAd; // admob advertisement reference
 
   /*Constructor
-   * arguments:
+   * input:
    *    text- String to be displayed as the title of the appbar
    *    context- context in which the appbar is being built 
    *    isGuide- (optional parameter) - boolean that should be set to true if
@@ -133,7 +139,7 @@ class AdTreesAppTopBar {
   }
 
   /* appbar getter
-   * arguments :/
+   * input :/
    * 
    * returns: instantiated appbar during this class constructor
    */

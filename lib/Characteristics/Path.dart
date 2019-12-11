@@ -1,22 +1,29 @@
-import '../Characteristic.dart';
-import 'CharacteristicDisplay.dart';
+import 'CharacteristicBackEnd.dart';
 
-class Path extends Characteristic{
+/*
+ * Path class
+ * Attributes:
+ *    has the same attributes as CharacteristicBackEnd class
+ */
+class Path extends CharacteristicBackEnd {
   static final Path _singleton = Path._internal();
 
-  factory Path(){
+  factory Path() {
     return _singleton;
   }
 
-  Path._internal(){
+  //private constructor, initialising Path for the first time
+  Path._internal() {
     this.soilQuality = 0;
     this.vulnerability = 2;
     this.sunExposure = 2;
-    this.display = CharacteristicDisplay(this);
   }
-  @override
-  String getName(){
+
+  /*Getter
+   * input: /
+   * output: the name of the zone Path
+   */
+  String getName() {
     return "Path";
   }
 }
-

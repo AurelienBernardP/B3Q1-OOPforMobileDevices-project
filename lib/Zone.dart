@@ -1,7 +1,7 @@
 import 'Characteristic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'TreeScreen.dart';
+import 'Tree.dart';
 import 'Item.dart';
 import 'TreeBackEnd.dart';
 
@@ -17,7 +17,7 @@ import 'TreeBackEnd.dart';
 class Zone{
 
   Characteristic type;
-  TreeScreen plantedTreeScreen;
+  Tree plantedTreeScreen;
   Item plantedTree;
   bool locked;
 
@@ -80,9 +80,9 @@ class Zone{
   void plantTree(Item treeType, {String name, TreeBackEnd treeInfo}){
     plantedTree = treeType;
     if(treeInfo == null)
-      plantedTreeScreen = TreeScreen(zone:this,treeType:treeType, name: name);
+      plantedTreeScreen = Tree(zone:this,treeType:treeType, name: name);
     else
-      plantedTreeScreen = TreeScreen(tree: treeInfo);
+      plantedTreeScreen = Tree(tree: treeInfo);
 
   }
 
@@ -91,7 +91,7 @@ class Zone{
    * output: a widget containing the characteristics of the zone
    */
   Widget buildZone(BuildContext context){
-    return this.type.buildCharacteristic(context);
+    return this.type.buildCharacteristicDisplay(context);
   }
 
   /*
@@ -115,7 +115,7 @@ class Zone{
    * output: a string that is the name of the zone type
    */
   String getZoneType(){
-    return this.type.getName();
+    return this.type.info.getName();
   }
 
   /*

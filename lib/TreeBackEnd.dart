@@ -31,7 +31,7 @@ class TreeBackEnd {
    *    _name : string, given name of the tree
    *    plantedTree : item of the tree that is planted
    * 
-   * return: intatiated class
+   * return: instantiated class
    */
   TreeBackEnd(
       {Zone zone, Item tree, String name, Health health}) {

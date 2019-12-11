@@ -9,15 +9,17 @@ import 'dart:async';
 import 'TreeBackEnd.dart';
 
 /*
- * TreeScreen class
+ * Tree class
+ *    In charge of the display of a tree and its attributes as well as
+ *    the interactions with the tree
  * Attributes:
  *    treeInfo : reference to the class containing data
  *               to be dispalyed
  */
-class TreeScreen extends StatefulWidget {
+class Tree extends StatefulWidget {
   TreeBackEnd treeInfo;
 
-  TreeScreen({Zone zone, Item treeType, String name, TreeBackEnd tree}) {
+  Tree({Zone zone, Item treeType, String name, TreeBackEnd tree}) {
     if (tree == null)
       treeInfo = TreeBackEnd(
           zone: zone, tree: treeType, name: name != null ? name : null);
@@ -33,7 +35,7 @@ class TreeScreen extends StatefulWidget {
   TreeScreenBodyState createState() => TreeScreenBodyState(treeInfo);
 }
 
-class TreeScreenBodyState extends State<TreeScreen> {
+class TreeScreenBodyState extends State<Tree> {
   TreeBackEnd treeInfo;
 
   TreeScreenBodyState(TreeBackEnd info) {
@@ -52,7 +54,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
       children: <Widget>[
         //appbar background
         new Container(
-          height: MediaQuery.of(context).size.height / 8.5,
+          height: MediaQuery.of(context).size.height / 9.2,
           width: double.infinity,
           decoration: new BoxDecoration(
             image: new DecorationImage(
@@ -140,7 +142,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
   }
 
   /*
-   * arguments:
+   * input:
    *           conetext: buildcontext object in which the popup is built in
    * 
    * effect: opens a popup
@@ -167,7 +169,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
   }
 
   /*
-   * arguments : /
+   * input : /
    * 
    * return : Widget containing the tree icon
    */
@@ -194,7 +196,7 @@ class TreeScreenBodyState extends State<TreeScreen> {
   }
 
   /*
-   * arguments : /
+   * input : /
    * 
    * return : Widget containing all the action buttons
    *          to use items on the displayed tree
