@@ -7,7 +7,6 @@ import 'Health.dart';
  * Attributes:
  *    pollutionList: a list containing all the pollution items of the screen
  *    pollutionMap: a map of pollution items and integers
- *    nbPol: the number of garbage initially present
  *    curNbPol: the current number of garbage
  *    healthState: the Health associated with the actual polluted zone
  */
@@ -15,7 +14,6 @@ class Pollution{
   static Pollution _instance;
   List<PollutionItem> _pollutionList = [];
   Map<int, PollutionItem> _pollutionMap;
-  int _nbPol;
   int _curNbPol;
   Health _healthState;
 
@@ -46,9 +44,8 @@ class Pollution{
     for(int i = 0; i < 72; i++)
       _pollutionMap[i].makeInvisible();
     _healthState = healthBar;
-    _nbPol = healthBar.getNbPollutions();
-    _curNbPol = _nbPol;
-    for(int i = _nbPol; i > 0; i--)
+    _curNbPol = healthBar.getNbPollutions();
+    for(int i = _curNbPol; i > 0; i--)
       _pollutionMap[Random().nextInt(72)].makeVisible(Random().nextInt(4));
   }
 
@@ -74,14 +71,6 @@ class Pollution{
    */
   int getCurPollutionNb(){
     return _curNbPol;
-  }
-
-  /*
-   * input: /
-   * output: nbPol, the number of garbage initially present on the screen
-   */
-  int getPollutionNb(){
-    return _nbPol;
   }
 
   /*
