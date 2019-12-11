@@ -1,20 +1,28 @@
-import '../Characteristic.dart';
-import 'CharacteristicDisplay.dart';
+import 'CharacteristicBackEnd.dart';
 
-class Snowy extends Characteristic{
+/*
+ * Snowy class
+ * Attributes:
+ *    has the same attributes as CharacteristicBackEnd class
+ */
+class Snowy extends CharacteristicBackEnd{
   static final Snowy _singleton = Snowy._internal();
 
   factory Snowy(){
     return _singleton;
   }
 
+  //private constructor, initialising Snowy for the first time
   Snowy._internal(){
     this.soilQuality = 1;
     this.vulnerability = 2;
     this.sunExposure = 0;
-    this.display = CharacteristicDisplay(this);
   }
 
+  /*Getter
+   * input: /
+   * output: the name of the zone Snowy
+   */
   String getName(){
     return "Snowy";
   }

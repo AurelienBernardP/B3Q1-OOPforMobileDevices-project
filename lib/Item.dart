@@ -124,6 +124,7 @@ class WaterItem extends Item {
   }
 }
 
+
 /*
  * RainItem class
  * Attributes:
@@ -151,7 +152,6 @@ class RainItem extends Item {
     }
     return _instance;
   }
-
   /*
    * input: healthbar, the health that should be affected by the usage of the rain
    * output: true if the item was successfully used
@@ -360,7 +360,7 @@ class NurishementItem1 extends Item {
    */
   bool useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      if(healthbar.nurishTree(1)){
+      if(healthbar.nurishTree(150)){
         _quantity -= 1;
         return true;
       }
@@ -403,7 +403,7 @@ class NurishementItem2 extends Item {
    */
   bool useItem(covariant Health healthbar){
     if (_quantity > 0) {
-      if(healthbar.nurishTree(5)){
+      if(healthbar.nurishTree(500)){
         _quantity -= 1;
         return true;
       }

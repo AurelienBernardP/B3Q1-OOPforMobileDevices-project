@@ -14,10 +14,10 @@ import 'TreeBackEnd.dart';
  *    treeInfo : reference to the class containing data
  *               to be dispalyed
  */
-class TreeScreen extends StatefulWidget {
+class Tree extends StatefulWidget {
   TreeBackEnd treeInfo;
 
-  TreeScreen({Zone zone, Item treeType, String name, TreeBackEnd tree}) {
+  Tree({Zone zone, Item treeType, String name, TreeBackEnd tree}) {
     if (tree == null)
       treeInfo = TreeBackEnd(
           zone: zone, tree: treeType, name: name != null ? name : null);
@@ -33,7 +33,7 @@ class TreeScreen extends StatefulWidget {
   TreeScreenBodyState createState() => TreeScreenBodyState(treeInfo);
 }
 
-class TreeScreenBodyState extends State<TreeScreen> {
+class TreeScreenBodyState extends State<Tree> {
   TreeBackEnd treeInfo;
 
   TreeScreenBodyState(TreeBackEnd info) {

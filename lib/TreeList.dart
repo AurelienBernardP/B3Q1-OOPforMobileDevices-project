@@ -285,7 +285,7 @@ class TreeList {
   List<TreeBackEnd> _plantedTrees;
   static final TreeList _singleton = TreeList._internal();
 
-  /*TreeList
+  /* TreeList
   * arguments: /
   *
   * return: the instantiatesd class
@@ -294,7 +294,7 @@ class TreeList {
     return _singleton;
   }
 
-   /*getTreeList
+   /*
   * arguments: /
   *
   * return: list of TreeBackEnd holding all planted trees
@@ -367,7 +367,7 @@ class TreeList {
   */
   void sortByHydration() {
     _plantedTrees.sort((a, b) =>
-        (a.getHealth().gethydration() - b.getHealth().gethydration()).round());
+        (a.getHealth().getHydration() - b.getHealth().getHydration()).round());
   }
 
   /*SortByNbPolution
