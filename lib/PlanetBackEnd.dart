@@ -14,14 +14,14 @@ import 'Item.dart';
 
 class PlanetBackEnd {
   static PlanetBackEnd _instance;
-  List<List<Zone>> gridState;
-  List<List<Item>> gridTree;
+  List<List<Zone>> _gridState;
+  List<List<Item>> _gridTree;
   int _nbZoneUnlocked;
 
   //private constructor, initialising PlanetBackEnd for the first time
   PlanetBackEnd._internal() {
-  gridState = Save().getWorldMap();
-  gridTree = [
+  _gridState = Save().getWorldMap();
+  _gridTree = [
     [Cactus.getInstance(), PineTree.getInstance()], 
     [ForestTree.getInstance(), MiniPlant.getInstance(),],
   ];
@@ -52,7 +52,7 @@ class PlanetBackEnd {
    * output: gridState, the list of list of Zone representing all the zones within the grid of the world map
    */
   List<List<Zone>> getGrid() {
-    return gridState;
+    return _gridState;
   }
 
   /*
@@ -60,7 +60,7 @@ class PlanetBackEnd {
    * output: gridState, the list of list of Item representing all the trees that a user can plant
    */
   List<List<Item>> getTreeGrid() {
-    return gridTree;
+    return _gridTree;
   }
 
   /*
@@ -69,7 +69,7 @@ class PlanetBackEnd {
    * output: the zone at the position [x][y] in gridState 
    */
   Zone getZone(int x, int y) {
-    return gridState[x][y];
+    return _gridState[x][y];
   }
 
   /*
@@ -79,7 +79,7 @@ class PlanetBackEnd {
    */
   void unlockZone(int x, int y){
     _nbZoneUnlocked++;
-    gridState[x][y].unlock();
+    _gridState[x][y].unlock();
     Save().saveGame();
   }
 
@@ -91,6 +91,6 @@ class PlanetBackEnd {
    * effect: plants the tree at the position [x][y] in gridTree in the zone at the position [mapX][mapY] in gridState 
    */
   void plant(int mapX, int mapY, int x, int y) {
-    gridState[mapX][mapY].plantTree(gridTree[x][y]);
+    _gridState[mapX][mapY].plantTree(_gridTree[x][y]);
   }
 }
