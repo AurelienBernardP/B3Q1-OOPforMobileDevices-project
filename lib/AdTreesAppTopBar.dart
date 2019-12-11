@@ -3,6 +3,7 @@ import 'Guide.dart';
 import 'Wallet.dart';
 import 'package:admob_flutter/admob_flutter.dart';
 import 'dart:async';
+import 'package:auto_size_text/auto_size_text.dart';
 
 /* adTreesAppTopBar 
  *
@@ -68,7 +69,7 @@ class AdTreesAppTopBar {
       },
       child: Container(
         margin: new EdgeInsets.only(bottom: 10.0, left: 10.0),
-        height: MediaQuery.of(context).size.height / 20,
+        height: MediaQuery.of(context).size.height / 50,
         width: MediaQuery.of(context).size.height / 20,
         decoration: BoxDecoration(
           image: new DecorationImage(
@@ -95,46 +96,37 @@ class AdTreesAppTopBar {
       ),
     );
 
-    bar = new AppBar(
-      title: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              text,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.blueGrey[100],
-              ),
-            ),
-            Row(children: <Widget>[
-              Text(
-                Wallet().getCoins().toString(),
-                maxLines: 1,
-                softWrap: true,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Colors.yellow,
-                ),
-              ),
-              Icon(Icons.strikethrough_s, color: Colors.yellow, size: 25.0),
-              adsButton,
-            ]),
-          ],
+    var title = AutoSizeText.rich(
+      TextSpan(
+        text: text +" |",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: Colors.blueGrey[100],
         ),
-      ),
+        children: <TextSpan>[
+          TextSpan(
+            text:" "+ Wallet().getCoins().toString() + "\$",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Colors.yellow,
+            ),
+          ),
+        ],
+      ),maxLines: 2,
+      
+    );
+    bar = new AppBar(
+      title:
+        title,
+      
       backgroundColor: Colors
           .transparent, //transparent backgroud to be able to have a different design for each screen
       leading: Navigator.canPop(context)
-          ? backButton// make a back arrow if it is not the first screen of the app
-          : null, 
-      actions: <Widget>[guideButton],
+          ? backButton // make a back arrow if it is not the first screen of the app
+          : null,
+      actions: <Widget>[adsButton, guideButton],
     );
-    
+
     this.bar = bar;
   }
 
@@ -147,9 +139,7 @@ class AdTreesAppTopBar {
 }
 
 class EmptyAdScreen extends StatelessWidget {
-
   Widget build(BuildContext context) {
-
     Timer(Duration(seconds: 1), () {
       Navigator.pop(context);
     });
