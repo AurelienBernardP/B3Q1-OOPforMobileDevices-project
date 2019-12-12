@@ -65,7 +65,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                 fit: BoxFit.fill,
               ),
             ),
-            child: Column(
+            child: Column( 
               children: [
                 //raidio buttons to select sorting characteristic
                 Container(
@@ -171,7 +171,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                         ),
                       )
                     : Flexible(
-                        child: ListView.builder(
+                        child:Padding(padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.height / 30) ,child: ListView.builder(
                             padding: EdgeInsets.only(bottom: 80.0),
                             itemCount: TreeList().getNbTrees(),
                             itemBuilder: (BuildContext context, int index) {
@@ -258,7 +258,7 @@ class _TreeListScreenState extends State<TreeListScreen> {
                                   ),
                                 ),
                               );
-                            }),
+                            }),),
                       ),
               ],
             ),
@@ -357,7 +357,7 @@ class TreeList {
   */
   void sortByNbPolution() {
     _plantedTrees.sort((a, b) =>
-        (a.getHealth().getNbPollutions() - b.getHealth().getNbPollutions()));
+        (b.getHealth().getNbPollutions() - a.getHealth().getNbPollutions()));
   }
 
   /*SortByNbPolution

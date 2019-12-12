@@ -8,11 +8,23 @@ import 'Item.dart';
 import 'ItemList.dart';
 import 'PlanetBackEnd.dart';
 
+/*
+ * Planet class
+ * Displays the world map screen
+ */
 class Planet extends StatefulWidget {
   @override
   _PlanetState createState() => _PlanetState();
 }
 
+/*
+ * _PlanetState class
+ * Displays a list of trees sorted by the users input criteria
+ * 
+ * Attributes:
+ *        _tappedZoneX: the x coordinate of the currently selected zone
+ *        _tappedZoneY: the y coordinate of the currently selected zone
+ */
 class _PlanetState extends State<Planet> {
   int _tappedZoneX = -1;
   int _tappedZoneY = -1;
@@ -20,6 +32,7 @@ class _PlanetState extends State<Planet> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "World map",
       home: Stack(
         children: <Widget>[
@@ -34,6 +47,7 @@ class _PlanetState extends State<Planet> {
             ),
           ),
           Scaffold(
+            resizeToAvoidBottomPadding: false,
             backgroundColor: Colors.transparent,
             appBar: AdTreesAppTopBar('World map', context).getBar(),
             body: _buildGameBody(),
@@ -523,6 +537,7 @@ class _PlanetState extends State<Planet> {
                   ),
                 ),
                 _buildTreeGrid(),
+                SizedBox(height: height/40)
               ],
             ),
             SizedBox(width: width/30)
