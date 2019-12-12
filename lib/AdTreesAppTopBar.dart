@@ -69,8 +69,8 @@ class AdTreesAppTopBar {
       },
       child: Container(
         margin: new EdgeInsets.only(bottom: 10.0, left: 10.0),
-        height: MediaQuery.of(context).size.height / 50,
-        width: MediaQuery.of(context).size.height / 20,
+        height: MediaQuery.of(context).size.height / 15,
+        width: MediaQuery.of(context).size.height / 15,
         decoration: BoxDecoration(
           image: new DecorationImage(
             image: new AssetImage("assets/images/button_play.png"),
