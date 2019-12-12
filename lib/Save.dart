@@ -20,11 +20,11 @@ import 'PlanetBackEnd.dart';
  * Singleton class which handles saving and loading the necessary data of the game
  * 
  * Attributes :
- *  _wallet: an integer determinating the amount of the wallet based on a save
- *  nbZoneUnlocked: an integer indicating the number of zone unlocked based on a save
- *  _timeCreated: the date of the most recent save
- *  _inventory: a list of integers representing the quantities of differents items based on a save
- *  _worldMap: a list of list of Zone representing the state of the map based on a save
+ *  _wallet: an integer determinating the amount of the wallet of a save
+ *  _nbZoneUnlocked: an integer indicating the number of zone unlocked of a save
+ *  _timeCreated: the date of the save
+ *  _inventory: a list of integers representing the quantities of all items of a save
+ *  _worldMap: a list of list of Zone representing the state of the map of a save
  */
 class Save {
   int _wallet;
@@ -36,9 +36,9 @@ class Save {
   static final Save _singleton = Save._internal();
 
   /*Save
-  * arguments: /
+  * input: /
   *
-  * return: the instantiatesd class
+  * output: the instantiatesd class
   */
   factory Save() {
     return _singleton;
@@ -52,10 +52,10 @@ class Save {
     _worldMap = new List.generate(10, (_) => new List(10));
   }
 
-  /* reset: resets the attributes of the save
-  * arguments: /
+  /* reset
+  * input: /
   *
-  * return/
+  * effect: resets the attributes of the save
   */
   void reset() {
     TreeList().reset();
@@ -65,10 +65,10 @@ class Save {
   }
 
   /* _getZoneType
-  * argument: 
+  * input: 
   *   type: a string corresponding to the first letter of the name of a zone type
   *
-  * return: the instance of the Zone corresponding to the given character
+  * output: the instance of the Zone corresponding to the given character
   */
   CharacteristicBackEnd _getZoneType(String type) {
     switch (type) {
@@ -94,10 +94,10 @@ class Save {
   }
 
   /* _getTreeType
-  * argument: 
+  * input: 
   *   type: a string corresponding to the first letter of the name of a tree type
   *
-  * return: the instance of the Tree corresponding to the given character
+  * output: the instance of the Tree corresponding to the given character
   */
   Item _getTreeType(String type) {
     switch (type) {
@@ -120,9 +120,9 @@ class Save {
   }
 
   /* emergencyRecovery
-  * argument: /
+  * input: /
   *
-  * return: a string corresponding to the format of the initial save
+  * output: a string corresponding to the format of the initial save
   */
   String emergencyRecovery() {
     return dateToString(DateTime.now()) +
@@ -130,10 +130,10 @@ class Save {
   }
 
   /* dateToString
-  * argument: 
+  * input: 
   *     date: a date
   *
-  * return: a string containing the date in a specific format
+  * output: a string containing the date in a specific format
   */
   String dateToString(DateTime date) {
     String dateString;
@@ -150,10 +150,10 @@ class Save {
   }
 
   /* readGame
-  * argument: 
+  * input: 
   *   userData: a string corresponding to a save represented in a specific format
   *
-  * return: 
+  * output: 
   *   true: the loading from the given save is succesful
   *   false: the given save is not corrects
   */
@@ -228,11 +228,11 @@ class Save {
     return true;
   }
 
-  /* saveGame: save the game in an encrypted string based
-               on a specific format containg the date of the game
-  * argument: /
+  /* saveGame
+  * input: /
   *
-  * return: /
+  * effect: save the game in an encrypted string based
+  *         on a specific format containg the date of the game
   */
   void saveGame() async {
     //Add wallet amount
@@ -303,7 +303,6 @@ class Save {
 
   /*Getter
    * input: /
-   * 
    * output: the number of zone unlocked of the map from the save
    */
   int getNbZoneUnlocked() {
@@ -314,7 +313,7 @@ class Save {
    * input: 
    *    itemName: the name of an item
    * 
-   * output: the quantity corresponding to the given name 
+   * output: the quantity of the item corresponding to the given name 
    */
   int getInventory(String itemName) {
     switch (itemName) {

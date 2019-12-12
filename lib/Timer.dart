@@ -8,7 +8,7 @@ import 'Save.dart';
 
 /*TimersForTrees  class
  * 
- * Singleton class containing timers which update the state of the game periodically
+ * Singleton class containing a timer which updates the state of the game periodically
  * 
  * Attributes : /
  */
@@ -16,9 +16,9 @@ class TimersForTrees {
   static final TimersForTrees _singleton = TimersForTrees._internal();
 
   /*TimersForTrees
-  * arguments: /
+  * input: /
   *
-  * return: the instantiatesd class
+  * output: the instantiatesd class
   */
   factory TimersForTrees() {
     return _singleton;
@@ -27,10 +27,10 @@ class TimersForTrees {
   //private constructor, initialising TimersForTrees for the first time
   TimersForTrees._internal();
 
-  /* Starts the timer to update the trees
-  * arguments: /
+  /* timers
+  * input: /
   *
-  * return: /
+  * effect: starts the timer to update all the planted trees
   */
   void timers() {
     const oneMin = const Duration(minutes: 1);
@@ -38,22 +38,21 @@ class TimersForTrees {
   }
 
   /* scaleDown
-  * arguments:
-  *   percentageInOneHour: a percentage of need that will be added to a need per hour
-  *   max: the maximum a need
+  * input:
+  *   percentageInOneHour: a percentage increasing a need every hour
+  *   max: the maximum the need to increase
   *
-  * return: an amount that will be added to a need which after one hour a percentage
-  *          corresponding to percentageInOneHour will be added to the need
+  * output: a percentage increasing the need
   */
   double scaleDown(double percentageInOneHour, double max) {
     return ((percentageInOneHour / 100) * max / 60);
   }
 
   /* dehydrationRatio
-  * arguments:
+  * input:
   *   typeTree: a name corresponding to the type of a tree
   *
-  * return: 
+  * output: 
   *   an amount to add to the need "hydration" of the tree
   */
   double dehydrationRatio(String typeTree) {
@@ -75,10 +74,10 @@ class TimersForTrees {
   }
 
   /* denurishRatio
-  * arguments:
+  * input:
   *   typeTree: a name corresponding to the type of a tree
   *
-  * return: 
+  * output: 
   *   an amount to add to the need "nutrition" of the tree
   */
   double denurishRatio(String typeTree) {
@@ -99,10 +98,10 @@ class TimersForTrees {
     }
   }
 
-  /* updateStateTrees: update the state of all planted tree
-  * arguments: /
+  /* updateStateTrees
+  * input: /
   *
-  * return: /
+  * effect: update the state of all planted trees
   */
   void updateStateTrees() {
     TreeBackEnd currentTree;
@@ -117,7 +116,6 @@ class TimersForTrees {
       currentTree.getHealth().denurishTree(nutrition);
       if (new Random().nextInt(10) == 1) currentTree.getHealth().polluteTree();
     }
-
     Save().saveGame();
   }
 }

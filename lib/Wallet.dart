@@ -3,10 +3,10 @@ import "Save.dart";
 
 /*Wallet  class
  * 
- * Singleton class that represents the wallet
+ * Singleton class that represents the wallet of the game
  * 
  * Attributes : 
- *            _amount : The amount in the wallet
+ *   _amount : The amount in the wallet
  */
 class Wallet {
   int _amount;
@@ -15,17 +15,13 @@ class Wallet {
   /*Wallet
   * input: /
   *
-  * return: the instantiatesd class
+  * output: the instantiatesd class
   */
   factory Wallet() {
     return _singleton;
   }
 
-  /*
-  * input: /
-  *
-  * return: the amount of wallet from the save
-  */
+  //private constructor, initialising TimersForTrees for the first time
   Wallet._internal() {
     _amount = Save().getWallet();
   }
@@ -34,7 +30,7 @@ class Wallet {
   * input: 
   *    coinsValue: an integer indicating the amount to retrieve from the wallet
   *
-  * return: /
+  * effect: retrieve the amount coinsValue from the wallet
   */
   void retrieveCoins(int coinsValue) {
     if (isSufficient(coinsValue)) this._amount -= coinsValue;
@@ -43,7 +39,7 @@ class Wallet {
   /*getCoins
   * input: /
   *
-  * return: the amount of the wallet
+  * output: the amount of the currrent wallet
   */
   int getCoins() {
     return this._amount;
@@ -53,7 +49,7 @@ class Wallet {
   * input: 
   *   coinsValue: an integer representing the value of an object
   *
-  * return:
+  * output:
   *   true: the amount in the wallet is sufficient for coinsValue
   *   false: the amount in the wallet is not sufficient for coinsValue
   */
@@ -67,9 +63,9 @@ class Wallet {
 
   /* addCoins
   * input: 
-  *    coinsValue: an integer indicating the amount to add to the wallet
+  *    addedCoins: an integer indicating the amount to add to the wallet
   *
-  * return: /
+  * effect: adding coins to the current wallet
   */
   void addCoins(int addedCoins) {
     _amount += addedCoins;

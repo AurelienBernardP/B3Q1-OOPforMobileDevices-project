@@ -524,7 +524,7 @@ class _PlanetState extends State<Planet> {
               ),
             ),
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 AutoSizeText(
                   "Plant a tree:",
