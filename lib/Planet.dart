@@ -230,7 +230,7 @@ class _PlanetState extends State<Planet> {
         });
   }
 
-  /*
+  /* 
    * input: tree, an Item that is the tree the user is trying to plant on the zone
    * effect: creates a popup to inform the user that s/he does not have that tree type left
    */
