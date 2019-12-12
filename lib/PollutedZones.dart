@@ -37,7 +37,8 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
     ) ;
   }
 
-  /* creates an AlertDialog; this function will be called when the 
+  /* input: /
+   * effect: creates an AlertDialog; this function will be called when the 
    * player removes all the garbage from the screen
    */
   void _cleanedPopup(BuildContext context) {
@@ -72,7 +73,12 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
         });
   }
 
-
+  /*
+   * input: context, BuildContext
+   *        index, an integer
+   * output: the widget that will be displayed at the position index in the gridView
+   *          it will either be a draggable or an empty container
+   */
   Widget _createDraggable(BuildContext context, int index){
     var width = MediaQuery.of(context).size.width / 8;
     if(Pollution.getInstance().getPollutionItem(index).isVisible())
@@ -109,6 +115,10 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
     return Container(width: width, height: width);
   }
 
+  /*
+   * input: /
+   * output: creates the gridView that will contain all the PollutionItem
+   */
   Widget _createPollution(){
     return Expanded(
       child: GridView.builder(
@@ -121,8 +131,99 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
     );
   }
 
+  /*
+   * input: /
+   * output: the widget that contains the drag targets for the game
+   */
+  Widget _createDragTarget(){
+    double width = MediaQuery.of(context).size.width / 4;
+    return 
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          Container(
+            width: width,
+            height: width,
+            child: DragTarget(
+              builder:
+                  (context, List<int> candidateData, rejectedData) {
+                return Center(
+                  child: Container(
+                  decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/compost.png"), 
+                      fit: BoxFit.fill,),
+                    ),
+                  ),
+                );
+              },
+              onWillAccept: (data) {
+                //verifying the content of the dropped item
+                if(data % 2 == 0)
+                  return true;
+                return false;
+              },
+              onAccept: (data) {
+                setState(() {
+                  if(Pollution.getInstance().getPollutionItem(_dragged).makeInvisible()){
+                    Pollution.getInstance().removePollution();
+                    Wallet().addCoins(1);
+                    //checking if the game is over
+                    if(Pollution.getInstance().getCurPollutionNb() == 0){
+                      Pollution.getInstance().getHealthState().cleanTree();
+                      _cleanedPopup(context);
+                    }
+                  }
+                });
+              },
+            ),
+          ),
+          Container(
+            width: width,
+            height: width,
+            child: DragTarget(
+              builder:
+                  (context, List<int> candidateData, rejectedData) {
+                return Center(
+                  child: Container(
+                  decoration: BoxDecoration(
+                  image: new DecorationImage(
+                    image: new AssetImage("assets/images/recycle.png"), 
+                      fit: BoxFit.fill,),
+                    ),
+                  ),
+                );
+              },
+              onWillAccept: (data) {
+                //verifying the content of the dropped item
+                if(data % 2 != 0)
+                  return true;
+                return false;
+              },
+              onAccept: (data) {
+                setState(() {
+                  if(Pollution.getInstance().getPollutionItem(_dragged).makeInvisible()){
+                    Pollution.getInstance().removePollution();
+                    Wallet().addCoins(1);
+                    //checking if the game is over
+                    if(Pollution.getInstance().getCurPollutionNb() == 0){
+                      Pollution.getInstance().getHealthState().cleanTree();
+                      _cleanedPopup(context);
+                    }
+                  }
+                });
+              },
+            ),
+          )
+        ],
+      );
+  }
+
+  /*
+   * input: /
+   * output: the widget that is the actual body of the entire game
+   */
   Widget _buildBody(){
-    var width = MediaQuery.of(context).size.width / 4;
     return Container(
         decoration: BoxDecoration(
               image: new DecorationImage(
@@ -134,83 +235,7 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
 
           children: <Widget>[
             _createPollution(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Container(
-                  width: width,
-                  height: width,
-                  child: DragTarget(
-                    builder:
-                        (context, List<int> candidateData, rejectedData) {
-                      return Center(
-                        child: Container(
-                        decoration: BoxDecoration(
-                        image: new DecorationImage(
-                          image: new AssetImage("assets/images/compost.png"), 
-                            fit: BoxFit.fill,),
-                          ),
-                        ),
-                      );
-                    },
-                    onWillAccept: (data) {
-                      if(data % 2 == 0)
-                        return true;
-                      return false;
-                    },
-                    onAccept: (data) {
-                      setState(() {
-                        if(Pollution.getInstance().getPollutionItem(_dragged).makeInvisible()){
-                          Pollution.getInstance().removePollution();
-                          Wallet().addCoins(1);
-                          if(Pollution.getInstance().getCurPollutionNb() == 0){
-                            Pollution.getInstance().getHealthState().cleanTree();
-                            _cleanedPopup(context);
-                          }
-                        }
-
-                        
-                      });
-                    },
-                  ),
-                ),
-                Container(
-                  width: width,
-                  height: width,
-                  child: DragTarget(
-                    builder:
-                        (context, List<int> candidateData, rejectedData) {
-                      return Center(
-                        child: Container(
-                        decoration: BoxDecoration(
-                        image: new DecorationImage(
-                          image: new AssetImage("assets/images/recycle.png"), 
-                            fit: BoxFit.fill,),
-                          ),
-                        ),
-                      );
-                    },
-                    onWillAccept: (data) {
-                      if(data % 2 != 0)
-                        return true;
-                      return false;
-                    },
-                    onAccept: (data) {
-                      setState(() {
-                        if(Pollution.getInstance().getPollutionItem(_dragged).makeInvisible()){
-                          Pollution.getInstance().removePollution();
-                          Wallet().addCoins(1);
-                          if(Pollution.getInstance().getCurPollutionNb() == 0){
-                            Pollution.getInstance().getHealthState().cleanTree();
-                            _cleanedPopup(context);
-                          }
-                        }
-                      });
-                    },
-                  ),
-                )
-              ],
-            )
+            _createDragTarget(),
           ],
         ),
       ),

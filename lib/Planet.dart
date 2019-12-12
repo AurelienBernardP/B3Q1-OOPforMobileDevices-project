@@ -8,11 +8,23 @@ import 'Item.dart';
 import 'ItemList.dart';
 import 'PlanetBackEnd.dart';
 
+/*
+ * Planet class
+ * Displays the world map screen
+ */
 class Planet extends StatefulWidget {
   @override
   _PlanetState createState() => _PlanetState();
 }
 
+/*
+ * _PlanetState class
+ * Displays a list of trees sorted by the users input criteria
+ * 
+ * Attributes:
+ *        _tappedZoneX: the x coordinate of the currently selected zone
+ *        _tappedZoneY: the y coordinate of the currently selected zone
+ */
 class _PlanetState extends State<Planet> {
   int _tappedZoneX = -1;
   int _tappedZoneY = -1;

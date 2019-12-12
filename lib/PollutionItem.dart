@@ -24,7 +24,9 @@ class PollutionItem{
    * input: data, an integer
    * effect: makes the PollutionItem visible, sets its type to data and adds the corresponding image
    */
-  void makeVisible(int data){
+  bool makeVisible(int data){
+    if(visible)
+      return false;
     visible = true;
     type = data;
     switch (type) {
@@ -40,6 +42,7 @@ class PollutionItem{
       case 3:
         image = "assets/images/bottle.png";
     }
+    return true;
   }
 
   /*
