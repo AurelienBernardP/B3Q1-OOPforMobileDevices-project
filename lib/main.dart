@@ -19,6 +19,11 @@ void main() {
   });
 }
 
+
+/* SplashScreen class
+* Displays a splashscreen while the game is loading
+*
+*/
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -79,6 +84,13 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 }
 
+/* loadingData
+* intput:/
+*
+* output: a string corresponding the decrypted save from a file
+*
+*
+*/
 Future<String> loadingData() async {
   String userData;
   try {
@@ -99,6 +111,11 @@ Future<String> loadingData() async {
   return userData;
 }
 
+/* waitingScreen
+*  input:/
+*
+*  effect: initialising the game from a save 
+*/
 Future<Text> waitingScreen() async {
   Save();
   String userData = await loadingData();
