@@ -46,6 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     return 
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Loading",
       home: 
       Scaffold(

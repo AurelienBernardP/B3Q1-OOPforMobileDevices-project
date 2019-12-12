@@ -21,6 +21,7 @@ class _GuideState extends State<Guide> {
   Widget build(BuildContext context) {
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Guide",
       home: Stack(
         children: <Widget>[

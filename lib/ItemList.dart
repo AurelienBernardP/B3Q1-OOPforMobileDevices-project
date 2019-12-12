@@ -34,8 +34,10 @@ class _ItemListState extends State<ItemList>{
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "World map", 
-    home: Stack(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "World map", 
+      home: Stack(
       children: <Widget>[
         new Container(
           height: MediaQuery.of(context).size.height / 9.2,

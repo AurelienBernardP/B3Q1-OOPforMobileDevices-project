@@ -32,6 +32,7 @@ class _PlanetState extends State<Planet> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "World map",
       home: Stack(
         children: <Widget>[
@@ -46,6 +47,7 @@ class _PlanetState extends State<Planet> {
             ),
           ),
           Scaffold(
+            resizeToAvoidBottomPadding: false,
             backgroundColor: Colors.transparent,
             appBar: AdTreesAppTopBar('World map', context).getBar(),
             body: _buildGameBody(),

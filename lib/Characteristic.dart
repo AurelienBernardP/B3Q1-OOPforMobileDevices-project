@@ -19,7 +19,7 @@ class Characteristic {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text(
+        AutoSizeText(
           "Characteristics:",
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
@@ -44,7 +44,6 @@ class Characteristic {
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
         color: Colors.blueGrey[100],
       ),
     );
@@ -79,7 +78,6 @@ class Characteristic {
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
         color: Colors.blueGrey[100],
       ),
     );
@@ -115,7 +113,6 @@ class Characteristic {
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
         color: Colors.blueGrey[100],
       ),
     );

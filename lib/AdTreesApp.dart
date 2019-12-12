@@ -18,7 +18,7 @@ import 'Timer.dart';
 class AdTreesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     TimersForTrees().timers();//start the timers to updat the health of trees with time
-    return MaterialApp(title: "AdTrees", home: _AdTreesAppBody());
+    return MaterialApp(debugShowCheckedModeBanner: false, title: "AdTrees", home: _AdTreesAppBody());
   }
 }
 

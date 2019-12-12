@@ -14,8 +14,10 @@ class _PollutedZonesState extends State<PollutedZones> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(title: "Pollution", 
-    home: Stack(
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Pollution", 
+      home: Stack(
       children: <Widget>[
         new Container(
           height: MediaQuery.of(context).size.height / 9.2,
