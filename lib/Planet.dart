@@ -537,6 +537,7 @@ class _PlanetState extends State<Planet> {
                   ),
                 ),
                 _buildTreeGrid(),
+                SizedBox(height: height/40)
               ],
             ),
             SizedBox(width: width/30)
