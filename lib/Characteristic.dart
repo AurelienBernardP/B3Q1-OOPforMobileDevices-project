@@ -4,6 +4,14 @@ import 'Characteristics/CharacteristicBackEnd.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+/*
+ * Characteristic class
+ *    In charge of the display of the characteristics of a zone
+ * 
+ * Attributes:
+ *    info : reference to the class containing data
+ *           to be dispalyed
+ */
 class Characteristic {
   CharacteristicBackEnd info;
 
@@ -17,34 +25,42 @@ class Characteristic {
     double height = size.height / 20;
 
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
-        Text(
+        SizedBox(height: height / 30,),
+        AutoSizeText(
           "Characteristics:",
           textAlign: TextAlign.center,
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            fontSize: 20,
             color: Colors.yellow,
           ),
         ),
-        SizedBox(height: 10),
+        SizedBox(height: height / 25, width: 1,),
         _soilQualityDetails(width, height),
         _vulnerabilityDetails(width, height),
         _sunExposureDetails(width, height),
+        SizedBox(height: height / 30,),
       ],
     );
   }
 
-  Row _soilQualityDetails(double width, double height) {
+  /*
+   * input: 
+   *    width: width of the box showing the state of "soil quality"
+   *    height: height of the box showing the state of "soil quality"
+   * 
+   * output: 
+   *    Container with the description of "soil quality"
+   */
+  Container _soilQualityDetails(double width, double height) {
     AutoSizeText name = AutoSizeText(
       "Soil Quality",
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
         color: Colors.blueGrey[100],
       ),
     );
@@ -61,25 +77,33 @@ class Characteristic {
         ),
       ),
     );
-    return Row(
-      children: <Widget>[
-        SizedBox(width: 7),
-        name,
-        Spacer(),
-        details,
-        SizedBox(width: 7),
-      ],
+    return Container(
+      margin: EdgeInsets.all(width / 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          name,
+          details,
+        ],
+      ),
     );
   }
 
-  Row _vulnerabilityDetails(double width, double height) {
+  /*
+   * input: 
+   *    width: width of the box showing the state of "vulnerability"
+   *    height: height of the box showing the state of "vulnerability"
+   * 
+   * output: 
+   *    Container with the description of "vulnerability"
+   */
+  Container _vulnerabilityDetails(double width, double height) {
     AutoSizeText name = AutoSizeText(
       "Vulnerability",
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
         color: Colors.blueGrey[100],
       ),
     );
@@ -97,25 +121,33 @@ class Characteristic {
       ),
       child: Text(' '),
     );
-    return Row(
-      children: <Widget>[
-        SizedBox(width: 7),
-        name,
-        Spacer(),
-        details,
-        SizedBox(width: 7),
-      ],
+    return Container(
+      margin: EdgeInsets.all(width / 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          name,
+          details,
+        ],
+      ),
     );
   }
 
-  Row _sunExposureDetails(double width, double height) {
+  /*
+   * input: 
+   *    width: width of the box showing the state of "sun exposure"
+   *    height: height of the box showing the state of "sun exposure"
+   * 
+   * output: 
+   *    Container with the description of "sun exposure"
+   */
+  Container _sunExposureDetails(double width, double height) {
     AutoSizeText name = AutoSizeText(
       "Sun Exposure",
       textAlign: TextAlign.center,
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         fontWeight: FontWeight.bold,
-        fontSize: 20,
         color: Colors.blueGrey[100],
       ),
     );
@@ -133,17 +165,25 @@ class Characteristic {
       ),
     );
 
-    return Row(
-      children: <Widget>[
-        SizedBox(width: 7),
-        name,
-        Spacer(),
-        details,
-        SizedBox(width: 7),
-      ],
+    return Container(
+      margin: EdgeInsets.all(width / 25),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          name,
+          details,
+        ],
+      ),
     );
   }
 
+  /*
+   * input: 
+   *    quality: an integer representing the quality of a characteristic
+   * 
+   * output: 
+   *    a string which is the name of the image representing the state
+   */
   _getBarImage(int quality) {
     switch (quality) {
       case 0:

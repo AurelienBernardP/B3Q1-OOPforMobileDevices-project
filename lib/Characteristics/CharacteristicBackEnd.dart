@@ -12,15 +12,37 @@ abstract class CharacteristicBackEnd {
   int vulnerability;
   int sunExposure;
 
+
+/* Getter
+ * input: /
+ * 
+ * output: an integer corresponding to the characteristic "soil quality"
+ */
   int getSoilQuality() {
     return this.soilQuality;
   }
 
+/* Getter
+ * input: /
+ * 
+ * output: an integer corresponding to the characteristic "vulnerability"
+ */
   int getVulnerability() {
     return this.vulnerability;
   }
 
+/* Getter
+ * input: /
+ * 
+ * output: an integer corresponding to the characteristic "soil quality"
+ */
   String getName();
+
+/* Getter
+ * input: /
+ * 
+ * output: an integer corresponding to the characteristic "sun exposure"
+ */
   int getSunExposure() {
     return this.sunExposure;
   }

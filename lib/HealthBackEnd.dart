@@ -1,5 +1,3 @@
-import 'Save.dart';
-
 /*   
  * HealthBackEnd class
  * Attributes:
@@ -21,13 +19,13 @@ class HealthBackEnd {
   int nbPollutionsMax = 10;
 
   /* Class contructor
-   * arguments :(they are all optional)
+   * input :(they are all optional)
    *    hydration, nutrition: real numbers representing the different needs of a tree
    *    hydrationMax, nutritionMax : real numbers representing the limit of the needs of a tree
    *    isPolluted: a boolean indicating if the tree is polluted or not
    *    nbPollutions: an integer that represents the number of pollutions in the tree
    * 
-   * return: instatiated class
+   * output: instatiated class
    */
   HealthBackEnd(
       {double hydration, double nutrition, bool isPolluted, int nbPollutions}) {
@@ -52,10 +50,10 @@ class HealthBackEnd {
       this.nbPollutions = nbPollutions;
   }
 
-  /*Function determinating the overal health of a tree based on the needs
-   * arguments:/
+  /*getOverall
+   * input:/
    * 
-   * returns: the overal mentionned above
+   * output: a real number representing the overall health of a tree based on the needs
    */
   double getOverall() {
     double overall = hydration * nutritionMax * nbPollutionsMax;
@@ -68,13 +66,13 @@ class HealthBackEnd {
     return (overall * 100) / overallMax;
   }
 
-  /*Function providing provision to the need "hydration"
-   * arguments:
+  /*hydrateTree
+   * input:
    *    nbDrop: Determinates a certain amount of provision to the need "hydration"
    * 
-   * returns: 
-   *    true: the provision was needed and has been applied
-   *    false: the provision is not needed
+   * output:
+   *    true: the provision for "hydration" was needed and has been applied
+   *    false: the provision for "hydration" is not needed
    */
   bool hydrateTree(double nbDrop) {
     if (this.hydration >= hydrationMax) return false;
@@ -82,15 +80,14 @@ class HealthBackEnd {
     this.hydration += nbDrop;
     if (this.hydration > hydrationMax) this.hydration = hydrationMax;
 
-    Save().saveGame();
     return true;
   }
 
-  /*Function increasing the need "hydration"
-   * arguments:
-   *    nbDrop: Determinates an certain additional need to "hydration"
+  /*dehydrateTree
+   * input:
+   *    nbDrop: an increase to the need "hydration"
    * 
-   * returns: /
+   * effect: increasing the need "hydration"
    */
   void dehydrateTree(double nbDrop) {
     if (this.hydration <= 0) return;
@@ -99,13 +96,13 @@ class HealthBackEnd {
     if (this.hydration < 0) this.hydration = 0;
   }
 
-  /*Function providing provision to the need "nutrition"
-   * arguments:
+  /* nurishTree
+   * input:
    *    nutrition: Determinates a certain amount of provision to the need "nutrition"
    * 
-   * returns: 
-   *    true: the provision was needed and has been applied
-   *    false: the provision is not needed
+   * output:: 
+   *    true: the provision "nutrition" was needed and has been applied
+   *    false: the provision "nutrition" is not needed
    */
   bool nurishTree(double nutrition) {
     if (this.nutrition >= nutritionMax) return false;
@@ -113,15 +110,14 @@ class HealthBackEnd {
     this.nutrition += nutrition;
     if (this.nutrition > nutritionMax) this.nutrition = nutritionMax;
 
-    Save().saveGame();
     return true;
   }
 
-  /*Function increasing the need "hydration"
-   * arguments:
-   *    nbDrop: Determinates an certain additional need to "hydration"
+  /* denurishTree
+   * input:
+   *    nutrition: Determinates an certain additional need to "hydration"
    * 
-   * returns: /
+   * effect: increasing the need "hydration"
    */
   void denurishTree(double nutrition) {
     if (this.nutrition <= 0) return;
@@ -130,20 +126,21 @@ class HealthBackEnd {
     if (this.nutrition < 0) this.nutrition = 0;
   }
 
-  /*Function increasing the number of pollution
-   * arguments: /
+  /* polluteTree
+   * input: /
    * 
-   * returns: /
+   * effect: increasing the number of pollution
    */
   void polluteTree() {
     this.isPolluted = true;
     if (nbPollutions < nbPollutionsMax) nbPollutions += 1;
+    else nbPollutions = nbPollutionsMax;
   }
 
-  /*Function decreasing totally the number of pollution
-   * arguments: /
+  /*cleanTree
+   * input: /
    * 
-   * returns: 
+   * output: 
    *    true: the tree is cleaned
    *    false: the tree is already cleaned
    */
@@ -151,7 +148,6 @@ class HealthBackEnd {
     if (isPolluted) {
       this.isPolluted = false;
       nbPollutions = 0;
-      Save().saveGame();
       return true;
     }
     return false;
