@@ -23,6 +23,7 @@ dependencies:
   device_info: ^0.4.1+2
   path_provider: ^1.3.5
   admob_flutter: "^0.3.1"
+  flutter_launcher_icons: ^0.7.4
   flutter:
     sdk: flutter
 
@@ -33,6 +34,11 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/icon.png"
 
 
 # For information on the generic Dart part of this file, see the
