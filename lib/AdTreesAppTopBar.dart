@@ -62,7 +62,7 @@ class AdTreesAppTopBar {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => EmptyAdScreen()));
           interstitialAd = AdmobInterstitial(
-            adUnitId: 'ca-app-pub-3940256099942544/1033173712',
+            adUnitId: 'ca-app-pub-2595919938993719/7537886502',
           );
           interstitialAd.load(); //load new ad
         }

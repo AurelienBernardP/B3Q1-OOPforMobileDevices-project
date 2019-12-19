@@ -12,7 +12,7 @@ import 'package:path_provider/path_provider.dart';
 
 void main() {
   //initialize the admob package with a test acount id
-  Admob.initialize('ca-app-pub-3940256099942544~3347511713');
+  Admob.initialize('ca-app-pub-2595919938993719~1720784740');
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(new SplashScreen());
